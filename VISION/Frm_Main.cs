@@ -2909,7 +2909,7 @@ namespace VISION
                 string type = Path.GetExtension(ofd.FileName);
                 if (type == ".bmp")
                 {
-                   .CogImageFileBMP Imageopen = new CogImageFileBMP();
+                   CogImageFileBMP Imageopen = new CogImageFileBMP();
                     Imageopen.Open(ofd.FileName,CogImageFileModeConstants.Read);
                     //Oriimage = (Cognex.VisionPro.CogImage24PlanarColor)Imageopen[0];
                     Monoimage[0] = (CogImage8Grey)Imageopen[0];
@@ -2917,7 +2917,7 @@ namespace VISION
                 }
                 else
                 {
-                   .CogImageFileJPEG Imageopen2 = new CogImageFileJPEG();
+                   CogImageFileJPEG Imageopen2 = new CogImageFileJPEG();
                     Imageopen2.Open(ofd.FileName,CogImageFileModeConstants.Read);
                     Monoimage[0] = (CogImage8Grey)Imageopen2[0];
                     Imageopen2.Close();
