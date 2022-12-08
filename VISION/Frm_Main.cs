@@ -195,9 +195,28 @@ namespace VISION
                     //Writer.Flush();
                     string ReceiveData = Reader.ReadLine();
                     log.AddLogMessage(LogType.Infomation, 0, $"PLC -> PC : {ReceiveData}");
-                    switch (ReceiveData)
+                    string[] spliteReceiveData = ReceiveData.Split(' ');
+                    switch (spliteReceiveData[0])
                     {
-                        case "STBY 0000":
+                        case "STBY": //검사체 투입
+                            break;
+                        case "OKMO": //각각의 위치로 카메라 이동 완료.
+                            break;
+                        case "DOOK": //검사 완료 후 처음위치로 이동 완료.
+                            break;
+                        case "OKTI": //틸팅 각도 완료.
+                            break;
+
+
+                        case "CAM0": 
+                            break;
+                        case "CAM1":
+                            break;
+                        case "CAM2":
+                            break;
+                        case "CAM3":
+                            break;
+                        case "CAM4":
                             break;
                     }
                 }
@@ -2746,7 +2765,7 @@ namespace VISION
                 string type = Path.GetExtension(ofd.FileName);
                 if (type == ".bmp")
                 {
-                    Cognex.VisionPro.ImageFile.CogImageFileBMP Imageopen = new Cognex.VisionPro.ImageFile.CogImageFileBMP();
+                    CogImageFileBMP Imageopen = new CogImageFileBMP();
                     Imageopen.Open(ofd.FileName, CogImageFileModeConstants.Read);
                     //Oriimage = (Cognex.VisionPro.CogImage24PlanarColor)Imageopen[0];
                     Monoimage[0] = (CogImage8Grey)Imageopen[0];
@@ -2754,8 +2773,8 @@ namespace VISION
                 }
                 else
                 {
-                    Cognex.VisionPro.ImageFile.CogImageFileJPEG Imageopen2 = new Cognex.VisionPro.ImageFile.CogImageFileJPEG();
-                    Imageopen2.Open(ofd.FileName, Cognex.VisionPro.ImageFile.CogImageFileModeConstants.Read);
+                    CogImageFileJPEG Imageopen2 = new CogImageFileJPEG();
+                    Imageopen2.Open(ofd.FileName, CogImageFileModeConstants.Read);
                     Monoimage[0] = (CogImage8Grey)Imageopen2[0];
                     Imageopen2.Close();
                 }
@@ -2794,16 +2813,16 @@ namespace VISION
                 string type = Path.GetExtension(ofd.FileName);
                 if (type == ".bmp")
                 {
-                    Cognex.VisionPro.ImageFile.CogImageFileBMP Imageopen = new Cognex.VisionPro.ImageFile.CogImageFileBMP();
-                    Imageopen.Open(ofd.FileName, Cognex.VisionPro.ImageFile.CogImageFileModeConstants.Read);
+                    CogImageFileBMP Imageopen = new CogImageFileBMP();
+                    Imageopen.Open(ofd.FileName, CogImageFileModeConstants.Read);
                     //Oriimage = (Cognex.VisionPro.CogImage24PlanarColor)Imageopen[0];
                     Monoimage[1] = (CogImage8Grey)Imageopen[1];
                     Imageopen.Close();
                 }
                 else
                 {
-                    Cognex.VisionPro.ImageFile.CogImageFileJPEG Imageopen2 = new Cognex.VisionPro.ImageFile.CogImageFileJPEG();
-                    Imageopen2.Open(ofd.FileName, Cognex.VisionPro.ImageFile.CogImageFileModeConstants.Read);
+                    CogImageFileJPEG Imageopen2 = new CogImageFileJPEG();
+                    Imageopen2.Open(ofd.FileName, CogImageFileModeConstants.Read);
                     Monoimage[0] = (CogImage8Grey)Imageopen2[0];
                     Imageopen2.Close();
                 }
@@ -2842,16 +2861,16 @@ namespace VISION
                 string type = Path.GetExtension(ofd.FileName);
                 if (type == ".bmp")
                 {
-                    Cognex.VisionPro.ImageFile.CogImageFileBMP Imageopen = new Cognex.VisionPro.ImageFile.CogImageFileBMP();
-                    Imageopen.Open(ofd.FileName, Cognex.VisionPro.ImageFile.CogImageFileModeConstants.Read);
+                    CogImageFileBMP Imageopen = new CogImageFileBMP();
+                    Imageopen.Open(ofd.FileName, CogImageFileModeConstants.Read);
                     //Oriimage = (Cognex.VisionPro.CogImage24PlanarColor)Imageopen[0];
                     Monoimage[0] = (CogImage8Grey)Imageopen[0];
                     Imageopen.Close();
                 }
                 else
                 {
-                    Cognex.VisionPro.ImageFile.CogImageFileJPEG Imageopen2 = new Cognex.VisionPro.ImageFile.CogImageFileJPEG();
-                    Imageopen2.Open(ofd.FileName, Cognex.VisionPro.ImageFile.CogImageFileModeConstants.Read);
+                    CogImageFileJPEG Imageopen2 = new CogImageFileJPEG();
+                    Imageopen2.Open(ofd.FileName, CogImageFileModeConstants.Read);
                     Monoimage[0] = (CogImage8Grey)Imageopen2[0];
                     Imageopen2.Close();
                 }
@@ -2890,16 +2909,16 @@ namespace VISION
                 string type = Path.GetExtension(ofd.FileName);
                 if (type == ".bmp")
                 {
-                    Cognex.VisionPro.ImageFile.CogImageFileBMP Imageopen = new Cognex.VisionPro.ImageFile.CogImageFileBMP();
-                    Imageopen.Open(ofd.FileName, Cognex.VisionPro.ImageFile.CogImageFileModeConstants.Read);
+                   .CogImageFileBMP Imageopen = new CogImageFileBMP();
+                    Imageopen.Open(ofd.FileName,CogImageFileModeConstants.Read);
                     //Oriimage = (Cognex.VisionPro.CogImage24PlanarColor)Imageopen[0];
                     Monoimage[0] = (CogImage8Grey)Imageopen[0];
                     Imageopen.Close();
                 }
                 else
                 {
-                    Cognex.VisionPro.ImageFile.CogImageFileJPEG Imageopen2 = new Cognex.VisionPro.ImageFile.CogImageFileJPEG();
-                    Imageopen2.Open(ofd.FileName, Cognex.VisionPro.ImageFile.CogImageFileModeConstants.Read);
+                   .CogImageFileJPEG Imageopen2 = new CogImageFileJPEG();
+                    Imageopen2.Open(ofd.FileName,CogImageFileModeConstants.Read);
                     Monoimage[0] = (CogImage8Grey)Imageopen2[0];
                     Imageopen2.Close();
                 }
@@ -2938,16 +2957,16 @@ namespace VISION
                 string type = Path.GetExtension(ofd.FileName);
                 if (type == ".bmp")
                 {
-                    Cognex.VisionPro.ImageFile.CogImageFileBMP Imageopen = new Cognex.VisionPro.ImageFile.CogImageFileBMP();
-                    Imageopen.Open(ofd.FileName, Cognex.VisionPro.ImageFile.CogImageFileModeConstants.Read);
+                    CogImageFileBMP Imageopen = new CogImageFileBMP();
+                    Imageopen.Open(ofd.FileName,CogImageFileModeConstants.Read);
                     //Oriimage = (Cognex.VisionPro.CogImage24PlanarColor)Imageopen[0];
                     Monoimage[0] = (CogImage8Grey)Imageopen[0];
                     Imageopen.Close();
                 }
                 else
                 {
-                    Cognex.VisionPro.ImageFile.CogImageFileJPEG Imageopen2 = new Cognex.VisionPro.ImageFile.CogImageFileJPEG();
-                    Imageopen2.Open(ofd.FileName, Cognex.VisionPro.ImageFile.CogImageFileModeConstants.Read);
+                   CogImageFileJPEG Imageopen2 = new CogImageFileJPEG();
+                    Imageopen2.Open(ofd.FileName, CogImageFileModeConstants.Read);
                     Monoimage[0] = (CogImage8Grey)Imageopen2[0];
                     Imageopen2.Close();
                 }

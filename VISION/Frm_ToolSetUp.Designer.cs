@@ -491,12 +491,12 @@
             this.btn_Cam4.BackColor = System.Drawing.Color.Silver;
             this.btn_Cam4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btn_Cam4.Font = new System.Drawing.Font("맑은 고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btn_Cam4.Location = new System.Drawing.Point(243, 3);
+            this.btn_Cam4.Location = new System.Drawing.Point(318, 3);
             this.btn_Cam4.Name = "btn_Cam4";
-            this.btn_Cam4.Size = new System.Drawing.Size(74, 31);
+            this.btn_Cam4.Size = new System.Drawing.Size(99, 74);
             this.btn_Cam4.TabIndex = 14;
             this.btn_Cam4.Tag = "3";
-            this.btn_Cam4.Text = "CAM6";
+            this.btn_Cam4.Text = "CAM4";
             this.btn_Cam4.UseVisualStyleBackColor = false;
             this.btn_Cam4.Click += new System.EventHandler(this.btn_Cam1_Click);
             // 
@@ -507,10 +507,10 @@
             this.btn_Cam1.Font = new System.Drawing.Font("맑은 고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btn_Cam1.Location = new System.Drawing.Point(3, 3);
             this.btn_Cam1.Name = "btn_Cam1";
-            this.btn_Cam1.Size = new System.Drawing.Size(74, 31);
+            this.btn_Cam1.Size = new System.Drawing.Size(99, 74);
             this.btn_Cam1.TabIndex = 15;
             this.btn_Cam1.Tag = "0";
-            this.btn_Cam1.Text = "CAM3";
+            this.btn_Cam1.Text = "CAM1";
             this.btn_Cam1.UseVisualStyleBackColor = false;
             this.btn_Cam1.Click += new System.EventHandler(this.btn_Cam1_Click);
             // 
@@ -519,36 +519,33 @@
             this.btn_Cam5.BackColor = System.Drawing.Color.Silver;
             this.btn_Cam5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btn_Cam5.Font = new System.Drawing.Font("맑은 고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btn_Cam5.Location = new System.Drawing.Point(323, 3);
+            this.btn_Cam5.Location = new System.Drawing.Point(423, 3);
             this.btn_Cam5.Name = "btn_Cam5";
-            this.btn_Cam5.Size = new System.Drawing.Size(74, 31);
+            this.btn_Cam5.Size = new System.Drawing.Size(100, 74);
             this.btn_Cam5.TabIndex = 19;
             this.btn_Cam5.Tag = "4";
-            this.btn_Cam5.Text = "CAM7";
+            this.btn_Cam5.Text = "CAM5";
             this.btn_Cam5.UseVisualStyleBackColor = false;
             this.btn_Cam5.Click += new System.EventHandler(this.btn_Cam1_Click);
             // 
             // tableLayoutPanel29
             // 
-            this.tableLayoutPanel29.ColumnCount = 8;
+            this.tableLayoutPanel29.ColumnCount = 5;
             this.tableLayoutPanel29.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.49938F));
             this.tableLayoutPanel29.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.49938F));
             this.tableLayoutPanel29.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.49938F));
             this.tableLayoutPanel29.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.49938F));
             this.tableLayoutPanel29.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.49938F));
-            this.tableLayoutPanel29.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.49938F));
-            this.tableLayoutPanel29.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.50187F));
-            this.tableLayoutPanel29.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.50187F));
             this.tableLayoutPanel29.Controls.Add(this.btn_Cam3, 0, 0);
             this.tableLayoutPanel29.Controls.Add(this.btn_Cam2, 0, 0);
             this.tableLayoutPanel29.Controls.Add(this.btn_Cam4, 1, 0);
             this.tableLayoutPanel29.Controls.Add(this.btn_Cam1, 0, 0);
             this.tableLayoutPanel29.Controls.Add(this.btn_Cam5, 2, 0);
-            this.tableLayoutPanel29.Location = new System.Drawing.Point(1, 124);
+            this.tableLayoutPanel29.Location = new System.Drawing.Point(1, 77);
             this.tableLayoutPanel29.Name = "tableLayoutPanel29";
             this.tableLayoutPanel29.RowCount = 1;
             this.tableLayoutPanel29.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel29.Size = new System.Drawing.Size(642, 37);
+            this.tableLayoutPanel29.Size = new System.Drawing.Size(526, 80);
             this.tableLayoutPanel29.TabIndex = 20;
             // 
             // btn_Cam3
@@ -556,12 +553,12 @@
             this.btn_Cam3.BackColor = System.Drawing.Color.Silver;
             this.btn_Cam3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btn_Cam3.Font = new System.Drawing.Font("맑은 고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btn_Cam3.Location = new System.Drawing.Point(163, 3);
+            this.btn_Cam3.Location = new System.Drawing.Point(213, 3);
             this.btn_Cam3.Name = "btn_Cam3";
-            this.btn_Cam3.Size = new System.Drawing.Size(74, 31);
+            this.btn_Cam3.Size = new System.Drawing.Size(99, 74);
             this.btn_Cam3.TabIndex = 21;
             this.btn_Cam3.Tag = "2";
-            this.btn_Cam3.Text = "CAM5";
+            this.btn_Cam3.Text = "CAM3";
             this.btn_Cam3.UseVisualStyleBackColor = false;
             this.btn_Cam3.Click += new System.EventHandler(this.btn_Cam1_Click);
             // 
@@ -570,12 +567,12 @@
             this.btn_Cam2.BackColor = System.Drawing.Color.Silver;
             this.btn_Cam2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btn_Cam2.Font = new System.Drawing.Font("맑은 고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btn_Cam2.Location = new System.Drawing.Point(83, 3);
+            this.btn_Cam2.Location = new System.Drawing.Point(108, 3);
             this.btn_Cam2.Name = "btn_Cam2";
-            this.btn_Cam2.Size = new System.Drawing.Size(74, 31);
+            this.btn_Cam2.Size = new System.Drawing.Size(99, 74);
             this.btn_Cam2.TabIndex = 20;
             this.btn_Cam2.Tag = "1";
-            this.btn_Cam2.Text = "CAM4";
+            this.btn_Cam2.Text = "CAM2";
             this.btn_Cam2.UseVisualStyleBackColor = false;
             this.btn_Cam2.Click += new System.EventHandler(this.btn_Cam1_Click);
             // 
