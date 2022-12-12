@@ -102,6 +102,8 @@ namespace VISION
         StreamWriter Writer;
         NetworkStream stream;
 
+        Encoding encode = Encoding.GetEncoding("utf-8");
+
         public bool PLCConnected = false; //PLC 연결상태
 
 
@@ -110,7 +112,7 @@ namespace VISION
             Glob = PGgloble.getInstance; //전역변수 사용
             Process.Start($"{Glob.LOADINGFROM}");
             InitializeComponent();
-            LightControl = new SerialPort[4] { LightControl1, LightControl2, LightControl3, LightControl4 };
+            LightControl = new SerialPort[3] { LightControl1, LightControl2, LightControl3 };
             MainCogDisplay = new CogDisplay[5] { cdyDisplay, cdyDisplay2, cdyDisplay3, cdyDisplay4, cdyDisplay5 };
             StandFirst(); //처음 Setting해줘야 하는 부분.
             Glob.RunnModel = new Cogs.Model(); //코그넥스 모델 확인.
@@ -132,7 +134,7 @@ namespace VISION
                 nIP[3] = Convert.ToInt16(textBoxIP3.Text);
 
                 string IP = $"{nIP[0]}.{nIP[1]}.{nIP[2]}.{nIP[3]}";
-                int port = 4000;
+                int port = 10001;
 
                 if (btnConnect.Text == "연결하기")
                 {
@@ -144,9 +146,10 @@ namespace VISION
                         PLCConnected = true;
                         log.AddLogMessage(LogType.Infomation, 0, $"Connected to Server : {IP}");
                         btnConnect.Text = "해제하기";
-                        Reader = new StreamReader(stream);
+                        Reader = new StreamReader(stream, encode);
                         Writer = new StreamWriter(stream);
 
+                        timer_sandPLC.Start();
                         bk_Signal.RunWorkerAsync();
                     }
                     catch (SocketException e)
@@ -159,6 +162,7 @@ namespace VISION
                 {
                     try
                     {
+                        btnConnect.Text = "연결하기";
                         PLCConnected = false;
                         if (Reader != null) Reader.Close();
                         if (Writer != null) Writer.Close();
@@ -167,6 +171,7 @@ namespace VISION
                         {
                             bk_Signal.CancelAsync();
                         }
+                        timer_sandPLC.Stop();
                     }
                     catch(Exception e)
                     {
@@ -183,44 +188,86 @@ namespace VISION
 
         private void bk_Signal_DoWork(object sender, DoWorkEventArgs e)
         {
-            while (PLCConnected)
+            try
             {
-                if (bk_Signal.CancellationPending)
-                    return;
-
-                if (stream.CanRead)
+                while (PLCConnected)
                 {
-                    //PLC로 송신하는부분
-                    //Writer.WriteLine(string);
-                    //Writer.Flush();
-                    string ReceiveData = Reader.ReadLine();
-                    log.AddLogMessage(LogType.Infomation, 0, $"PLC -> PC : {ReceiveData}");
-                    string[] spliteReceiveData = ReceiveData.Split(' ');
-                    switch (spliteReceiveData[0])
+                    if (bk_Signal.CancellationPending)
+                        return;
+
+                    if (stream.CanRead)
                     {
-                        case "STBY": //검사체 투입
-                            break;
-                        case "OKMO": //각각의 위치로 카메라 이동 완료.
-                            break;
-                        case "DOOK": //검사 완료 후 처음위치로 이동 완료.
-                            break;
-                        case "OKTI": //틸팅 각도 완료.
-                            break;
+                        byte[] buffer = new byte[1024];
 
+                        stream.Read(buffer, 0, buffer.Length);
+                        string ReceiveData = Encoding.ASCII.GetString(buffer);
+ 
+                        log.AddLogMessage(LogType.Infomation, 0, $"PLC -> PC : {ReceiveData}");
+                        string headerData = ReceiveData.Substring(0,4);
+                        string tempData = ReceiveData.Substring(4, 4);
+                        if(headerData == "SKCM" || headerData == "SBCM")
+                        {
+                            double sendNumber = Convert.ToDouble(tempData) + 1;
+                            string strSendData = $"{headerData}{sendNumber}";
+                            SendToPLC(strSendData);
+                        }
+                        if(headerData == "RELT")
+                        {
+                            switch (tempData)
+                            {
+                                case "1111":
+                                    SendToPLC("CAM1OK01");
+                                    break;
+                                case "2222":
+                                    SendToPLC("CAM2OK01");
+                                    break;
+                                case "3333":
+                                    SendToPLC("CAM3OK01");
+                                    break;
+                                case "4444":
+                                    SendToPLC("CAM4OK01");
+                                    break;
+                            }
+                        }
+                        if(headerData == "UCMP" || headerData =="UCAM")
+                        {
+                            switch (tempData)
+                            {
+                                case "1111":
+                                    SendToPLC("UC1P0000");
+                                    break;
+                                case "2222":
+                                    SendToPLC("UC2P0000");
+                                    break;
+                                case "3333":
+                                    SendToPLC("UC3P0000");
+                                    break;
+                                case "4444":
+                                    SendToPLC("UC4P0000");
+                                    break;
+                                case "0004":
+                                    SendToPLC("UC4P0000");
+                                    break;
+                                case "0003":
+                                    SendToPLC("UC3P0000");
+                                    break;
+                                case "0002":
+                                    SendToPLC("UC2P0000");
+                                    break;
+                                case "0001":
+                                    SendToPLC("UC1P0000");
+                                    break;
 
-                        case "CAM0": 
-                            break;
-                        case "CAM1":
-                            break;
-                        case "CAM2":
-                            break;
-                        case "CAM3":
-                            break;
-                        case "CAM4":
-                            break;
+                            }
+                        }
+                       
                     }
                 }
             }
+            catch (Exception ee)
+            {
+                log.AddLogMessage(LogType.Error, 0, $"{ee.Message}");
+            }          
         }
 
         private delegate void delegateUpdateOutIn();
@@ -260,7 +307,7 @@ namespace VISION
             lb_Ver.Text = $"Ver. {Glob.PROGRAM_VERSION}"; //프로그램버전표시.
             Initialize_CamvalueInit(); //카메라 초기화
             LoadSetup(); //프로그램 셋팅 로드.
-            //Initialize_LightControl(); //조명컨트롤러 연결.
+            Initialize_LightControl(); //조명컨트롤러 연결.
             ConnectPLC(); //PLC연결
             CognexModelLoad(); //코그넥스모델 로드
             timer_Setting.Start(); //타이머에서 계속해서 확인하는 것들
@@ -477,7 +524,7 @@ namespace VISION
                     {
                         Glob.LightCH[i, j] = Convert.ToInt32(CamSet.ReadData($"LightControl{i}", $"CH{j + 1}")); //저장된 조명값 불러오기.
                     }
-                    //LightOFF(LightControl[i]); // 처음 실행했을때는 조명을 꺼주자. (AUTO모드로 변경됐을때, 조명 켜주자)
+                    LightOFF(LightControl[i]); // 처음 실행했을때는 조명을 꺼주자. (AUTO모드로 변경됐을때, 조명 켜주자)
                 }
             }
             catch (Exception ee)
@@ -3003,7 +3050,46 @@ namespace VISION
             {
                 bk_Signal.CancelAsync();
             }
+            timer_sandPLC.Stop();
             DistoryCamera();
+        }
+
+        private void SendToPLC(string signal)
+        {
+            try
+            {
+                log.AddLogMessage(LogType.Infomation, 0, $"PC -> PLC : {signal}");
+                Writer.WriteLine(signal);
+                Writer.Flush();
+            }
+            catch (Exception ee)
+            {
+                log.AddLogMessage(LogType.Error, 0, ee.Message);
+            }
+        }
+
+        private void timer_sandPLC_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+                Writer.WriteLine("PingPing");
+                Writer.Flush();
+            }
+            catch(Exception ee)
+            {
+                log.AddLogMessage(LogType.Error, 0, ee.Message);
+            }
+           
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            timer_sandPLC.Stop();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            timer_sandPLC.Start();
         }
     }
 

@@ -190,13 +190,15 @@
             this.btn_Light = new System.Windows.Forms.Button();
             this.LightControl2 = new System.IO.Ports.SerialPort(this.components);
             this.LightControl3 = new System.IO.Ports.SerialPort(this.components);
-            this.LightControl4 = new System.IO.Ports.SerialPort(this.components);
             this.btn_ReconnectCam = new System.Windows.Forms.Button();
             this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
             this.btn_PC2 = new System.Windows.Forms.Button();
             this.btn_PC1 = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.bk_Signal = new System.ComponentModel.BackgroundWorker();
+            this.timer_sandPLC = new System.Windows.Forms.Timer(this.components);
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.tlpUnder.SuspendLayout();
             this.tlpTopSide.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -1069,7 +1071,7 @@
             this.textBoxIP3.Name = "textBoxIP3";
             this.textBoxIP3.Size = new System.Drawing.Size(72, 25);
             this.textBoxIP3.TabIndex = 1;
-            this.textBoxIP3.Text = "11";
+            this.textBoxIP3.Text = "220";
             this.textBoxIP3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // textBoxIP1
@@ -2518,11 +2520,7 @@
             // 
             // LightControl3
             // 
-            this.LightControl3.PortName = "COM3";
-            // 
-            // LightControl4
-            // 
-            this.LightControl4.PortName = "COM4";
+            this.LightControl3.PortName = "COM8";
             // 
             // btn_ReconnectCam
             // 
@@ -2605,12 +2603,39 @@
             this.bk_Signal.WorkerSupportsCancellation = true;
             this.bk_Signal.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bk_Signal_DoWork);
             // 
+            // timer_sandPLC
+            // 
+            this.timer_sandPLC.Interval = 5000;
+            this.timer_sandPLC.Tick += new System.EventHandler(this.timer_sandPLC_Tick);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(1529, 244);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 36;
+            this.button1.Text = "stop";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(1448, 244);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 37;
+            this.button2.Text = "start";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // Frm_Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DimGray;
             this.ClientSize = new System.Drawing.Size(1920, 1080);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.tableLayoutPanel9);
             this.Controls.Add(this.btn_ReconnectCam);
             this.Controls.Add(this.tableLayoutPanel31);
@@ -2823,7 +2848,6 @@
         private System.Windows.Forms.Button btn_Light;
         public System.IO.Ports.SerialPort LightControl2;
         public System.IO.Ports.SerialPort LightControl3;
-        public System.IO.Ports.SerialPort LightControl4;
         private System.Windows.Forms.NumericUpDown num_LightNumber;
         private System.Windows.Forms.Button btn_ReconnectCam;
         private KimLib.LogControl logControl1;
@@ -2851,7 +2875,10 @@
         public System.Windows.Forms.Button btn_INPUT5;
         public System.Windows.Forms.Button btn_INPUT6;
         public System.Windows.Forms.Button btn_INPUT7;
-        private System.ComponentModel.BackgroundWorker bk_Signal;
+        private System.Windows.Forms.Timer timer_sandPLC;
+        public System.ComponentModel.BackgroundWorker bk_Signal;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
     }
 }
 
