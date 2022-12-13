@@ -238,7 +238,6 @@ namespace VISION
                         {
                             switch (tempData)
                             {
-<<<<<<< HEAD
                                 //얼라인 작업추가하기. ( 멀티패턴 0번각도로 얼라인 값 보내기 )
                                 case "1111":
                                     // 1. 이미지 촬영 ( 각도 추출을 위한 이미지 촬영 )
@@ -298,33 +297,6 @@ namespace VISION
                                     SendToPLC("UC1P0000");
                                     break;
 
-=======
-                                case "1111":
-                                    SendToPLC("UC1P0000");
-                                    break;
-                                case "2222":
-                                    SendToPLC("UC2P0000");
-                                    break;
-                                case "3333":
-                                    SendToPLC("UC3P0000");
-                                    break;
-                                case "4444":
-                                    SendToPLC("UC4P0000");
-                                    break;
-                                case "0004":
-                                    SendToPLC("UC4P0000");
-                                    break;
-                                case "0003":
-                                    SendToPLC("UC3P0000");
-                                    break;
-                                case "0002":
-                                    SendToPLC("UC2P0000");
-                                    break;
-                                case "0001":
-                                    SendToPLC("UC1P0000");
-                                    break;
-
->>>>>>> af406fb9a98f8e74cd451ff13ecd77cab43c0256
                             }
                         }
                        
