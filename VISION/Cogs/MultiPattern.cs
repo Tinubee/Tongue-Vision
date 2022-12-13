@@ -266,6 +266,15 @@ namespace VISION.Cogs
 
             return Tool.Results.PMAlignResults[num].GetPose().TranslationX;
         }
+
+        public double PatternAngle(int num)
+        {
+            if (Tool.Results == null)
+                return 0;
+
+            return Tool.Results.PMAlignResults[num].GetPose().Rotation;
+        }
+
         public double TransY(int num)
         {
             if (Tool.Results == null)

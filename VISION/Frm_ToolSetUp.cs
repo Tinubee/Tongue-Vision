@@ -187,9 +187,9 @@ namespace VISION
                 }
                 else
                 {
-                    CogImageFilePNG Imageopen2 = new CogImageFilePNG();
+                    CogImageFileBMP Imageopen2 = new CogImageFileBMP();
                     Imageopen2.Open(ofd.FileName, CogImageFileModeConstants.Read);
-                    Oriimage = (CogImage24PlanarColor)Imageopen2[0];
+                    Monoimage = (CogImage8Grey)Imageopen2[0];
                     Imageopen2.Close();
                 }
                 for (int i = 0; i < ImageFileName.Count(); i++)
@@ -350,8 +350,18 @@ namespace VISION
                     lb_Tool_InspectResult.BackColor = lb_Tool_InspectResult.Text == "O K" ? Color.Lime : Color.Red;
                     break;
                 case 4:
-                    lb_Tool_InspectResult.Text = Main.Inspect_Cam4(cdyDisplay) ? "O K" : "N G";
-                    lb_Tool_InspectResult.BackColor = lb_Tool_InspectResult.Text == "O K" ? Color.Lime : Color.Red;
+                    if (Glob.AligneMode)
+                    {
+                        double angle = Main.CheckAngle(cdyDisplay);
+                        angle = angle * (180 / Math.PI);
+                        lb_Tool_InspectResult.Text = angle.ToString("F2") + "도";
+                        lb_Tool_InspectResult.BackColor = Color.Black;
+                    }
+                    else
+                    {
+                        lb_Tool_InspectResult.Text = Main.Inspect_Cam4(cdyDisplay) ? "O K" : "N G";
+                        lb_Tool_InspectResult.BackColor = lb_Tool_InspectResult.Text == "O K" ? Color.Lime : Color.Red;
+                    }
                     break;
             }
             Invoke(new Action(delegate ()
@@ -998,6 +1008,7 @@ namespace VISION
         {
             cb_Mono.BackColor = Glob.ImageType[Glob.CamNumber] == true ? Color.Lime : SystemColors.Control;
             cb_Color.BackColor = Glob.ImageType[Glob.CamNumber] == false ? Color.Lime : SystemColors.Control;
+            cb_AlignMode.BackColor = Glob.AligneMode == true ? Color.Lime : Color.Red;
             lb_LightControlNumber.Text = Glob.LightControlNumber.ToString();
             cb_MultiPatternTracking.Text = Glob.TrackingMode[Glob.CamNumber] == true ? "실시간 추적중" : "실시간 추적중지";
             cb_MultiPatternTracking.BackColor = Glob.TrackingMode[Glob.CamNumber] == true ? Color.Lime : Color.Red;
@@ -1138,6 +1149,11 @@ namespace VISION
             {
                 //cm.info("이미지가 없습니다.");
             }
+        }
+
+        private void cb_AlignMode_CheckedChanged(object sender, EventArgs e)
+        {
+            Glob.AligneMode = Glob.AligneMode == true ? false : true; 
         }
     }
 }
