@@ -207,7 +207,7 @@ namespace VISION
                         stream.Read(buffer, 0, buffer.Length);
                         string ReceiveData = Encoding.ASCII.GetString(buffer);
                         ReceiveData = ReceiveData.Substring(0, 8);
- 
+
                         log.AddLogMessage(LogType.Infomation, 0, $"PLC -> PC : {ReceiveData}");
                         string headerData = ReceiveData.Substring(0,4);
                         string tempData = ReceiveData.Substring(4, 4);
@@ -3176,7 +3176,6 @@ namespace VISION
         {
             timer_sandPLC.Start();
         }
-
         private void OutPutSignal(object sender, EventArgs e)
         {
             int jobNo = Convert.ToInt16((sender as Button).Tag);

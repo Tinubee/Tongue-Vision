@@ -205,6 +205,7 @@
             this.cb_AlignMode = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel36 = new System.Windows.Forms.TableLayoutPanel();
             this.label38 = new System.Windows.Forms.Label();
+
             this.tableLayoutPanel43 = new System.Windows.Forms.TableLayoutPanel();
             this.label39 = new System.Windows.Forms.Label();
             this.num_AngleLow = new System.Windows.Forms.NumericUpDown();
@@ -215,6 +216,7 @@
             this.cb_AngleMode = new System.Windows.Forms.CheckBox();
             this.label43 = new System.Windows.Forms.Label();
             this.lb_MultiAngle = new System.Windows.Forms.Label();
+
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cdyDisplay)).BeginInit();
             this.tableLayoutPanel23.SuspendLayout();
@@ -282,6 +284,7 @@
             this.tableLayoutPanel9.SuspendLayout();
             this.tableLayoutPanel26.SuspendLayout();
             this.tableLayoutPanel36.SuspendLayout();
+
             this.tableLayoutPanel43.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.num_AngleLow)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_AngleHigh)).BeginInit();
@@ -485,6 +488,7 @@
             this.tableLayoutPanel23.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
             this.tableLayoutPanel23.Controls.Add(this.lb_Tool_InspectResult, 0, 0);
             this.tableLayoutPanel23.Location = new System.Drawing.Point(746, 77);
+            this.tableLayoutPanel23.Location = new System.Drawing.Point(746, 75);
             this.tableLayoutPanel23.Name = "tableLayoutPanel23";
             this.tableLayoutPanel23.RowCount = 1;
             this.tableLayoutPanel23.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
