@@ -1140,16 +1140,18 @@ namespace VISION
         {
             if (TempMulti[Glob.CamNumber, (int)num_MultiPatternToolNumber.Value].Run((CogImage8Grey)cdyDisplay.Image) == true)
             {
+                int HighestNumber = TempMulti[Glob.CamNumber, (int)num_MultiPatternToolNumber.Value].HighestResultToolNumber();
                 for (int i = 0; i < TempMulti[Glob.CamNumber, (int)num_MultiPatternToolNumber.Value].ResultCount(); i++)
                 {
                     Glob.MultiPatternResultData[Glob.CamNumber, i] = TempMulti[Glob.CamNumber, (int)num_MultiPatternToolNumber.Value].ResultScore(i);
                 }
                 //Fiximage = TempModel.FixtureImage((CogImage8Grey)cdyDisplay.Image, TempPattern[Glob.CamNumber, (int)num_PatternToolNumber.Value].ResultPoint(), TempPattern[Glob.CamNumber, (int)num_PatternToolNumber.Value].ToolName(), Glob.CamNumber, out FimageSpace);
-                Glob.MultiInsPat_Result[Glob.CamNumber, (int)num_MultiPatternToolNumber.Value] = TempMulti[Glob.CamNumber, (int)num_MultiPatternToolNumber.Value].ResultScore(TempMulti[Glob.CamNumber, (int)num_MultiPatternToolNumber.Value].HighestResultToolNumber());
-                TempMulti[Glob.CamNumber, (int)num_MultiPatternToolNumber.Value].ResultDisplay(ref cdyDisplay, TempMulti[Glob.CamNumber, (int)num_MultiPatternToolNumber.Value].HighestResultToolNumber());
+                Glob.MultiInsPat_Result[Glob.CamNumber, (int)num_MultiPatternToolNumber.Value] = TempMulti[Glob.CamNumber, (int)num_MultiPatternToolNumber.Value].ResultScore(HighestNumber);
+                TempMulti[Glob.CamNumber, (int)num_MultiPatternToolNumber.Value].ResultDisplay(ref cdyDisplay, HighestNumber);
                 lb_FindPatternCount.Text = $"찾은 패턴 수 : {TempMulti[Glob.CamNumber, (int)num_MultiPatternToolNumber.Value].ResultCount()}개";
-                lb_MultiScore.Text = $"{TempMulti[Glob.CamNumber, (int)num_MultiPatternToolNumber.Value].ResultScore(TempMulti[Glob.CamNumber, (int)num_MultiPatternToolNumber.Value].HighestResultToolNumber()).ToString("F2")}%";
+                lb_MultiScore.Text = $"{TempMulti[Glob.CamNumber, (int)num_MultiPatternToolNumber.Value].ResultScore(HighestNumber).ToString("F2")}%";
                 lb_MultiScore.ForeColor = Color.Lime;
+                lb_MultiAngle.Text = $"{TempMulti[Glob.CamNumber, (int)num_MultiPatternToolNumber.Value].PatternAngle(HighestNumber).ToString("F4")}";
             }
             else
             {
@@ -1158,6 +1160,7 @@ namespace VISION
                 lb_MultiScore.Text = "패턴 찾기 실패";
                 lb_FindPatternCount.Text = $"찾은 패턴 수 : {TempMulti[Glob.CamNumber, (int)num_MultiPatternToolNumber.Value].ResultCount()}개";
                 lb_MultiScore.ForeColor = Color.Red;
+                lb_MultiAngle.Text = "-";
             }
         }
 

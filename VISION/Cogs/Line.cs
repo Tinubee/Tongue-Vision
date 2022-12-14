@@ -1,4 +1,7 @@
 ﻿using System;
+using Cognex.VisionPro.Caliper;
+using Cognex.VisionPro;
+using Cognex.VisionPro.Display;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,19 +11,19 @@ namespace VISION.Cogs
 {
     public class Line
     {
-        private Cognex.VisionPro.Caliper.CogFindLineTool Tool;
+        private CogFindLineTool Tool;
         public Line(int Toolnumber)
         {
-            Tool = new Cognex.VisionPro.Caliper.CogFindLineTool();
+            Tool = new CogFindLineTool();
             Tool.Name = "Line - " + Toolnumber.ToString();
         }
 
         private bool NewTool()
         {
-            Tool.RunParams.CaliperRunParams.EdgeMode = Cognex.VisionPro.Caliper.CogCaliperEdgeModeConstants.SingleEdge;
+            Tool.RunParams.CaliperRunParams.EdgeMode = CogCaliperEdgeModeConstants.SingleEdge;
             Tool.RunParams.NumCalipers = 10;
-            Tool.CurrentRecordEnable = Cognex.VisionPro.Caliper.CogFindLineCurrentRecordConstants.All;
-            Cognex.VisionPro.CogLineSegment Region = new Cognex.VisionPro.CogLineSegment();
+            Tool.CurrentRecordEnable = CogFindLineCurrentRecordConstants.All;
+            CogLineSegment Region = new CogLineSegment();
 
             Region.StartX = 50;
             Region.StartY = 50;
@@ -28,24 +31,24 @@ namespace VISION.Cogs
             Region.EndX = 250;
             Region.EndY = 50;
 
-            Region.EndPointAdornment = Cognex.VisionPro.CogLineSegmentAdornmentConstants.None;
-            Region.StartPointAdornment = Cognex.VisionPro.CogLineSegmentAdornmentConstants.None;
+            Region.EndPointAdornment = CogLineSegmentAdornmentConstants.None;
+            Region.StartPointAdornment = CogLineSegmentAdornmentConstants.None;
 
-            Region.MouseCursor = Cognex.VisionPro.CogStandardCursorConstants.ManipulableGraphic;
+            Region.MouseCursor = CogStandardCursorConstants.ManipulableGraphic;
 
-            Region.LineStyle = Cognex.VisionPro.CogGraphicLineStyleConstants.Solid;
+            Region.LineStyle = CogGraphicLineStyleConstants.Solid;
             Region.LineWidthInScreenPixels = 3;
-            Region.Color = Cognex.VisionPro.CogColorConstants.Green;
+            Region.Color = CogColorConstants.Green;
 
-            Region.SelectedLineStyle = Cognex.VisionPro.CogGraphicLineStyleConstants.DashDot;
+            Region.SelectedLineStyle = CogGraphicLineStyleConstants.DashDot;
             Region.SelectedLineWidthInScreenPixels = 3;
-            Region.SelectedColor = Cognex.VisionPro.CogColorConstants.Cyan;
+            Region.SelectedColor = CogColorConstants.Cyan;
 
-            Region.DragLineStyle = Cognex.VisionPro.CogGraphicLineStyleConstants.Dot;
+            Region.DragLineStyle = CogGraphicLineStyleConstants.Dot;
             Region.DragLineWidthInScreenPixels = 3;
-            Region.DragColor = Cognex.VisionPro.CogColorConstants.Yellow;
+            Region.DragColor = CogColorConstants.Yellow;
 
-            Region.GraphicDOFEnable = Cognex.VisionPro.CogLineSegmentDOFConstants.All;
+            Region.GraphicDOFEnable = CogLineSegmentDOFConstants.All;
             Region.Interactive = true;
 
             Tool.RunParams.ExpectedLineSegment = Region;
@@ -75,7 +78,7 @@ namespace VISION.Cogs
                 return false;
             }
 
-            Tool = (Cognex.VisionPro.Caliper.CogFindLineTool)Cognex.VisionPro.CogSerializer.LoadObjectFromFile(Savepath);
+            Tool = (CogFindLineTool)CogSerializer.LoadObjectFromFile(Savepath);
 
             return true;
         }
@@ -96,7 +99,7 @@ namespace VISION.Cogs
 
             Savepath = Savepath + "\\" + Tool.Name + ".vpp";
 
-            Cognex.VisionPro.CogSerializer.SaveObjectToFile(Tool, Savepath);
+            CogSerializer.SaveObjectToFile(Tool, Savepath);
 
             return true;
         }
@@ -106,7 +109,7 @@ namespace VISION.Cogs
         /// </summary>
         /// <param name="image">툴에 입력 할 이미지</param>
         /// <returns></returns>
-        public bool InputImage(Cognex.VisionPro.CogImage8Grey image)
+        public bool InputImage(CogImage8Grey image)
         {
             if (image == null)
             {
@@ -117,7 +120,7 @@ namespace VISION.Cogs
             return true;
         }
 
-        public bool Run(Cognex.VisionPro.CogImage8Grey image)
+        public bool Run(CogImage8Grey image)
         {
             if (!InputImage(image))
             {
@@ -139,7 +142,7 @@ namespace VISION.Cogs
             return true;
         }
 
-        public Cognex.VisionPro.CogLine GetLine()
+        public CogLine GetLine()
         {
             try
             {
@@ -152,26 +155,26 @@ namespace VISION.Cogs
             
         }
 
-        public Cognex.VisionPro.CogLineSegment Segment()
+        public CogLineSegment Segment()
         {
             return Tool.Results.GetLineSegment();
         }
 
-        public void Area(ref Cognex.VisionPro.Display.CogDisplay Display, Cognex.VisionPro.CogImage8Grey Image, string ImageSpace)
+        public void Area(ref CogDisplay Display, CogImage8Grey Image, string ImageSpace)
         {
             if (InputImage(Image) == true)
             {
-                Cognex.VisionPro.CogLineSegment Region;
-                Cognex.VisionPro.CogGraphicCollection cogRegion_Collection;
-                Cognex.VisionPro.ICogRecord cogRect_FindRecord;
-                Tool.CurrentRecordEnable = Cognex.VisionPro.Caliper.CogFindLineCurrentRecordConstants.All;
+                CogLineSegment Region;
+                CogGraphicCollection cogRegion_Collection;
+                ICogRecord cogRect_FindRecord;
+                Tool.CurrentRecordEnable = CogFindLineCurrentRecordConstants.All;
                 cogRect_FindRecord = Tool.CreateCurrentRecord();
 
-                cogRegion_Collection = (Cognex.VisionPro.CogGraphicCollection)cogRect_FindRecord.SubRecords["InputImage"].SubRecords["CaliperRegions"].Content;
+                cogRegion_Collection = (CogGraphicCollection)cogRect_FindRecord.SubRecords["InputImage"].SubRecords["CaliperRegions"].Content;
 
                 if (this.Tool.RunParams.ExpectedLineSegment == null)
                 {
-                    Region = new Cognex.VisionPro.CogLineSegment();
+                    Region = new CogLineSegment();
                 }
                 else
                 {
@@ -184,7 +187,7 @@ namespace VISION.Cogs
                 Display.InteractiveGraphics.Add(Tool.RunParams.ExpectedLineSegment, null, false);
                 for (int i = 0; i < cogRegion_Collection.Count; i++)
                 {
-                    Display.InteractiveGraphics.Add((Cognex.VisionPro.ICogGraphicInteractive)cogRegion_Collection[i], "FindLine", true);
+                    Display.InteractiveGraphics.Add((ICogGraphicInteractive)cogRegion_Collection[i], "FindLine", true);
                 }
             }
         }
@@ -247,9 +250,9 @@ namespace VISION.Cogs
         {
             switch (Tool.RunParams.CaliperRunParams.Edge0Polarity)
             {
-                case Cognex.VisionPro.Caliper.CogCaliperPolarityConstants.LightToDark:
+                case CogCaliperPolarityConstants.LightToDark:
                     return 0;
-                case Cognex.VisionPro.Caliper.CogCaliperPolarityConstants.DarkToLight:
+                case CogCaliperPolarityConstants.DarkToLight:
                     return 1;
                 default:
                     return 2;
@@ -260,13 +263,13 @@ namespace VISION.Cogs
             switch (Type)
             {
                 case 0:
-                    Tool.RunParams.CaliperRunParams.Edge0Polarity = Cognex.VisionPro.Caliper.CogCaliperPolarityConstants.LightToDark;
+                    Tool.RunParams.CaliperRunParams.Edge0Polarity = CogCaliperPolarityConstants.LightToDark;
                     break;
                 case 1:
-                    Tool.RunParams.CaliperRunParams.Edge0Polarity = Cognex.VisionPro.Caliper.CogCaliperPolarityConstants.DarkToLight;
+                    Tool.RunParams.CaliperRunParams.Edge0Polarity = CogCaliperPolarityConstants.DarkToLight;
                     break;
                 default:
-                    Tool.RunParams.CaliperRunParams.Edge0Polarity = Cognex.VisionPro.Caliper.CogCaliperPolarityConstants.DontCare;
+                    Tool.RunParams.CaliperRunParams.Edge0Polarity = CogCaliperPolarityConstants.DontCare;
                     break;
             }
         }
@@ -298,7 +301,7 @@ namespace VISION.Cogs
             Result = Result / Tool.Results.NumPointsFound;
             return Result;
         }
-        public void ResultAllDisplay(ref Cognex.VisionPro.CogGraphicCollection Collection)
+        public void ResultAllDisplay(ref CogGraphicCollection Collection)
         {
             if (Tool.Results == null)
             {
@@ -312,7 +315,7 @@ namespace VISION.Cogs
             Collection.Add(Tool.Results.GetLine());
             Collection.Add(Tool.Results.GetLineSegment());
         }
-        public void ResultDisplay(Cognex.VisionPro.Display.CogDisplay display, Cognex.VisionPro.CogGraphicCollection Collection)
+        public void ResultDisplay(CogDisplay display, CogGraphicCollection Collection)
         {
             try
             {
@@ -334,7 +337,7 @@ namespace VISION.Cogs
         public void ToolSetup()
         {
             System.Windows.Forms.Form Window = new System.Windows.Forms.Form();
-            Cognex.VisionPro.Caliper.CogFindLineEditV2 Edit = new Cognex.VisionPro.Caliper.CogFindLineEditV2();
+            CogFindLineEditV2 Edit = new CogFindLineEditV2();
 
             Edit.Dock = System.Windows.Forms.DockStyle.Fill; // 화면 채움
             Edit.Subject = Tool; // 에디트에 툴 정보 입력.

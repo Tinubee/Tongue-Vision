@@ -1,6 +1,8 @@
 ﻿using Cognex.VisionPro;
 using Cognex.VisionPro.Display;
+using Cognex.VisionPro.Blob;
 using System;
+using Cognex.VisionPro.Dimensioning;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,24 +22,16 @@ namespace VISION.Cogs
         /// <param name="Toolnumber">툴의 이름.</param>
         public Blob(int Toolnumber = 0)
         {
-            Tool = new Cognex.VisionPro.Blob.CogBlobTool();
+            Tool = new CogBlobTool();
             Tool.Name = "Blob - " + Toolnumber.ToString();
-            //if (Toolnumber <= 4)
-            //{
-            //    Singleblob = true;
-            //}
-            //else
-            //{
-            //    Singleblob = false;
-            //}
-            Tool.RunParams.SegmentationParams.Mode = Cognex.VisionPro.Blob.CogBlobSegmentationModeConstants.HardFixedThreshold;
-            Tool.RunParams.SegmentationParams.Polarity = Cognex.VisionPro.Blob.CogBlobSegmentationPolarityConstants.LightBlobs;
+            Tool.RunParams.SegmentationParams.Mode = CogBlobSegmentationModeConstants.HardFixedThreshold;
+            Tool.RunParams.SegmentationParams.Polarity = CogBlobSegmentationPolarityConstants.LightBlobs;
             Tool.RunParams.SegmentationParams.HardFixedThreshold = 200;
         }
 
         private bool NewTool()
         { // 툴의 가장 초기 상태 셋업
-            Cognex.VisionPro.CogPolygon Region = new Cognex.VisionPro.CogPolygon();
+            CogPolygon Region = new CogPolygon();
 
             Region.NumVertices = 4;
             Region.SetVertexX(0, 130);
@@ -50,20 +44,20 @@ namespace VISION.Cogs
             Region.SetVertexY(3, 450);
 
             Region.LineWidthInScreenPixels = 1;
-            Region.LineStyle = Cognex.VisionPro.CogGraphicLineStyleConstants.Solid;
-            Region.Color = Cognex.VisionPro.CogColorConstants.Green;
+            Region.LineStyle = CogGraphicLineStyleConstants.Solid;
+            Region.Color = CogColorConstants.Green;
 
             Region.SelectedLineWidthInScreenPixels = 1;
-            Region.SelectedColor = Cognex.VisionPro.CogColorConstants.Cyan;
-            Region.SelectedLineStyle = Cognex.VisionPro.CogGraphicLineStyleConstants.DashDot;
+            Region.SelectedColor = CogColorConstants.Cyan;
+            Region.SelectedLineStyle = CogGraphicLineStyleConstants.DashDot;
 
             Region.DragLineWidthInScreenPixels = 1;
-            Region.DragColor = Cognex.VisionPro.CogColorConstants.Blue;
-            Region.DragLineStyle = Cognex.VisionPro.CogGraphicLineStyleConstants.Dot;
+            Region.DragColor = CogColorConstants.Blue;
+            Region.DragLineStyle = CogGraphicLineStyleConstants.Dot;
             Region.TipText = "Search Area";
 
             Region.Interactive = true;
-            Region.GraphicDOFEnable = Cognex.VisionPro.CogPolygonDOFConstants.All;
+            Region.GraphicDOFEnable = CogPolygonDOFConstants.All;
 
             Tool.Region = Region;
 
@@ -75,13 +69,13 @@ namespace VISION.Cogs
         }
         private bool NewTool0()
         {
-            Cognex.VisionPro.CogCircularAnnulusSection Region = new Cognex.VisionPro.CogCircularAnnulusSection();
+            CogCircularAnnulusSection Region = new CogCircularAnnulusSection();
 
             Region.CenterX = 400;
             Region.CenterY = 300;
 
             Region.Interactive = true;
-            Region.GraphicDOFEnable = Cognex.VisionPro.CogCircularAnnulusSectionDOFConstants.All;
+            Region.GraphicDOFEnable = CogCircularAnnulusSectionDOFConstants.All;
 
             Tool.Region = Region;
             return true;
@@ -99,33 +93,19 @@ namespace VISION.Cogs
 
             if (System.IO.Directory.Exists(Savepath) == false)
             {
-                //if (this.Tool.Name == "Blob - 0" || this.Tool.Name == "Blob - 19")
-                //{
-                //    NewTool0();
-                //}
-                //else
-                //{
                 NewTool();
-                //}
                 return true;
             }
 
             Savepath = Savepath + "\\" + Tool.Name + ".vpp";
 
             if (System.IO.File.Exists(Savepath) == false)
-            {
-                //if (this.Tool.Name == "Blob - 0" || this.Tool.Name == "Blob - 19")
-                //{
-                //    NewTool0();
-                //}
-                //else
-                //{
+            {             
                 NewTool();
-                // }
                 return false;
             }
 
-            Tool = (Cognex.VisionPro.Blob.CogBlobTool)Cognex.VisionPro.CogSerializer.LoadObjectFromFile(Savepath);
+            Tool = (CogBlobTool)CogSerializer.LoadObjectFromFile(Savepath);
             Tool.Name = TempName;
             Application.DoEvents();
             return true;
@@ -147,7 +127,7 @@ namespace VISION.Cogs
 
             Savepath = Savepath + "\\" + Tool.Name + ".vpp";
 
-            Cognex.VisionPro.CogSerializer.SaveObjectToFile(Tool, Savepath);
+            CogSerializer.SaveObjectToFile(Tool, Savepath);
 
             return true;
         }
@@ -157,7 +137,7 @@ namespace VISION.Cogs
         /// </summary>
         /// <param name="image">툴에 입력 할 이미지</param>
         /// <returns></returns>
-        public bool InputImage(Cognex.VisionPro.CogImage8Grey image)
+        public bool InputImage(CogImage8Grey image)
         {
             if (image == null)
             {
@@ -173,14 +153,14 @@ namespace VISION.Cogs
         /// </summary>
         /// <param name="image">툴에 입력 할 이미지.</param>
         /// <returns>결과</returns>
-        public bool Run(Cognex.VisionPro.CogImage8Grey image)
+        public bool Run(CogImage8Grey image)
         {
             if (InputImage(image) == false)
             {
                 return false;
             }
 
-            Cognex.VisionPro.CogPolygon Region = (Cognex.VisionPro.CogPolygon)this.Tool.Region;
+            CogPolygon Region = (CogPolygon)this.Tool.Region;
             Region.Selected = false;
 
             Tool.Region = Region;
@@ -205,14 +185,14 @@ namespace VISION.Cogs
             return true;
         }
 
-        public bool Run(Cognex.VisionPro.CogImage8Grey image, Points Point, string SpaceName)
+        public bool Run(CogImage8Grey image, Points Point, string SpaceName)
         {
             if (InputImage(image) == false)
             {
                 return false;
             }
 
-            Cognex.VisionPro.CogCircularAnnulusSection Region = (Cognex.VisionPro.CogCircularAnnulusSection)this.Tool.Region;
+           CogCircularAnnulusSection Region = (CogCircularAnnulusSection)this.Tool.Region;
 
             Region.Selected = false;
 
@@ -236,17 +216,12 @@ namespace VISION.Cogs
                 return false;
             }
 
-            //if (Singleblob == true) {
-            //    if (Tool.Results.GetBlobs().Count > 1) {
-            //        return false;
-            //    }
-            //}
             return true;
         }
 
         public void AreatoPoint(Cogs.Points Point)
         {
-            Cognex.VisionPro.CogCircularAnnulusSection Region = (Cognex.VisionPro.CogCircularAnnulusSection)this.Tool.Region;
+            CogCircularAnnulusSection Region = (CogCircularAnnulusSection)this.Tool.Region;
 
             Region.CenterX = Point.X;
             Region.CenterY = Point.Y;
@@ -256,27 +231,27 @@ namespace VISION.Cogs
 
         public void GetnowPoint(ref Points point)
         {
-            Cognex.VisionPro.CogCircularAnnulusSection Region = (Cognex.VisionPro.CogCircularAnnulusSection)this.Tool.Region;
+            CogCircularAnnulusSection Region = (CogCircularAnnulusSection)this.Tool.Region;
 
             point.X = Region.CenterX;
             point.Y = Region.CenterY;
 
         }
 
-        public void Area_FixturedPoint(ref Cognex.VisionPro.Display.CogDisplay display, Cognex.VisionPro.CogImage8Grey Image, string ImageSpace, Points Point)
+        public void Area_FixturedPoint(ref CogDisplay display, CogImage8Grey Image, string ImageSpace, Points Point)
         {
             if (this.InputImage(Image) == true)
             {
 
-                Cognex.VisionPro.CogCircularAnnulusSection Region;
+                CogCircularAnnulusSection Region;
 
                 if (this.Tool.Region == null)
                 {
-                    Region = new Cognex.VisionPro.CogCircularAnnulusSection();
+                    Region = new CogCircularAnnulusSection();
                 }
                 else
                 {
-                    Region = (Cognex.VisionPro.CogCircularAnnulusSection)this.Tool.Region;
+                    Region = (CogCircularAnnulusSection)this.Tool.Region;
                 }
 
                 Region.CenterX = Point.X;
@@ -285,7 +260,7 @@ namespace VISION.Cogs
                 this.Tool.Region.SelectedSpaceName = ImageSpace;
                 this.Tool.Region = Region;
 
-                display.InteractiveGraphics.Add((Cognex.VisionPro.ICogGraphicInteractive)Tool.Region, null, false);
+                display.InteractiveGraphics.Add((ICogGraphicInteractive)Tool.Region, null, false);
             }
         }
 
@@ -307,14 +282,14 @@ namespace VISION.Cogs
                 this.NewTool();
             }
 
-            Cognex.VisionPro.CogPolygon area = (Cognex.VisionPro.CogPolygon)Tool.Region; //영역설정 CogRectangleAffine에서 CogPolygon으로 변경함 - 191230
+            CogPolygon area = (CogPolygon)Tool.Region; //영역설정 CogRectangleAffine에서 CogPolygon으로 변경함 - 191230
             area.Interactive = true;
-            area.GraphicDOFEnable = Cognex.VisionPro.CogPolygonDOFConstants.All;
+            area.GraphicDOFEnable = CogPolygonDOFConstants.All;
             area.SelectedSpaceName = ImageSpace;
-            area.Color = Cognex.VisionPro.CogColorConstants.Green;
+            area.Color = CogColorConstants.Green;
             Tool.Region = area;
 
-            display.InteractiveGraphics.Add((Cognex.VisionPro.ICogGraphicInteractive)Tool.Region, null, false);
+            display.InteractiveGraphics.Add((ICogGraphicInteractive)Tool.Region, null, false);
         }
 
         public void Area_Affine_Main1(ref CogDisplay display, CogImage8Grey image, string ImageSpace)
@@ -418,14 +393,14 @@ namespace VISION.Cogs
             Tool.Region = area;
         }
 
-        public void Area_Eclips(ref Cognex.VisionPro.Display.CogDisplay display, Cognex.VisionPro.CogImage8Grey image)
+        public void Area_Eclips(ref CogDisplay display, CogImage8Grey image)
         {
             if (InputImage(image) == false)
             {
                 return;
             }
 
-            display.InteractiveGraphics.Add((Cognex.VisionPro.ICogGraphicInteractive)Tool.Region, null, false);
+            display.InteractiveGraphics.Add((ICogGraphicInteractive)Tool.Region, null, false);
         }
 
         /// <summary>
@@ -438,7 +413,7 @@ namespace VISION.Cogs
         }
         public int PointNumber()
         {
-            Cognex.VisionPro.CogPolygon Region = (Cognex.VisionPro.CogPolygon)this.Tool.Region;
+            CogPolygon Region = (CogPolygon)this.Tool.Region;
             if (Tool.Region == null)
             {
                 return 4;
@@ -493,9 +468,9 @@ namespace VISION.Cogs
         {
             switch (Tool.RunParams.SegmentationParams.Polarity)
             {
-                case Cognex.VisionPro.Blob.CogBlobSegmentationPolarityConstants.LightBlobs:
+                case CogBlobSegmentationPolarityConstants.LightBlobs:
                     return 0;
-                case Cognex.VisionPro.Blob.CogBlobSegmentationPolarityConstants.DarkBlobs:
+                case CogBlobSegmentationPolarityConstants.DarkBlobs:
                     return 1;
                 default:
                     return 2;
@@ -511,18 +486,18 @@ namespace VISION.Cogs
             switch (polarty)
             {
                 case 0:
-                    Tool.RunParams.SegmentationParams.Polarity = Cognex.VisionPro.Blob.CogBlobSegmentationPolarityConstants.LightBlobs;
+                    Tool.RunParams.SegmentationParams.Polarity = CogBlobSegmentationPolarityConstants.LightBlobs;
                     break;
 
                 case 1:
-                    Tool.RunParams.SegmentationParams.Polarity = Cognex.VisionPro.Blob.CogBlobSegmentationPolarityConstants.DarkBlobs;
+                    Tool.RunParams.SegmentationParams.Polarity = CogBlobSegmentationPolarityConstants.DarkBlobs;
                     break;
             }
         }     
 
         public void AreaPointNumber(int pointnumber)
         {
-            Cognex.VisionPro.CogPolygon Region = (Cognex.VisionPro.CogPolygon)this.Tool.Region;
+            CogPolygon Region = (CogPolygon)this.Tool.Region;
             Region.NumVertices = pointnumber;
             Region.SetVertexX(pointnumber - 1, (Region.GetVertexX(pointnumber - 1) + Region.GetVertexX(pointnumber - 2)) / 2);
             Region.SetVertexY(pointnumber - 1, (Region.GetVertexY(pointnumber - 1) + Region.GetVertexY(pointnumber - 2)) / 2);
@@ -549,13 +524,13 @@ namespace VISION.Cogs
         /// 검사 결과를 화면에 표시 용.
         /// </summary>
         /// <param name="display">검사 결과 표시 대상 디스플레이</param>
-        public void ResultDisplay(ref Cognex.VisionPro.Display.CogDisplay display, ref Cognex.VisionPro.CogGraphicCollection Collection, bool isOK = true)
+        public void ResultDisplay(ref CogDisplay display, ref CogGraphicCollection Collection, bool isOK = true)
         {
-            Cognex.VisionPro.CogColorConstants Resultcolor = new Cognex.VisionPro.CogColorConstants();
-            Cognex.VisionPro.Dimensioning.CogCreateGraphicLabelTool Nameing = new Cognex.VisionPro.Dimensioning.CogCreateGraphicLabelTool();
+            CogColorConstants Resultcolor = new CogColorConstants();
+            CogCreateGraphicLabelTool Nameing = new CogCreateGraphicLabelTool();
             System.Drawing.Font Fonts = new System.Drawing.Font(System.Drawing.FontFamily.GenericSansSerif, 15);
 
-            Resultcolor = Cognex.VisionPro.CogColorConstants.Green;
+            Resultcolor = CogColorConstants.Green;
 
             if (this.Tool.Results == null)
             {
@@ -572,20 +547,20 @@ namespace VISION.Cogs
 
             if (isOK == false)
             {
-                Resultcolor = Cognex.VisionPro.CogColorConstants.Red;
+                Resultcolor = CogColorConstants.Red;
             }
 
-            Cognex.VisionPro.CogRectangleAffine ResultRegion;
+            CogRectangleAffine ResultRegion;
 
-            ResultRegion = (Cognex.VisionPro.CogRectangleAffine)Tool.Region;
+            ResultRegion = (CogRectangleAffine)Tool.Region;
 
             ResultRegion.Interactive = false;
 
             ResultRegion.Color = Resultcolor;
-            ResultRegion.GraphicDOFEnable = Cognex.VisionPro.CogRectangleAffineDOFConstants.None;
+            ResultRegion.GraphicDOFEnable = CogRectangleAffineDOFConstants.None;
 
             ResultRegion.LineWidthInScreenPixels = 5;
-            ResultRegion.LineStyle = Cognex.VisionPro.CogGraphicLineStyleConstants.Solid;
+            ResultRegion.LineStyle = CogGraphicLineStyleConstants.Solid;
 
             display.InteractiveGraphics.Add(ResultRegion, null, false);
 
@@ -605,33 +580,33 @@ namespace VISION.Cogs
             display.InteractiveGraphics.Add(Nameing.GetOutputGraphicLabel(), null, false);
         }
 
-        public void ResultDisplay(ref Cognex.VisionPro.CogGraphicCollection Collection, bool isOK)
+        public void ResultDisplay(ref CogGraphicCollection Collection, bool isOK)
         {
-            Cognex.VisionPro.CogColorConstants Resultcolor = new Cognex.VisionPro.CogColorConstants();
+            CogColorConstants Resultcolor = new CogColorConstants();
 
             System.Drawing.Font Fonts = new System.Drawing.Font(System.Drawing.FontFamily.GenericSansSerif, 15);
 
-            Resultcolor = Cognex.VisionPro.CogColorConstants.Green;
+            Resultcolor = CogColorConstants.Green;
 
-            Resultcolor = isOK == false ? Cognex.VisionPro.CogColorConstants.Red : Cognex.VisionPro.CogColorConstants.Green;
+            Resultcolor = isOK == false ? CogColorConstants.Red : CogColorConstants.Green;
             //if (isOK == false)
             //{
             //    Resultcolor = Cognex.VisionPro.CogColorConstants.Red;
             //}
-            Cognex.VisionPro.CogPolygon ResultRegion;
+            CogPolygon ResultRegion;
 
-            ResultRegion = (Cognex.VisionPro.CogPolygon)Tool.Region;
+            ResultRegion = (CogPolygon)Tool.Region;
 
             ResultRegion.Color = Resultcolor;
-            ResultRegion.GraphicDOFEnable = Cognex.VisionPro.CogPolygonDOFConstants.None;
+            ResultRegion.GraphicDOFEnable = CogPolygonDOFConstants.None;
 
             ResultRegion.LineWidthInScreenPixels = 5;
-            ResultRegion.LineStyle = Cognex.VisionPro.CogGraphicLineStyleConstants.Solid;
+            ResultRegion.LineStyle = CogGraphicLineStyleConstants.Solid;
 
             Collection.Add(ResultRegion);
         }
 
-        public void ResultDisplay_Location(ref Cognex.VisionPro.Display.CogDisplay display, string Imagespace)
+        public void ResultDisplay_Location(ref CogDisplay display, string Imagespace)
         {
             if (this.Tool.Results == null)
             {
@@ -643,16 +618,16 @@ namespace VISION.Cogs
                 return;
             }
 
-            Cognex.VisionPro.CogCircularAnnulusSection Result = new Cognex.VisionPro.CogCircularAnnulusSection();
+            CogCircularAnnulusSection Result = new CogCircularAnnulusSection();
             Result.CenterX = this.Tool.Results.GetBlobs()[0].CenterOfMassX;
             Result.CenterY = this.Tool.Results.GetBlobs()[0].CenterOfMassY;
             Result.LineWidthInScreenPixels = 10;
-            Result.Color = Cognex.VisionPro.CogColorConstants.Green;
+            Result.Color = CogColorConstants.Green;
 
             display.InteractiveGraphics.Add(Result, null, false);
         }
 
-        public void ResultDisplay_Location(ref Cognex.VisionPro.CogGraphicCollection Collecter, Points Point)
+        public void ResultDisplay_Location(ref CogGraphicCollection Collecter, Points Point)
         {
             bool Result = true;
             if (this.Tool.Results == null)
@@ -665,17 +640,17 @@ namespace VISION.Cogs
                 Result = false;
             }
 
-            Cognex.VisionPro.CogCircularAnnulusSection Resultarea = new Cognex.VisionPro.CogCircularAnnulusSection();
+            CogCircularAnnulusSection Resultarea = new CogCircularAnnulusSection();
             Resultarea.CenterX = this.Tool.Results.GetBlobs()[0].CenterOfMassX;
             Resultarea.CenterY = this.Tool.Results.GetBlobs()[0].CenterOfMassY;
             Resultarea.LineWidthInScreenPixels = 5;
             if (Result == true)
             {
-                Resultarea.Color = Cognex.VisionPro.CogColorConstants.Green;
+                Resultarea.Color = CogColorConstants.Green;
             }
             else
             {
-                Resultarea.Color = Cognex.VisionPro.CogColorConstants.Red;
+                Resultarea.Color = CogColorConstants.Red;
             }
 
             Collecter.Add(Resultarea);
@@ -683,25 +658,25 @@ namespace VISION.Cogs
 
         public Cognex.VisionPro.ICogGraphic ResultNameDisplay(bool isOK = true)
         {
-            Cognex.VisionPro.Dimensioning.CogCreateGraphicLabelTool Nameing = new Cognex.VisionPro.Dimensioning.CogCreateGraphicLabelTool();
-            Cognex.VisionPro.CogColorConstants Resultcolor = new Cognex.VisionPro.CogColorConstants();
+            CogCreateGraphicLabelTool Nameing = new CogCreateGraphicLabelTool();
+            CogColorConstants Resultcolor = new CogColorConstants();
             System.Drawing.Font Fonts = new System.Drawing.Font(System.Drawing.FontFamily.GenericSansSerif, 15);
-            Resultcolor = Cognex.VisionPro.CogColorConstants.Green;
+            Resultcolor = CogColorConstants.Green;
 
             if (isOK == false)
             {
-                Resultcolor = Cognex.VisionPro.CogColorConstants.Red;
+                Resultcolor = CogColorConstants.Red;
             }
 
-            Cognex.VisionPro.CogRectangleAffine ResultRegion;
+            CogRectangleAffine ResultRegion;
 
-            ResultRegion = (Cognex.VisionPro.CogRectangleAffine)Tool.Region;
+            ResultRegion = (CogRectangleAffine)Tool.Region;
 
             ResultRegion.Color = Resultcolor;
-            ResultRegion.GraphicDOFEnable = Cognex.VisionPro.CogRectangleAffineDOFConstants.None;
+            ResultRegion.GraphicDOFEnable = CogRectangleAffineDOFConstants.None;
 
             ResultRegion.LineWidthInScreenPixels = 5;
-            ResultRegion.LineStyle = Cognex.VisionPro.CogGraphicLineStyleConstants.Solid;
+            ResultRegion.LineStyle = CogGraphicLineStyleConstants.Solid;
 
             Nameing.InputImage = Tool.InputImage;
             Nameing.InputGraphicLabel.Text = Tool.Name;
@@ -732,7 +707,7 @@ namespace VISION.Cogs
         }
 
 
-        public void ResultBlobDisplay(ref Cognex.VisionPro.CogGraphicCollection Collection)
+        public void ResultBlobDisplay(ref CogGraphicCollection Collection)
         {
             if (this.Tool.Results == null)
             {
@@ -744,10 +719,10 @@ namespace VISION.Cogs
             {
                 return;
             }
-            Collection.Add(this.Tool.Results.GetBlobs()[0].CreateResultGraphics(Cognex.VisionPro.Blob.CogBlobResultGraphicConstants.All));
+            Collection.Add(this.Tool.Results.GetBlobs()[0].CreateResultGraphics(CogBlobResultGraphicConstants.All));
         }
 
-        public void ResultAllBlobDisplay(ref Cognex.VisionPro.CogGraphicCollection Collection)
+        public void ResultAllBlobDisplay(ref CogGraphicCollection Collection)
         {
             if (Tool.Results == null)
             {
@@ -760,7 +735,7 @@ namespace VISION.Cogs
                 return;
             }
 
-            Collection.Add(Tool.Results.GetBlobs()[0].CreateResultGraphics(Cognex.VisionPro.Blob.CogBlobResultGraphicConstants.All));
+            Collection.Add(Tool.Results.GetBlobs()[0].CreateResultGraphics(CogBlobResultGraphicConstants.All));
         }
 
         public void ResultAllBlobDisplayPLT(CogGraphicCollection Collection, bool result)
@@ -796,7 +771,7 @@ namespace VISION.Cogs
             for (int lop = 0; lop <= Count; lop++)
             {
                 ResultRegion = Tool.Results.GetBlobs()[lop].GetBoundary();
-                ResultRegion.Color = result == false ? Cognex.VisionPro.CogColorConstants.Red : Cognex.VisionPro.CogColorConstants.Green;
+                ResultRegion.Color = result == false ? CogColorConstants.Red : CogColorConstants.Green;
                 Collection.Add(ResultRegion);
             }
         }
@@ -893,10 +868,10 @@ namespace VISION.Cogs
         /// </summary>
         public void ToolSetup()
         {
-            System.Windows.Forms.Form Window = new System.Windows.Forms.Form();
-            Cognex.VisionPro.Blob.CogBlobEditV2 Edit = new Cognex.VisionPro.Blob.CogBlobEditV2();
+            Form Window = new Form();
+            CogBlobEditV2 Edit = new CogBlobEditV2();
 
-            Edit.Dock = System.Windows.Forms.DockStyle.Fill; // 화면 채움
+            Edit.Dock = DockStyle.Fill; // 화면 채움
             Edit.Subject = Tool; // 에디트에 툴 정보 입력.
             Window.Controls.Add(Edit); // 폼에 에디트 추가.
 

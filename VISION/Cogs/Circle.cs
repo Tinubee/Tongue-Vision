@@ -3,46 +3,49 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Cognex.VisionPro.Caliper;
+using Cognex.VisionPro;
+using Cognex.VisionPro.Display;
 
 namespace VISION.Cogs
 {
     public class Circle
     {
-        private Cognex.VisionPro.Caliper.CogFindCircleTool Tool;
+        private CogFindCircleTool Tool;
 
         public Circle(int Toolnumber)
         {
-            this.Tool = new Cognex.VisionPro.Caliper.CogFindCircleTool();
+            this.Tool = new CogFindCircleTool();
             this.Tool.Name = "Circle - " + Toolnumber.ToString();
         }
 
         private void NewTool()
         { // 툴의 가장 초기 상태 셋업
-            Cognex.VisionPro.CogCircularArc Region = new Cognex.VisionPro.CogCircularArc();
+            CogCircularArc Region = new CogCircularArc();
 
             Region.CenterX = 800;
             Region.CenterY = 800;
 
-            Region.LineStyle = Cognex.VisionPro.CogGraphicLineStyleConstants.Solid;
+            Region.LineStyle = CogGraphicLineStyleConstants.Solid;
             Region.LineWidthInScreenPixels = 3;
-            Region.Color = Cognex.VisionPro.CogColorConstants.Green;
+            Region.Color = CogColorConstants.Green;
 
-            Region.SelectedLineStyle = Cognex.VisionPro.CogGraphicLineStyleConstants.Dash;
+            Region.SelectedLineStyle = CogGraphicLineStyleConstants.Dash;
             Region.SelectedLineWidthInScreenPixels = 3;
-            Region.SelectedColor = Cognex.VisionPro.CogColorConstants.Cyan;
+            Region.SelectedColor = CogColorConstants.Cyan;
 
-            Region.DragLineStyle = Cognex.VisionPro.CogGraphicLineStyleConstants.Dot;
+            Region.DragLineStyle = CogGraphicLineStyleConstants.Dot;
             Region.DragLineWidthInScreenPixels = 3;
-            Region.DragColor = Cognex.VisionPro.CogColorConstants.Blue;
+            Region.DragColor =CogColorConstants.Blue;
 
-            Region.GraphicDOFEnable = Cognex.VisionPro.CogCircularArcDOFConstants.All;
+            Region.GraphicDOFEnable = CogCircularArcDOFConstants.All;
             Region.Interactive = true;
 
             this.Tool.RunParams.ExpectedCircularArc = Region;
 
-            this.Tool.RunParams.CaliperRunParams.EdgeMode = Cognex.VisionPro.Caliper.CogCaliperEdgeModeConstants.SingleEdge;
-            this.Tool.RunParams.CaliperSearchDirection = Cognex.VisionPro.Caliper.CogFindCircleSearchDirectionConstants.Inward;
-            this.Tool.RunParams.CaliperRunParams.Edge0Polarity = Cognex.VisionPro.Caliper.CogCaliperPolarityConstants.DarkToLight;
+            this.Tool.RunParams.CaliperRunParams.EdgeMode = CogCaliperEdgeModeConstants.SingleEdge;
+            this.Tool.RunParams.CaliperSearchDirection = CogFindCircleSearchDirectionConstants.Inward;
+            this.Tool.RunParams.CaliperRunParams.Edge0Polarity = CogCaliperPolarityConstants.DarkToLight;
         }
 
         /// <summary>
@@ -68,7 +71,7 @@ namespace VISION.Cogs
                 return false;
             }
 
-            Tool = (Cognex.VisionPro.Caliper.CogFindCircleTool)Cognex.VisionPro.CogSerializer.LoadObjectFromFile(Savepath);
+            Tool = (CogFindCircleTool)CogSerializer.LoadObjectFromFile(Savepath);
 
             return true;
         }
@@ -89,12 +92,12 @@ namespace VISION.Cogs
 
             Savepath = Savepath + "\\" + Tool.Name + ".vpp";
 
-            Cognex.VisionPro.CogSerializer.SaveObjectToFile(Tool, Savepath);
+            CogSerializer.SaveObjectToFile(Tool, Savepath);
 
             return true;
         }
 
-        public bool InputImage(Cognex.VisionPro.CogImage8Grey Image)
+        public bool InputImage(CogImage8Grey Image)
         {
             if (Image == null)
             {
@@ -107,7 +110,7 @@ namespace VISION.Cogs
             }
         }
 
-        public bool Run(Cognex.VisionPro.CogImage8Grey Image)
+        public bool Run(CogImage8Grey Image)
         {
             if (!this.InputImage(Image))
             {
@@ -131,17 +134,17 @@ namespace VISION.Cogs
             return true;
         }
 
-        public void Area(ref Cognex.VisionPro.Display.CogDisplay Display, Cognex.VisionPro.CogImage8Grey Image, string ImageSpace)
+        public void Area(ref CogDisplay Display, CogImage8Grey Image, string ImageSpace)
         {
             if (this.InputImage(Image) == true)
             {
-                Cognex.VisionPro.CogLineSegment Region;
-                Cognex.VisionPro.CogGraphicCollection cogRegion_Collection;
-                Cognex.VisionPro.ICogRecord cogRect_FindRecord;
-                Tool.CurrentRecordEnable = Cognex.VisionPro.Caliper.CogFindCircleCurrentRecordConstants.All;
+                CogLineSegment Region;
+                CogGraphicCollection cogRegion_Collection;
+                ICogRecord cogRect_FindRecord;
+                Tool.CurrentRecordEnable = CogFindCircleCurrentRecordConstants.All;
                 cogRect_FindRecord = Tool.CreateCurrentRecord();
 
-                cogRegion_Collection = (Cognex.VisionPro.CogGraphicCollection)cogRect_FindRecord.SubRecords["InputImage"].SubRecords["CaliperRegions"].Content;
+                cogRegion_Collection = (CogGraphicCollection)cogRect_FindRecord.SubRecords["InputImage"].SubRecords["CaliperRegions"].Content;
 
                 //if (this.Tool.RunParams.ExpectedCircularArc == null)
                 //{
@@ -244,7 +247,7 @@ namespace VISION.Cogs
 
             return Result;
         }
-        public void ResultAllDisplay(Cognex.VisionPro.CogGraphicCollection Collection)
+        public void ResultAllDisplay(CogGraphicCollection Collection)
         {
             if (Tool.Results == null)
             {
@@ -257,7 +260,7 @@ namespace VISION.Cogs
             Collection.Add(Tool.Results.GetCircle());
             //Collection.Add(Tool.Results.LineResultsB.GetLine());
         }
-        public Cognex.VisionPro.CogCircle GetCircle()
+        public CogCircle GetCircle()
         {
             if (Tool.Results == null)
             {
@@ -265,7 +268,7 @@ namespace VISION.Cogs
             }
             return Tool.Results.GetCircle();
         }
-        public void ResultDisplay(ref Cognex.VisionPro.Display.CogDisplay Display)
+        public void ResultDisplay(ref CogDisplay Display)
         {
             if (this.Tool.Results == null)
             {
@@ -277,14 +280,14 @@ namespace VISION.Cogs
                 return;
             }
 
-            Cognex.VisionPro.CogCircle Result = null;
+            CogCircle Result = null;
             Result = this.Tool.Results.GetCircle();
             if (Result == null)
             {
                 return;
             }
             Result.LineWidthInScreenPixels = 5;
-            Result.Color = Cognex.VisionPro.CogColorConstants.DarkGreen;
+            Result.Color = CogColorConstants.DarkGreen;
 
             Display.InteractiveGraphics.Add(Result, null, true);
         }
@@ -292,7 +295,7 @@ namespace VISION.Cogs
         public void ToolSetup()
         {
             System.Windows.Forms.Form Window = new System.Windows.Forms.Form();
-            Cognex.VisionPro.Caliper.CogFindCircleEditV2 Edit = new Cognex.VisionPro.Caliper.CogFindCircleEditV2();
+            CogFindCircleEditV2 Edit = new CogFindCircleEditV2();
 
             Edit.Dock = System.Windows.Forms.DockStyle.Fill; // 화면 채움
             Edit.Subject = Tool; // 에디트에 툴 정보 입력.

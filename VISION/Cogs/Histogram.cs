@@ -1,4 +1,7 @@
 ﻿using System;
+using Cognex.VisionPro.ImageProcessing;
+using Cognex.VisionPro;
+using Cognex.VisionPro.Display;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +12,7 @@ namespace VISION.Cogs
 {
     public class Hisogram
     {
-        private Cognex.VisionPro.ImageProcessing.CogHistogramTool Tool;
+        private CogHistogramTool Tool;
         //public bool Singleblob;
 
         /// <summary>
@@ -18,16 +21,16 @@ namespace VISION.Cogs
         /// <param name="Toolnumber">툴의 이름.</param>
         public Hisogram(int Toolnumber = 0)
         {
-            Tool = new Cognex.VisionPro.ImageProcessing.CogHistogramTool();
+            Tool = new CogHistogramTool();
             Tool.Name = "Hisogram - " + Toolnumber.ToString();
-            Tool.RunParams.BinMode = Cognex.VisionPro.ImageProcessing.CogHistogramBinModeConstants.Auto;
+            Tool.RunParams.BinMode = CogHistogramBinModeConstants.Auto;
             Tool.RunParams.NumBins = 256;
-            Tool.RunParams.RegionMode = Cognex.VisionPro.CogRegionModeConstants.PixelAlignedBoundingBoxAdjustMask;
+            Tool.RunParams.RegionMode = CogRegionModeConstants.PixelAlignedBoundingBoxAdjustMask;
         }
 
         private bool NewTool()
         { // 툴의 가장 초기 상태 셋업
-            Cognex.VisionPro.CogPolygon Region = new Cognex.VisionPro.CogPolygon();
+            CogPolygon Region = new CogPolygon();
 
             Region.NumVertices = 4;
             Region.SetVertexX(0, 130);
@@ -40,20 +43,20 @@ namespace VISION.Cogs
             Region.SetVertexY(3, 450);
 
             Region.LineWidthInScreenPixels = 1;
-            Region.LineStyle = Cognex.VisionPro.CogGraphicLineStyleConstants.Solid;
-            Region.Color = Cognex.VisionPro.CogColorConstants.Green;
+            Region.LineStyle = CogGraphicLineStyleConstants.Solid;
+            Region.Color = CogColorConstants.Green;
 
             Region.SelectedLineWidthInScreenPixels = 1;
-            Region.SelectedColor = Cognex.VisionPro.CogColorConstants.Cyan;
-            Region.SelectedLineStyle = Cognex.VisionPro.CogGraphicLineStyleConstants.DashDot;
+            Region.SelectedColor = CogColorConstants.Cyan;
+            Region.SelectedLineStyle = CogGraphicLineStyleConstants.DashDot;
 
             Region.DragLineWidthInScreenPixels = 1;
-            Region.DragColor = Cognex.VisionPro.CogColorConstants.Blue;
-            Region.DragLineStyle = Cognex.VisionPro.CogGraphicLineStyleConstants.Dot;
+            Region.DragColor = CogColorConstants.Blue;
+            Region.DragLineStyle = CogGraphicLineStyleConstants.Dot;
             Region.TipText = "Search Area";
 
             Region.Interactive = true;
-            Region.GraphicDOFEnable = Cognex.VisionPro.CogPolygonDOFConstants.All;
+            Region.GraphicDOFEnable = CogPolygonDOFConstants.All;
 
             Tool.Region = Region;
 
@@ -88,7 +91,7 @@ namespace VISION.Cogs
                 return false;
             }
 
-            Tool = (Cognex.VisionPro.ImageProcessing.CogHistogramTool)Cognex.VisionPro.CogSerializer.LoadObjectFromFile(Savepath);
+            Tool = (CogHistogramTool)CogSerializer.LoadObjectFromFile(Savepath);
             Tool.Name = TempName;
             Application.DoEvents();
             return true;
@@ -110,7 +113,7 @@ namespace VISION.Cogs
 
             Savepath = Savepath + "\\" + Tool.Name + ".vpp";
 
-            Cognex.VisionPro.CogSerializer.SaveObjectToFile(Tool, Savepath);
+            CogSerializer.SaveObjectToFile(Tool, Savepath);
 
             return true;
         }
@@ -120,7 +123,7 @@ namespace VISION.Cogs
         /// </summary>
         /// <param name="image">툴에 입력 할 이미지</param>
         /// <returns></returns>
-        public bool InputImage(Cognex.VisionPro.CogImage8Grey image)
+        public bool InputImage(CogImage8Grey image)
         {
             if (image == null)
             {
@@ -136,14 +139,14 @@ namespace VISION.Cogs
         /// </summary>
         /// <param name="image">툴에 입력 할 이미지.</param>
         /// <returns>결과</returns>
-        public bool Run(Cognex.VisionPro.CogImage8Grey image)
+        public bool Run(CogImage8Grey image)
         {
             if (InputImage(image) == false)
             {
                 return false;
             }
 
-            Cognex.VisionPro.CogPolygon Region = (Cognex.VisionPro.CogPolygon)this.Tool.Region;
+            CogPolygon Region = (CogPolygon)this.Tool.Region;
             Region.Selected = false;
 
             Tool.Region = Region;
@@ -163,14 +166,14 @@ namespace VISION.Cogs
             return true;
         }
 
-        public bool Run(Cognex.VisionPro.CogImage8Grey image, Points Point, string SpaceName)
+        public bool Run(CogImage8Grey image, Points Point, string SpaceName)
         {
             if (InputImage(image) == false)
             {
                 return false;
             }
 
-            Cognex.VisionPro.CogCircularAnnulusSection Region = (Cognex.VisionPro.CogCircularAnnulusSection)this.Tool.Region;
+            CogCircularAnnulusSection Region = (CogCircularAnnulusSection)this.Tool.Region;
 
             Region.Selected = false;
 
@@ -202,7 +205,7 @@ namespace VISION.Cogs
         /// </summary>
         /// <param name="display">표시 대상 디스플레이</param>
         /// <param name="image">대상 이미지</param>
-        public void Area_Affine(ref Cognex.VisionPro.Display.CogDisplay display, Cognex.VisionPro.CogImage8Grey image, string ImageSpace)
+        public void Area_Affine(ref CogDisplay display, CogImage8Grey image, string ImageSpace)
         {
             if (InputImage(image) == false)
             {
@@ -214,25 +217,25 @@ namespace VISION.Cogs
                 this.NewTool();
             }
 
-            Cognex.VisionPro.CogPolygon area = (Cognex.VisionPro.CogPolygon)Tool.Region; //영역설정 CogRectangleAffine에서 CogPolygon으로 변경함 - 191230
+            CogPolygon area = (CogPolygon)Tool.Region; //영역설정 CogRectangleAffine에서 CogPolygon으로 변경함 - 191230
             area.Interactive = true;
-            area.GraphicDOFEnable = Cognex.VisionPro.CogPolygonDOFConstants.All;
+            area.GraphicDOFEnable = CogPolygonDOFConstants.All;
             area.SelectedSpaceName = ImageSpace;
-            area.Color = Cognex.VisionPro.CogColorConstants.Green;
+            area.Color = CogColorConstants.Green;
             Tool.Region = area;
 
-            display.InteractiveGraphics.Add((Cognex.VisionPro.ICogGraphicInteractive)Tool.Region, null, false);
+            display.InteractiveGraphics.Add((ICogGraphicInteractive)Tool.Region, null, false);
         }
-        public void ResultDisplay(Cognex.VisionPro.CogGraphicCollection Collection, bool result)
+        public void ResultDisplay(CogGraphicCollection Collection, bool result)
         {
             if (Tool.Result == null)
             {
                 return;
             }
-            Cognex.VisionPro.CogPolygon ResultRegion;
+            CogPolygon ResultRegion;
 
-            ResultRegion = (Cognex.VisionPro.CogPolygon)Tool.Region;
-            ResultRegion.Color = result == false ? Cognex.VisionPro.CogColorConstants.Red : Cognex.VisionPro.CogColorConstants.Green;
+            ResultRegion = (CogPolygon)Tool.Region;
+            ResultRegion.Color = result == false ? CogColorConstants.Red : CogColorConstants.Green;
             Collection.Add(ResultRegion);
         }
         public int ResultHistogramMax()
@@ -261,7 +264,7 @@ namespace VISION.Cogs
         public void ToolSetup()
         {
             Form Window = new Form();
-            Cognex.VisionPro.ImageProcessing.CogHistogramEditV2 Edit = new Cognex.VisionPro.ImageProcessing.CogHistogramEditV2();
+            CogHistogramEditV2 Edit = new CogHistogramEditV2();
 
             Edit.Dock = DockStyle.Fill; // 화면 채움
             Edit.Subject = Tool; // 에디트에 툴 정보 입력.

@@ -1669,7 +1669,7 @@ namespace VISION
                             //각도 추출하는 함수 추가.
                             if (TempMulti[4, 0].Run((CogImage8Grey)cdyDisplay5.Image))
                             {
-                                double topAngle = TempMulti[4, 0].PatternAngle(TempMulti[4, 0].HighestResultToolNumber())*(180/Math.PI);
+                                double topAngle = TempMulti[4, 0].PatternAngle(TempMulti[4, 0].HighestResultToolNumber());
                                 string strSendPLC = $"UC{Glob.topAlignNumber}P{topAngle.ToString("F4")}";
                                 SendToPLC(strSendPLC);
                             }

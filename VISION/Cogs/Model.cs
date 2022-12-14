@@ -1,4 +1,5 @@
 ﻿using Cognex.VisionPro;
+using Cognex.VisionPro.CalibFix;
 using Cognex.VisionPro.Dimensioning;
 using System;
 using System.Collections.Generic;
@@ -603,12 +604,12 @@ namespace VISION.Cogs
         }
         public CogImage8Grey FixtureImage(CogImage8Grey OriImage, CogTransform2DLinear Fixtured, string SetName, int Camnumber, out string ImageSpacename, int HighPatternNumber)
         {
-            Cognex.VisionPro.CalibFix.CogFixtureTool Fixture = new Cognex.VisionPro.CalibFix.CogFixtureTool();
+            CogFixtureTool Fixture = new CogFixtureTool();
 
             Fixture.InputImage = OriImage;
             Fixture.RunParams.FixturedSpaceName = SetName;
             Fixture.RunParams.UnfixturedFromFixturedTransform = Fixtured;
-            Fixture.RunParams.FixturedSpaceNameDuplicateHandling = Cognex.VisionPro.CalibFix.CogFixturedSpaceNameDuplicateHandlingConstants.Compatibility;
+            Fixture.RunParams.FixturedSpaceNameDuplicateHandling = CogFixturedSpaceNameDuplicateHandlingConstants.Compatibility;
             //***************추가***************//
             Fixtured.TranslationX = MultiPattern[Camnumber, 0].TransX(HighPatternNumber);
             Fixtured.TranslationY = MultiPattern[Camnumber, 0].TransY(HighPatternNumber);
@@ -620,12 +621,12 @@ namespace VISION.Cogs
         }
         public CogImage8Grey Blob_FixtureImage(CogImage8Grey OriImage, CogTransform2DLinear Fixtured, string SetName, int Camnumber, int toolnumber, out string ImageSpacename, int HighPatternNumber)
         {
-            Cognex.VisionPro.CalibFix.CogFixtureTool Fixture = new Cognex.VisionPro.CalibFix.CogFixtureTool();
+            CogFixtureTool Fixture = new CogFixtureTool();
 
             Fixture.InputImage = OriImage;
             Fixture.RunParams.FixturedSpaceName = SetName;
             Fixture.RunParams.UnfixturedFromFixturedTransform = Fixtured;
-            Fixture.RunParams.FixturedSpaceNameDuplicateHandling = Cognex.VisionPro.CalibFix.CogFixturedSpaceNameDuplicateHandlingConstants.Compatibility;
+            Fixture.RunParams.FixturedSpaceNameDuplicateHandling = CogFixturedSpaceNameDuplicateHandlingConstants.Compatibility;
             //***************추가***************//
             Fixtured.TranslationX = MultiPattern[Camnumber, toolnumber].TransX(HighPatternNumber);
             Fixtured.TranslationY = MultiPattern[Camnumber, toolnumber].TransY(HighPatternNumber);
@@ -638,12 +639,12 @@ namespace VISION.Cogs
 
         public CogImage8Grey Blob_FixtureImage1(CogImage8Grey OriImage, CogTransform2DLinear Fixtured, string SetName, int Camnumber, int toolnumber, out string ImageSpacename, int HighPatternNumber)
         {
-            Cognex.VisionPro.CalibFix.CogFixtureTool Fixture = new Cognex.VisionPro.CalibFix.CogFixtureTool();
+            CogFixtureTool Fixture = new CogFixtureTool();
 
             Fixture.InputImage = OriImage;
             Fixture.RunParams.FixturedSpaceName = SetName;
             Fixture.RunParams.UnfixturedFromFixturedTransform = Fixtured;
-            Fixture.RunParams.FixturedSpaceNameDuplicateHandling = Cognex.VisionPro.CalibFix.CogFixturedSpaceNameDuplicateHandlingConstants.Compatibility;
+            Fixture.RunParams.FixturedSpaceNameDuplicateHandling = CogFixturedSpaceNameDuplicateHandlingConstants.Compatibility;
             //***************추가***************//
             Fixtured.TranslationX = MultiPattern[Camnumber, toolnumber].TransX(HighPatternNumber);
             Fixtured.TranslationY = MultiPattern[Camnumber, toolnumber].TransY(HighPatternNumber);
@@ -656,12 +657,12 @@ namespace VISION.Cogs
 
         public CogImage8Grey Blob_FixtureImage2(CogImage8Grey OriImage, CogTransform2DLinear Fixtured, string SetName, int Camnumber, int toolnumber, out string ImageSpacename, int HighPatternNumber)
         {
-            Cognex.VisionPro.CalibFix.CogFixtureTool Fixture = new Cognex.VisionPro.CalibFix.CogFixtureTool();
+            CogFixtureTool Fixture = new CogFixtureTool();
 
             Fixture.InputImage = OriImage;
             Fixture.RunParams.FixturedSpaceName = SetName;
             Fixture.RunParams.UnfixturedFromFixturedTransform = Fixtured;
-            Fixture.RunParams.FixturedSpaceNameDuplicateHandling = Cognex.VisionPro.CalibFix.CogFixturedSpaceNameDuplicateHandlingConstants.Compatibility;
+            Fixture.RunParams.FixturedSpaceNameDuplicateHandling = CogFixturedSpaceNameDuplicateHandlingConstants.Compatibility;
             //***************추가***************//
             Fixtured.TranslationX = MultiPattern[Camnumber, toolnumber].TransX(HighPatternNumber);
             Fixtured.TranslationY = MultiPattern[Camnumber, toolnumber].TransY(HighPatternNumber);
@@ -673,12 +674,12 @@ namespace VISION.Cogs
         }
         public CogImage8Grey Blob_FixtureImage3(CogImage8Grey OriImage, CogTransform2DLinear Fixtured, string SetName, int Camnumber, int toolnumber, out string ImageSpacename, int HighPatternNumber)
         {
-            Cognex.VisionPro.CalibFix.CogFixtureTool Fixture = new Cognex.VisionPro.CalibFix.CogFixtureTool();
+            CogFixtureTool Fixture = new CogFixtureTool();
 
             Fixture.InputImage = OriImage;
             Fixture.RunParams.FixturedSpaceName = SetName;
             Fixture.RunParams.UnfixturedFromFixturedTransform = Fixtured;
-            Fixture.RunParams.FixturedSpaceNameDuplicateHandling = Cognex.VisionPro.CalibFix.CogFixturedSpaceNameDuplicateHandlingConstants.Compatibility;
+            Fixture.RunParams.FixturedSpaceNameDuplicateHandling = CogFixturedSpaceNameDuplicateHandlingConstants.Compatibility;
             //***************추가***************//
             Fixtured.TranslationX = MultiPattern[Camnumber, toolnumber].TransX(HighPatternNumber);
             Fixtured.TranslationY = MultiPattern[Camnumber, toolnumber].TransY(HighPatternNumber);
@@ -690,12 +691,12 @@ namespace VISION.Cogs
         }
         public CogImage8Grey Blob_FixtureImage4(CogImage8Grey OriImage, CogTransform2DLinear Fixtured, string SetName, int Camnumber, int toolnumber, out string ImageSpacename, int HighPatternNumber)
         {
-            Cognex.VisionPro.CalibFix.CogFixtureTool Fixture = new Cognex.VisionPro.CalibFix.CogFixtureTool();
+            CogFixtureTool Fixture = new CogFixtureTool();
 
             Fixture.InputImage = OriImage;
             Fixture.RunParams.FixturedSpaceName = SetName;
             Fixture.RunParams.UnfixturedFromFixturedTransform = Fixtured;
-            Fixture.RunParams.FixturedSpaceNameDuplicateHandling = Cognex.VisionPro.CalibFix.CogFixturedSpaceNameDuplicateHandlingConstants.Compatibility;
+            Fixture.RunParams.FixturedSpaceNameDuplicateHandling =CogFixturedSpaceNameDuplicateHandlingConstants.Compatibility;
             //***************추가***************//
             Fixtured.TranslationX = MultiPattern[Camnumber, toolnumber].TransX(HighPatternNumber);
             Fixtured.TranslationY = MultiPattern[Camnumber, toolnumber].TransY(HighPatternNumber);
@@ -707,12 +708,12 @@ namespace VISION.Cogs
         }
         public CogImage8Grey Blob_FixtureImage5(CogImage8Grey OriImage, CogTransform2DLinear Fixtured, string SetName, int Camnumber, int toolnumber, out string ImageSpacename, int HighPatternNumber)
         {
-            Cognex.VisionPro.CalibFix.CogFixtureTool Fixture = new Cognex.VisionPro.CalibFix.CogFixtureTool();
+            CogFixtureTool Fixture = new CogFixtureTool();
 
             Fixture.InputImage = OriImage;
             Fixture.RunParams.FixturedSpaceName = SetName;
             Fixture.RunParams.UnfixturedFromFixturedTransform = Fixtured;
-            Fixture.RunParams.FixturedSpaceNameDuplicateHandling = Cognex.VisionPro.CalibFix.CogFixturedSpaceNameDuplicateHandlingConstants.Compatibility;
+            Fixture.RunParams.FixturedSpaceNameDuplicateHandling = CogFixturedSpaceNameDuplicateHandlingConstants.Compatibility;
             //***************추가***************//
             Fixtured.TranslationX = MultiPattern[Camnumber, toolnumber].TransX(HighPatternNumber);
             Fixtured.TranslationY = MultiPattern[Camnumber, toolnumber].TransY(HighPatternNumber);
@@ -724,12 +725,12 @@ namespace VISION.Cogs
         }
         public CogImage8Grey Histogram_FixtureImage(CogImage8Grey OriImage, CogTransform2DLinear Fixtured, string SetName, int Camnumber, int toolnumber, out string ImageSpacename, int HighPatternNumber)
         {
-            Cognex.VisionPro.CalibFix.CogFixtureTool Fixture = new Cognex.VisionPro.CalibFix.CogFixtureTool();
+            CogFixtureTool Fixture = new CogFixtureTool();
 
             Fixture.InputImage = OriImage;
             Fixture.RunParams.FixturedSpaceName = SetName;
             Fixture.RunParams.UnfixturedFromFixturedTransform = Fixtured;
-            Fixture.RunParams.FixturedSpaceNameDuplicateHandling = Cognex.VisionPro.CalibFix.CogFixturedSpaceNameDuplicateHandlingConstants.Compatibility;
+            Fixture.RunParams.FixturedSpaceNameDuplicateHandling = CogFixturedSpaceNameDuplicateHandlingConstants.Compatibility;
             //***************추가***************//
             Fixtured.TranslationX = MultiPattern[Camnumber, toolnumber].TransX(HighPatternNumber);
             Fixtured.TranslationY = MultiPattern[Camnumber, toolnumber].TransY(HighPatternNumber);
@@ -741,12 +742,12 @@ namespace VISION.Cogs
         }
         public CogImage8Grey LINE_FixtureImage(CogImage8Grey OriImage, CogTransform2DLinear Fixtured, string SetName, int Camnumber, int toolnumber, out string ImageSpacename,int HighPatternNumber)
         {
-            Cognex.VisionPro.CalibFix.CogFixtureTool Fixture = new Cognex.VisionPro.CalibFix.CogFixtureTool();
+            CogFixtureTool Fixture = new CogFixtureTool();
 
             Fixture.InputImage = OriImage;
             Fixture.RunParams.FixturedSpaceName = SetName;
             Fixture.RunParams.UnfixturedFromFixturedTransform = Fixtured;
-            Fixture.RunParams.FixturedSpaceNameDuplicateHandling = Cognex.VisionPro.CalibFix.CogFixturedSpaceNameDuplicateHandlingConstants.Compatibility;
+            Fixture.RunParams.FixturedSpaceNameDuplicateHandling = CogFixturedSpaceNameDuplicateHandlingConstants.Compatibility;
             //***************추가***************//
             Fixtured.TranslationX = MultiPattern[Camnumber, toolnumber].TransX(HighPatternNumber);
             Fixtured.TranslationY = MultiPattern[Camnumber, toolnumber].TransY(HighPatternNumber);

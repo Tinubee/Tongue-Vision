@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Cognex.VisionPro.PMAlign;
+using Cognex.VisionPro;
+using Cognex.VisionPro.Display;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,7 +17,7 @@ namespace VISION.Cogs
         private PGgloble Glob = PGgloble.getInstance;
         public MultiPMAlign(int Toolnumber = 0)
         {
-            Tool = new Cognex.VisionPro.PMAlign.CogPMAlignMultiTool();
+            Tool = new CogPMAlignMultiTool();
             Tool.Name = "MultiPattern - " + Toolnumber.ToString();
         }
 
@@ -26,8 +28,8 @@ namespace VISION.Cogs
 
         private bool NewTool()
         {
-            Cognex.VisionPro.CogRectangleAffine SearchRegion = new Cognex.VisionPro.CogRectangleAffine();
-            Cognex.VisionPro.CogRectangleAffine TrainRegion = new Cognex.VisionPro.CogRectangleAffine();
+            CogRectangleAffine SearchRegion = new CogRectangleAffine();
+            CogRectangleAffine TrainRegion = new CogRectangleAffine();
 
             SearchRegion.CenterX = 800;
             SearchRegion.CenterY = 600;
@@ -36,19 +38,19 @@ namespace VISION.Cogs
             SearchRegion.SideYLength = 200;
 
             SearchRegion.LineWidthInScreenPixels = 5;
-            SearchRegion.LineStyle = Cognex.VisionPro.CogGraphicLineStyleConstants.Solid;
-            SearchRegion.Color = Cognex.VisionPro.CogColorConstants.Green;
+            SearchRegion.LineStyle = CogGraphicLineStyleConstants.Solid;
+            SearchRegion.Color = CogColorConstants.Green;
 
             SearchRegion.DragLineWidthInScreenPixels = 2;
-            SearchRegion.DragLineStyle = Cognex.VisionPro.CogGraphicLineStyleConstants.DashDotDot;
-            SearchRegion.DragColor = Cognex.VisionPro.CogColorConstants.Blue;
+            SearchRegion.DragLineStyle = CogGraphicLineStyleConstants.DashDotDot;
+            SearchRegion.DragColor = CogColorConstants.Blue;
 
             SearchRegion.SelectedLineWidthInScreenPixels = 5;
-            SearchRegion.SelectedLineStyle = Cognex.VisionPro.CogGraphicLineStyleConstants.Solid;
-            SearchRegion.SelectedColor = Cognex.VisionPro.CogColorConstants.Red;
+            SearchRegion.SelectedLineStyle = CogGraphicLineStyleConstants.Solid;
+            SearchRegion.SelectedColor = CogColorConstants.Red;
 
             SearchRegion.Interactive = true;
-            SearchRegion.GraphicDOFEnable = Cognex.VisionPro.CogRectangleAffineDOFConstants.All;
+            SearchRegion.GraphicDOFEnable = CogRectangleAffineDOFConstants.All;
 
             TrainRegion.CenterX = 800;
             TrainRegion.CenterY = 600;
@@ -57,25 +59,25 @@ namespace VISION.Cogs
             TrainRegion.SideYLength = 200;
 
             TrainRegion.LineWidthInScreenPixels = 5;
-            TrainRegion.LineStyle = Cognex.VisionPro.CogGraphicLineStyleConstants.Solid;
-            TrainRegion.Color = Cognex.VisionPro.CogColorConstants.Green;
+            TrainRegion.LineStyle = CogGraphicLineStyleConstants.Solid;
+            TrainRegion.Color = CogColorConstants.Green;
 
             TrainRegion.DragLineWidthInScreenPixels = 2;
-            TrainRegion.DragLineStyle = Cognex.VisionPro.CogGraphicLineStyleConstants.DashDotDot;
-            TrainRegion.DragColor = Cognex.VisionPro.CogColorConstants.Blue;
+            TrainRegion.DragLineStyle = CogGraphicLineStyleConstants.DashDotDot;
+            TrainRegion.DragColor = CogColorConstants.Blue;
 
             TrainRegion.SelectedLineWidthInScreenPixels = 5;
-            TrainRegion.SelectedLineStyle = Cognex.VisionPro.CogGraphicLineStyleConstants.Solid;
-            TrainRegion.SelectedColor = Cognex.VisionPro.CogColorConstants.Red;
+            TrainRegion.SelectedLineStyle = CogGraphicLineStyleConstants.Solid;
+            TrainRegion.SelectedColor = CogColorConstants.Red;
 
             TrainRegion.Interactive = true;
-            TrainRegion.GraphicDOFEnable = Cognex.VisionPro.CogRectangleAffineDOFConstants.All;
+            TrainRegion.GraphicDOFEnable = CogRectangleAffineDOFConstants.All;
 
             SearchRegion.TipText = "Multi Pattern Search Area";
             TrainRegion.TipText = "Multi Pattern Train Area";
 
             Tool.SearchRegion = SearchRegion;
-            Tool.RunParams.RuntimeMode = Cognex.VisionPro.PMAlign.CogPMAlignMultiRuntimeModeConstants.Exhaustive;
+            Tool.RunParams.RuntimeMode = CogPMAlignMultiRuntimeModeConstants.Exhaustive;
             Tool.RunParams.UseXYOverlapBetweenPatterns = false;
 
             return true;
@@ -101,7 +103,7 @@ namespace VISION.Cogs
                     return false;
                 }
 
-                Tool = (Cognex.VisionPro.PMAlign.CogPMAlignMultiTool)Cognex.VisionPro.CogSerializer.LoadObjectFromFile(Savepath);
+                Tool = (CogPMAlignMultiTool)CogSerializer.LoadObjectFromFile(Savepath);
 
                 return true;
             }
@@ -123,16 +125,16 @@ namespace VISION.Cogs
 
             Savepath = Savepath + "\\" + Tool.Name + ".vpp";
 
-            Cognex.VisionPro.CogSerializer.SaveObjectToFile(Tool, Savepath);
+            CogSerializer.SaveObjectToFile(Tool, Savepath);
 
             return true;
         }
 
-        public void InputImage(Cognex.VisionPro.CogImage8Grey image)
+        public void InputImage(CogImage8Grey image)
         {
             Tool.InputImage = image;
         }
-        public bool setImage(Cognex.VisionPro.CogImage8Grey image, int number, bool istrain = false)
+        public bool setImage(CogImage8Grey image, int number, bool istrain = false)
         {
             if (image == null)
             {
@@ -150,14 +152,14 @@ namespace VISION.Cogs
 
             return true;
         }
-        public Cognex.VisionPro.CogImage8Grey TrainedImage(int number)
+        public CogImage8Grey TrainedImage(int number)
         {
             if (istrain(number) == false)
             {
                 return null;
             }
 
-            return (Cognex.VisionPro.CogImage8Grey)Tool.Operator[number].Pattern.GetTrainedPatternImage();
+            return (CogImage8Grey)Tool.Operator[number].Pattern.GetTrainedPatternImage();
         }
         public bool istrain(int num)
         {
@@ -173,7 +175,7 @@ namespace VISION.Cogs
             return Tool.Operator.Count();
         }
 
-        public bool Train(Cognex.VisionPro.CogImage8Grey image, int num)
+        public bool Train(CogImage8Grey image, int num)
         {
             try
             {
@@ -182,11 +184,11 @@ namespace VISION.Cogs
                     return false;
                 }
 
-                Cognex.VisionPro.CogRectangleAffine Area3 = (Cognex.VisionPro.CogRectangleAffine)Tool.Operator[num].Pattern.TrainRegion;
+                CogRectangleAffine Area3 = (CogRectangleAffine)Tool.Operator[num].Pattern.TrainRegion;
                 Tool.Operator[num].Pattern.Origin.TranslationX = Area3.CenterX;
                 Tool.Operator[num].Pattern.Origin.TranslationY = Area3.CenterY;
 
-                Cognex.VisionPro.CogRectangleAffine Area = (Cognex.VisionPro.CogRectangleAffine)Tool.Operator[num].Pattern.TrainRegion;
+                CogRectangleAffine Area = (CogRectangleAffine)Tool.Operator[num].Pattern.TrainRegion;
 
                 Tool.Operator[num].Pattern.Train();
                 return istrain(num);
@@ -198,12 +200,12 @@ namespace VISION.Cogs
             }
         }
 
-        public void SearchArea(ref Cognex.VisionPro.Display.CogDisplay display, Cognex.VisionPro.CogImage8Grey Image)
+        public void SearchArea(ref CogDisplay display, CogImage8Grey Image)
         {
-            display.InteractiveGraphics.Add((Cognex.VisionPro.ICogGraphicInteractive)Tool.SearchRegion, null, false);
+            display.InteractiveGraphics.Add((ICogGraphicInteractive)Tool.SearchRegion, null, false);
         }
 
-        public bool Run(Cognex.VisionPro.CogImage8Grey image)
+        public bool Run(CogImage8Grey image)
         {
             if (image == null)
             {
@@ -304,7 +306,7 @@ namespace VISION.Cogs
             if (Tool.Results == null)
                 return 0;
 
-            return Tool.Results.PMAlignResults[num].GetPose().Rotation;
+            return Tool.Results.PMAlignResults[num].GetPose().Rotation * (180 / Math.PI);
         }
 
         public double TransY(int num)
@@ -335,7 +337,7 @@ namespace VISION.Cogs
 
             return Tool.Results.PMAlignResults[num].GetPose().Rotation;
         }
-        public Cognex.VisionPro.CogTransform2DLinear ResultPoint(int PatternNumber)
+        public CogTransform2DLinear ResultPoint(int PatternNumber)
         {
             if (Tool.Results == null)
             {
@@ -371,39 +373,39 @@ namespace VISION.Cogs
             }
             return HighestResultToolNumber;
         }
-        public void ResultDisplay(ref Cognex.VisionPro.Display.CogDisplay display, int PatternNumber)
+        public void ResultDisplay(ref CogDisplay display, int PatternNumber)
         {
             if (Tool.Results == null || Tool.Results.PMAlignResults.Count < 1)
             {
-                Cognex.VisionPro.CogRectangleAffine TrainRegion = (Cognex.VisionPro.CogRectangleAffine)Tool.SearchRegion;
-                TrainRegion.DragLineStyle = Cognex.VisionPro.CogGraphicLineStyleConstants.Solid;
-                TrainRegion.LineStyle = Cognex.VisionPro.CogGraphicLineStyleConstants.Solid;
-                TrainRegion.SelectedLineStyle = Cognex.VisionPro.CogGraphicLineStyleConstants.Solid;
-                TrainRegion.Color = Cognex.VisionPro.CogColorConstants.Red;
-                TrainRegion.DragColor = Cognex.VisionPro.CogColorConstants.Red;
-                TrainRegion.SelectedColor = Cognex.VisionPro.CogColorConstants.Red;
+                CogRectangleAffine TrainRegion = (CogRectangleAffine)Tool.SearchRegion;
+                TrainRegion.DragLineStyle = CogGraphicLineStyleConstants.Solid;
+                TrainRegion.LineStyle = CogGraphicLineStyleConstants.Solid;
+                TrainRegion.SelectedLineStyle = CogGraphicLineStyleConstants.Solid;
+                TrainRegion.Color = CogColorConstants.Red;
+                TrainRegion.DragColor = CogColorConstants.Red;
+                TrainRegion.SelectedColor = CogColorConstants.Red;
 
                 display.StaticGraphics.Add(TrainRegion, "");
             }
             else
             {
-                display.InteractiveGraphics.Add(Tool.Results.PMAlignResults[PatternNumber].CreateResultGraphics(Cognex.VisionPro.PMAlign.CogPMAlignResultGraphicConstants.All), null, false);
+                display.InteractiveGraphics.Add(Tool.Results.PMAlignResults[PatternNumber].CreateResultGraphics(CogPMAlignResultGraphicConstants.All), null, false);
             }
         }
-        public void ResultDisplay(Cognex.VisionPro.Display.CogDisplay display, Cognex.VisionPro.CogGraphicCollection Collection, int Number, int ToolNumber)
+        public void ResultDisplay(CogDisplay display, CogGraphicCollection Collection, int Number, int ToolNumber)
         {
             CogCreateGraphicLabelTool lb_Score = new CogCreateGraphicLabelTool();
             lb_Score.InputImage = display.Image;
             lb_Score.SourceSelector = CogCreateGraphicLabelSourceSelectorConstants.InputDouble;
             if (Tool.Results == null || Tool.Results.PMAlignResults.Count < 1)
             {
-                Cognex.VisionPro.CogRectangleAffine TrainRegion = (Cognex.VisionPro.CogRectangleAffine)Tool.SearchRegion;
-                TrainRegion.DragLineStyle = Cognex.VisionPro.CogGraphicLineStyleConstants.Solid;
-                TrainRegion.LineStyle = Cognex.VisionPro.CogGraphicLineStyleConstants.Solid;
-                TrainRegion.SelectedLineStyle = Cognex.VisionPro.CogGraphicLineStyleConstants.Solid;
-                TrainRegion.Color = Cognex.VisionPro.CogColorConstants.Red;
-                TrainRegion.DragColor = Cognex.VisionPro.CogColorConstants.Red;
-                TrainRegion.SelectedColor = Cognex.VisionPro.CogColorConstants.Red;
+                CogRectangleAffine TrainRegion = (CogRectangleAffine)Tool.SearchRegion;
+                TrainRegion.DragLineStyle = CogGraphicLineStyleConstants.Solid;
+                TrainRegion.LineStyle = CogGraphicLineStyleConstants.Solid;
+                TrainRegion.SelectedLineStyle = CogGraphicLineStyleConstants.Solid;
+                TrainRegion.Color = CogColorConstants.Red;
+                TrainRegion.DragColor = CogColorConstants.Red;
+                TrainRegion.SelectedColor = CogColorConstants.Red;
 
                 Collection.Add(TrainRegion);
             }
@@ -413,7 +415,7 @@ namespace VISION.Cogs
                 lb_Score.InputGraphicLabel.Y = Tool.Results.PMAlignResults[Number].GetPose().TranslationY;
                 lb_Score.InputDouble = ToolNumber;/*Convert.ToDouble((Tool.Results.PMAlignResults[Number].Score * 100).ToString("F2"));*/
                 lb_Score.Run();
-                Collection.Add(Tool.Results.PMAlignResults[Number].CreateResultGraphics(Cognex.VisionPro.PMAlign.CogPMAlignResultGraphicConstants.MatchRegion));
+                Collection.Add(Tool.Results.PMAlignResults[Number].CreateResultGraphics(CogPMAlignResultGraphicConstants.MatchRegion));
                 Collection.Add(lb_Score.GetOutputGraphicLabel());
             }
             //display.InteractiveGraphics.Add(Tool.Results.PMAlignResults[Number].CreateResultGraphics(Cognex.VisionPro.PMAlign.CogPMAlignResultGraphicConstants.MatchRegion), null, false);
@@ -423,7 +425,7 @@ namespace VISION.Cogs
         public void ToolSetup()
         {
             System.Windows.Forms.Form Window = new System.Windows.Forms.Form();
-            Cognex.VisionPro.PMAlign.CogPMAlignMultiEditV2 Edit = new Cognex.VisionPro.PMAlign.CogPMAlignMultiEditV2();
+            CogPMAlignMultiEditV2 Edit = new CogPMAlignMultiEditV2();
 
             Edit.Dock = System.Windows.Forms.DockStyle.Fill; // 화면 채움
             Edit.Subject = Tool; // 에디트에 툴 정보 입력.

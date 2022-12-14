@@ -368,9 +368,10 @@
             this.lb_Mode.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lb_Mode.Font = new System.Drawing.Font("맑은 고딕", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.lb_Mode.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.lb_Mode.Location = new System.Drawing.Point(1279, 1);
+            this.lb_Mode.Location = new System.Drawing.Point(1278, 3);
+            this.lb_Mode.Margin = new System.Windows.Forms.Padding(2);
             this.lb_Mode.Name = "lb_Mode";
-            this.lb_Mode.Size = new System.Drawing.Size(157, 75);
+            this.lb_Mode.Size = new System.Drawing.Size(159, 71);
             this.lb_Mode.TabIndex = 31;
             this.lb_Mode.Text = "AUTORUN";
             this.lb_Mode.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -381,9 +382,10 @@
             this.lb_CurruntModelName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.lb_CurruntModelName.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lb_CurruntModelName.Font = new System.Drawing.Font("맑은 고딕", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.lb_CurruntModelName.Location = new System.Drawing.Point(1443, 1);
+            this.lb_CurruntModelName.Location = new System.Drawing.Point(1442, 3);
+            this.lb_CurruntModelName.Margin = new System.Windows.Forms.Padding(2);
             this.lb_CurruntModelName.Name = "lb_CurruntModelName";
-            this.lb_CurruntModelName.Size = new System.Drawing.Size(157, 75);
+            this.lb_CurruntModelName.Size = new System.Drawing.Size(159, 71);
             this.lb_CurruntModelName.TabIndex = 1;
             this.lb_CurruntModelName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -435,9 +437,10 @@
             // 
             this.btn_Exit.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btn_Exit.Image = global::VISION.Properties.Resources.Close;
-            this.btn_Exit.Location = new System.Drawing.Point(1815, 4);
+            this.btn_Exit.Location = new System.Drawing.Point(1814, 3);
+            this.btn_Exit.Margin = new System.Windows.Forms.Padding(2);
             this.btn_Exit.Name = "btn_Exit";
-            this.btn_Exit.Size = new System.Drawing.Size(101, 69);
+            this.btn_Exit.Size = new System.Drawing.Size(103, 71);
             this.btn_Exit.TabIndex = 0;
             this.btn_Exit.UseVisualStyleBackColor = true;
             this.btn_Exit.Click += new System.EventHandler(this.btn_Exit_Click);
@@ -446,9 +449,10 @@
             // 
             this.btn_Stop.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btn_Stop.Image = global::VISION.Properties.Resources.Stop;
-            this.btn_Stop.Location = new System.Drawing.Point(1711, 4);
+            this.btn_Stop.Location = new System.Drawing.Point(1710, 3);
+            this.btn_Stop.Margin = new System.Windows.Forms.Padding(2);
             this.btn_Stop.Name = "btn_Stop";
-            this.btn_Stop.Size = new System.Drawing.Size(97, 69);
+            this.btn_Stop.Size = new System.Drawing.Size(99, 71);
             this.btn_Stop.TabIndex = 9;
             this.btn_Stop.UseVisualStyleBackColor = true;
             this.btn_Stop.Click += new System.EventHandler(this.btn_Stop_Click);
@@ -457,9 +461,10 @@
             // 
             this.btn_Status.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btn_Status.Image = global::VISION.Properties.Resources.Run;
-            this.btn_Status.Location = new System.Drawing.Point(1607, 4);
+            this.btn_Status.Location = new System.Drawing.Point(1606, 3);
+            this.btn_Status.Margin = new System.Windows.Forms.Padding(2);
             this.btn_Status.Name = "btn_Status";
-            this.btn_Status.Size = new System.Drawing.Size(97, 69);
+            this.btn_Status.Size = new System.Drawing.Size(99, 71);
             this.btn_Status.TabIndex = 5;
             this.btn_Status.UseVisualStyleBackColor = true;
             this.btn_Status.Click += new System.EventHandler(this.btn_Status_Click);
@@ -498,9 +503,10 @@
             this.lb_PLCStats.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lb_PLCStats.Font = new System.Drawing.Font("맑은 고딕", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.lb_PLCStats.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.lb_PLCStats.Location = new System.Drawing.Point(1115, 1);
+            this.lb_PLCStats.Location = new System.Drawing.Point(1114, 3);
+            this.lb_PLCStats.Margin = new System.Windows.Forms.Padding(2);
             this.lb_PLCStats.Name = "lb_PLCStats";
-            this.lb_PLCStats.Size = new System.Drawing.Size(157, 75);
+            this.lb_PLCStats.Size = new System.Drawing.Size(159, 71);
             this.lb_PLCStats.TabIndex = 38;
             this.lb_PLCStats.Text = "PLC";
             this.lb_PLCStats.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2513,11 +2519,13 @@
             // btn_Light
             // 
             this.btn_Light.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btn_Light.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btn_Light.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btn_Light.ForeColor = System.Drawing.Color.White;
-            this.btn_Light.Location = new System.Drawing.Point(392, 4);
+            this.btn_Light.Location = new System.Drawing.Point(390, 2);
+            this.btn_Light.Margin = new System.Windows.Forms.Padding(1);
             this.btn_Light.Name = "btn_Light";
-            this.btn_Light.Size = new System.Drawing.Size(93, 37);
+            this.btn_Light.Size = new System.Drawing.Size(97, 41);
             this.btn_Light.TabIndex = 33;
             this.btn_Light.Tag = "4";
             this.btn_Light.Text = "조명";
@@ -2570,9 +2578,10 @@
             this.btn_PC2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btn_PC2.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btn_PC2.ForeColor = System.Drawing.Color.Black;
-            this.btn_PC2.Location = new System.Drawing.Point(232, 4);
+            this.btn_PC2.Location = new System.Drawing.Point(230, 2);
+            this.btn_PC2.Margin = new System.Windows.Forms.Padding(1);
             this.btn_PC2.Name = "btn_PC2";
-            this.btn_PC2.Size = new System.Drawing.Size(109, 37);
+            this.btn_PC2.Size = new System.Drawing.Size(113, 41);
             this.btn_PC2.TabIndex = 34;
             this.btn_PC2.Tag = "2";
             this.btn_PC2.Text = "PC 2";
@@ -2585,9 +2594,10 @@
             this.btn_PC1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btn_PC1.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btn_PC1.ForeColor = System.Drawing.Color.Black;
-            this.btn_PC1.Location = new System.Drawing.Point(118, 4);
+            this.btn_PC1.Location = new System.Drawing.Point(116, 2);
+            this.btn_PC1.Margin = new System.Windows.Forms.Padding(1);
             this.btn_PC1.Name = "btn_PC1";
-            this.btn_PC1.Size = new System.Drawing.Size(107, 37);
+            this.btn_PC1.Size = new System.Drawing.Size(111, 41);
             this.btn_PC1.TabIndex = 33;
             this.btn_PC1.Tag = "1";
             this.btn_PC1.Text = "PC 1";
@@ -2601,9 +2611,10 @@
             this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label4.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.label4.Location = new System.Drawing.Point(4, 1);
+            this.label4.Location = new System.Drawing.Point(3, 3);
+            this.label4.Margin = new System.Windows.Forms.Padding(2);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(107, 43);
+            this.label4.Size = new System.Drawing.Size(109, 39);
             this.label4.TabIndex = 32;
             this.label4.Text = "PC선택";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
