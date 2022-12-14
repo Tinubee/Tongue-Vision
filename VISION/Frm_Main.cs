@@ -105,7 +105,7 @@ namespace VISION
         Encoding encode = Encoding.GetEncoding("utf-8");
 
         public bool PLCConnected = false; //PLC 연결상태
-
+        public int reToPLCReasultCount = 0;
 
         public Frm_Main()
         {
@@ -148,7 +148,6 @@ namespace VISION
                         btnConnect.Text = "해제하기";
                         Reader = new StreamReader(stream, encode);
                         Writer = new StreamWriter(stream);
-
                         timer_sandPLC.Start();
                         bk_Signal.RunWorkerAsync();
                     }
@@ -191,6 +190,55 @@ namespace VISION
             }
         }
 
+        private void MonoCameraShot()
+        {
+            cdyDisplay.Image = null;
+            cdyDisplay.InteractiveGraphics.Clear();
+            cdyDisplay.StaticGraphics.Clear();
+
+            snap1 = new Thread(new ThreadStart(SnapShot1));
+            snap1.Priority = ThreadPriority.Highest;
+            snap1.Start();
+
+            cdyDisplay3.Image = null;
+            cdyDisplay3.InteractiveGraphics.Clear();
+            cdyDisplay3.StaticGraphics.Clear();
+
+            snap3 = new Thread(new ThreadStart(SnapShot3));
+            snap3.Priority = ThreadPriority.Highest;
+            snap3.Start();
+        }
+
+        private void ColorCameraShot()
+        {
+            cdyDisplay2.Image = null;
+            cdyDisplay2.InteractiveGraphics.Clear();
+            cdyDisplay2.StaticGraphics.Clear();
+
+            snap2 = new Thread(new ThreadStart(SnapShot2));
+            snap2.Priority = ThreadPriority.Highest;
+            snap2.Start();
+
+            cdyDisplay4.Image = null;
+            cdyDisplay4.InteractiveGraphics.Clear();
+            cdyDisplay4.StaticGraphics.Clear();
+
+            snap4 = new Thread(new ThreadStart(SnapShot4));
+            snap4.Priority = ThreadPriority.Highest;
+            snap4.Start();
+        }
+
+        private void CameraShotToAlign()
+        {
+            cdyDisplay5.Image = null;
+            cdyDisplay5.InteractiveGraphics.Clear();
+            cdyDisplay5.StaticGraphics.Clear();
+
+            snap5 = new Thread(new ThreadStart(SnapShot5));
+            snap5.Priority = ThreadPriority.Highest;
+            snap5.Start();
+        }
+
         private void bk_Signal_DoWork(object sender, DoWorkEventArgs e)
         {
             try
@@ -208,83 +256,23 @@ namespace VISION
                         string ReceiveData = Encoding.ASCII.GetString(buffer);
                         ReceiveData = ReceiveData.Substring(0, 8);
 
-                        log.AddLogMessage(LogType.Infomation, 0, $"PLC -> PC : {ReceiveData}");
+                        log.AddLogMessage(LogType.Infomation, 0, $"PLC ➜ PC : {ReceiveData}");
                         string headerData = ReceiveData.Substring(0,4);
                         string tempData = ReceiveData.Substring(4, 4);
-                        if(headerData == "SKCM" || headerData == "SBCM")
+
+                        if (ReceiveData == "AUTOSTRT") // 1.자동검사 시작신호. (Ping확인 타이머 Off)
+                            timer_sandPLC.Stop();
+                        else if(headerData == "UCMP") // 2.상부 카메라 얼라인 작업.
                         {
-                            double sendNumber = Convert.ToDouble(tempData) + 1;
-                            string strSendData = $"{headerData}{sendNumber}";
-                            SendToPLC(strSendData);
+                            char checkNumber = tempData.FirstOrDefault();
+                            Glob.AligneMode = true;
+                            Glob.topAlignNumber = checkNumber;
+                            CameraShotToAlign();
                         }
-                        if(headerData == "RELT")
+                        else if(headerData == "UCAM") // 3.상부 카메라 검사 작업.
                         {
                             switch (tempData)
                             {
-                                case "1111":
-                                    SendToPLC("CAM1OK01");
-                                    break;
-                                case "2222":
-                                    SendToPLC("CAM2OK01");
-                                    break;
-                                case "3333":
-                                    SendToPLC("CAM3OK01");
-                                    break;
-                                case "4444":
-                                    SendToPLC("CAM4OK01");
-                                    break;
-                            }
-                        }
-                        if(headerData == "UCMP" || headerData =="UCAM")
-                        {
-                            switch (tempData)
-                            {
-                                //얼라인 작업추가하기. ( 멀티패턴 0번각도로 얼라인 값 보내기 )
-                                case "1111":
-                                    // 1. 이미지 촬영 ( 각도 추출을 위한 이미지 촬영 )
-                                    Glob.AligneMode = true;
-                                    Glob.topAlignNumber = "1";
-                                    cdyDisplay5.Image = null;
-                                    cdyDisplay5.InteractiveGraphics.Clear();
-                                    cdyDisplay5.StaticGraphics.Clear();
-
-                                    snap5 = new Thread(new ThreadStart(SnapShot5));
-                                    snap5.Priority = ThreadPriority.Highest;
-                                    snap5.Start();
-                                    break;
-                                case "2222":
-                                    Glob.AligneMode = true;
-                                    Glob.topAlignNumber = "2";
-                                    cdyDisplay5.Image = null;
-                                    cdyDisplay5.InteractiveGraphics.Clear();
-                                    cdyDisplay5.StaticGraphics.Clear();
-
-                                    snap5 = new Thread(new ThreadStart(SnapShot5));
-                                    snap5.Priority = ThreadPriority.Highest;
-                                    snap5.Start();
-                                    break;
-                                case "3333":
-                                    Glob.AligneMode = true;
-                                    Glob.topAlignNumber = "3";
-                                    cdyDisplay5.Image = null;
-                                    cdyDisplay5.InteractiveGraphics.Clear();
-                                    cdyDisplay5.StaticGraphics.Clear();
-
-                                    snap5 = new Thread(new ThreadStart(SnapShot5));
-                                    snap5.Priority = ThreadPriority.Highest;
-                                    snap5.Start();
-                                    break;
-                                case "4444":
-                                    Glob.AligneMode = true;
-                                    Glob.topAlignNumber = "4";
-                                    cdyDisplay5.Image = null;
-                                    cdyDisplay5.InteractiveGraphics.Clear();
-                                    cdyDisplay5.StaticGraphics.Clear();
-
-                                    snap5 = new Thread(new ThreadStart(SnapShot5));
-                                    snap5.Priority = ThreadPriority.Highest;
-                                    snap5.Start();
-                                    break;
                                 case "0004":
                                     SendToPLC("UC4P0000");
                                     break;
@@ -297,10 +285,47 @@ namespace VISION
                                 case "0001":
                                     SendToPLC("UC1P0000");
                                     break;
-
                             }
                         }
-                       
+                        else if(headerData == "SKCM" || headerData == "SBCM") // 4.컬러 카메라 및 흑백 카메라 촬영.
+                        {
+                            if (headerData == "SKCM")
+                            {
+                                ColorCameraShot();
+                            }
+
+                            else if (headerData == "SBCM")
+                            {
+                                MonoCameraShot();
+                            }
+
+                            double sendNumber = Convert.ToDouble(tempData) + 1;
+                            string strSendData = $"{headerData}{sendNumber}";
+                            SendToPLC(strSendData);
+                        }
+                        else if(headerData == "JUDG") // 6.판정 전송. 
+                        {
+                            //판정 신호 3번 들어옴. -> 1번만 전송하도록 수정해야됨.
+                            //JUDG[a]00[b] a = 번호, b = 판정값 (Error 1~6)
+                            switch (tempData)
+                            {
+                                case "1111":
+                                    SendToPLC("JUDG1000");
+                                    break;
+                                case "2222":
+                                    SendToPLC("JUDG2000");
+                                    break;
+                                case "3333":
+                                    SendToPLC("JUDG3000");
+                                    break;
+                                case "4444":
+                                    SendToPLC("JUDG4000");
+                                    break;
+                            }
+                        }
+                        else if (ReceiveData == "AUTOEEND") // 7.자동검사 종료신호. (Ping확인 타이머 On)
+                            timer_sandPLC.Start();
+
                     }
                 }
             }
@@ -334,11 +359,6 @@ namespace VISION
             Glob.DataSaveRoot = setting.ReadData("SYSTEM", "Data Save Root"); //데이터 저장 경로
             log.InitializeLog($"{Glob.DataSaveRoot}\\Log");
             log.OnLogEvent += Log_OnLogEvent;
-            //CameraSerialNumber[0] = "23655508" //CAM3 시리얼번호 ※고정이니 변경하지 말것※
-            //CameraSerialNumber[1] = "23668362" //CAM4 시리얼번호 ※고정이니 변경하지 말것※
-            //CameraSerialNumber[2] = "23668377" //CAM5 시리얼번호 ※고정이니 변경하지 말것※
-            //CameraSerialNumber[3] = "23443316" //CAM6 시리얼번호 ※고정이니 변경하지 말것※
-            //CameraSerialNumber[4] = "23668367" //CAM7 시리얼번호 ※고정이니 변경하지 말것※
         }
 
         private void Frm_Main_Load(object sender, EventArgs e)
@@ -872,7 +892,7 @@ namespace VISION
             }
             DistoryCamera();
             UpDateCams();
-            log.AddLogMessage(LogType.Error, 0, "CAM3 Connection Lost");
+            log.AddLogMessage(LogType.Error, 0, "CAM1 Connection Lost");
         }
         private void onCameraOpened(object sender, EventArgs e)
         {
@@ -881,7 +901,7 @@ namespace VISION
                 BeginInvoke(new EventHandler<EventArgs>(onCameraOpened), sender, e);
                 return;
             }
-            log.AddLogMessage(LogType.Infomation, 0, "CAM3 Open");
+            log.AddLogMessage(LogType.Infomation, 0, "CAM1 Open");
             //this.btnAcqire.Enabled = true;
             //this.btnLive.Enabled = true;
             //this.button1.Enabled = false;
@@ -894,7 +914,7 @@ namespace VISION
                 BeginInvoke(new EventHandler<EventArgs>(onCameraCloseed), sender, e);
                 return;
             }
-            log.AddLogMessage(LogType.Error, 0, "CAM3 Close");
+            log.AddLogMessage(LogType.Error, 0, "CAM1 Close");
             //StatsCheck("CAM1 Close", true);
             //this.btnAcqire.Enabled = false;
             //this.btnLive.Enabled = false;
@@ -908,7 +928,7 @@ namespace VISION
                 BeginInvoke(new EventHandler<EventArgs>(onGrabStarted), sender, e);
                 return;
             }
-            log.AddLogMessage(LogType.Infomation, 0, "CAM3 GrabStart");
+            log.AddLogMessage(LogType.Infomation, 0, "CAM1 GrabStart");
         }
 
         private void onImageGrabbed(object sender, Basler.Pylon.ImageGrabbedEventArgs e)
@@ -1024,7 +1044,7 @@ namespace VISION
                 BeginInvoke(new EventHandler<Basler.Pylon.GrabStopEventArgs>(onGrabStopped), sender, e);
                 return;
             }
-            log.AddLogMessage(LogType.Infomation, 0, "CAM3 GrabStop");
+            log.AddLogMessage(LogType.Infomation, 0, "CAM1 GrabStop");
             //this.Stopwatch.Reset();
             //this.btnAcqire.Enabled = true;
             //this.btnLive.Enabled = true;
@@ -1042,7 +1062,7 @@ namespace VISION
             }
             DistoryCamera();
             UpDateCams();
-            log.AddLogMessage(LogType.Infomation, 0, "CAM4 Connection Lost");
+            log.AddLogMessage(LogType.Infomation, 0, "CAM2 Connection Lost");
         }
 
         private void onCameraOpened2(object sender, EventArgs e)
@@ -1052,7 +1072,7 @@ namespace VISION
                 BeginInvoke(new EventHandler<EventArgs>(onCameraOpened2), sender, e);
                 return;
             }
-            log.AddLogMessage(LogType.Infomation, 0, "CAM4 Open");
+            log.AddLogMessage(LogType.Infomation, 0, "CAM2 Open");
             //this.btnAcqire.Enabled = true;
             //this.btnLive.Enabled = true;
             //this.button1.Enabled = false;
@@ -1065,7 +1085,7 @@ namespace VISION
                 BeginInvoke(new EventHandler<EventArgs>(onCameraCloseed2), sender, e);
                 return;
             }
-            log.AddLogMessage(LogType.Error, 0, "CAM4 Close");
+            log.AddLogMessage(LogType.Error, 0, "CAM2 Close");
             //this.btnAcqire.Enabled = false;
             //this.btnLive.Enabled = false;
             //this.button1.Enabled = false;
@@ -1078,7 +1098,7 @@ namespace VISION
                 BeginInvoke(new EventHandler<EventArgs>(onGrabStarted2), sender, e);
                 return;
             }
-            log.AddLogMessage(LogType.Infomation, 0, "CAM4 GrabStart");
+            log.AddLogMessage(LogType.Infomation, 0, "CAM2 GrabStart");
             //this.Stopwatch.Reset();
 
             //this.btnAcqire.Enabled = false;
@@ -1107,8 +1127,8 @@ namespace VISION
                 // 이미지를 사용할 수 있도록 비트맵 타입으로 수정.
                 if (ImageResult.IsValid)
                 {
-                    Bitmap Image = new Bitmap(ImageResult.Width, ImageResult.Height, System.Drawing.Imaging.PixelFormat.Format32bppRgb);
-                    BitmapData Imagedata = Image.LockBits(new Rectangle(0, 0, Image.Width, Image.Height), System.Drawing.Imaging.ImageLockMode.ReadWrite, Image.PixelFormat);
+                    Bitmap Image = new Bitmap(ImageResult.Width, ImageResult.Height, PixelFormat.Format32bppRgb);
+                    BitmapData Imagedata = Image.LockBits(new Rectangle(0, 0, Image.Width, Image.Height), ImageLockMode.ReadWrite, Image.PixelFormat);
                     // 이미지 색상 형식 지정
                     ImageConverter.OutputPixelFormat = Basler.Pylon.PixelType.BGRA8packed;
                     IntPtr ptrbmp = Imagedata.Scan0;
@@ -1191,7 +1211,7 @@ namespace VISION
                 BeginInvoke(new EventHandler<Basler.Pylon.GrabStopEventArgs>(onGrabStopped2), sender, e);
                 return;
             }
-            log.AddLogMessage(LogType.Infomation, 0, "CAM4 GrabStop");
+            log.AddLogMessage(LogType.Infomation, 0, "CAM2 GrabStop");
             //this.Stopwatch.Reset();
             //this.btnAcqire.Enabled = true;
             //this.btnLive.Enabled = true;
@@ -1209,7 +1229,7 @@ namespace VISION
             }
             DistoryCamera();
             UpDateCams();
-            log.AddLogMessage(LogType.Error, 0, "CAM5 Connection Lost");
+            log.AddLogMessage(LogType.Error, 0, "CAM3 Connection Lost");
         }
 
         private void onCameraOpened3(object sender, EventArgs e)
@@ -1219,7 +1239,7 @@ namespace VISION
                 BeginInvoke(new EventHandler<EventArgs>(onCameraOpened3), sender, e);
                 return;
             }
-            log.AddLogMessage(LogType.Infomation, 0, "CAM5 Open");
+            log.AddLogMessage(LogType.Infomation, 0, "CAM3 Open");
             //this.btnAcqire.Enabled = true;
             //this.btnLive.Enabled = true;
             //this.button1.Enabled = false;
@@ -1232,7 +1252,7 @@ namespace VISION
                 BeginInvoke(new EventHandler<EventArgs>(onCameraCloseed3), sender, e);
                 return;
             }
-            log.AddLogMessage(LogType.Error, 0, "CAM5 Close");
+            log.AddLogMessage(LogType.Error, 0, "CAM3 Close");
             //this.btnAcqire.Enabled = false;
             //this.btnLive.Enabled = false;
             //this.button1.Enabled = false;
@@ -1245,7 +1265,7 @@ namespace VISION
                 BeginInvoke(new EventHandler<EventArgs>(onGrabStarted3), sender, e);
                 return;
             }
-            log.AddLogMessage(LogType.Infomation, 0, "CAM5 GrabStart");
+            log.AddLogMessage(LogType.Infomation, 0, "CAM3 GrabStart");
             //this.Stopwatch.Reset();
 
             //this.btnAcqire.Enabled = false;
@@ -1272,7 +1292,7 @@ namespace VISION
                 // 이미지를 사용할 수 있도록 비트맵 타입으로 수정.
                 if (ImageResult.IsValid)
                 {
-                    Bitmap Image = new Bitmap(ImageResult.Width, ImageResult.Height, System.Drawing.Imaging.PixelFormat.Format32bppRgb);
+                    Bitmap Image = new Bitmap(ImageResult.Width, ImageResult.Height, PixelFormat.Format32bppRgb);
                     BitmapData Imagedata = Image.LockBits(new Rectangle(0, 0, Image.Width, Image.Height), ImageLockMode.ReadWrite, Image.PixelFormat);
                     // 이미지 색상 형식 지정
                     ImageConverter.OutputPixelFormat = Basler.Pylon.PixelType.BGRA8packed;
@@ -1353,7 +1373,7 @@ namespace VISION
                 BeginInvoke(new EventHandler<Basler.Pylon.GrabStopEventArgs>(onGrabStopped3), sender, e);
                 return;
             }
-            log.AddLogMessage(LogType.Infomation, 0, "CAM5 Stop");
+            log.AddLogMessage(LogType.Infomation, 0, "CAM3 Stop");
             //this.Stopwatch.Reset();
             //this.btnAcqire.Enabled = true;
             //this.btnLive.Enabled = true;
@@ -1371,7 +1391,7 @@ namespace VISION
             }
             DistoryCamera();
             UpDateCams();
-            log.AddLogMessage(LogType.Error, 0, "CAM6 Connection Lost");
+            log.AddLogMessage(LogType.Error, 0, "CAM4 Connection Lost");
         }
 
         private void onCameraOpened4(object sender, EventArgs e)
@@ -1381,7 +1401,7 @@ namespace VISION
                 BeginInvoke(new EventHandler<EventArgs>(onCameraOpened4), sender, e);
                 return;
             }
-            log.AddLogMessage(LogType.Infomation, 0, "CAM6 Open");
+            log.AddLogMessage(LogType.Infomation, 0, "CAM4 Open");
             //this.btnAcqire.Enabled = true;
             //this.btnLive.Enabled = true;
             //this.button1.Enabled = false;
@@ -1394,7 +1414,7 @@ namespace VISION
                 BeginInvoke(new EventHandler<EventArgs>(onCameraCloseed4), sender, e);
                 return;
             }
-            log.AddLogMessage(LogType.Error, 0, "CAM6 Close");
+            log.AddLogMessage(LogType.Error, 0, "CAM4 Close");
             //this.btnAcqire.Enabled = false;
             //this.btnLive.Enabled = false;
             //this.button1.Enabled = false;
@@ -1407,7 +1427,7 @@ namespace VISION
                 BeginInvoke(new EventHandler<EventArgs>(onGrabStarted4), sender, e);
                 return;
             }
-            log.AddLogMessage(LogType.Infomation, 0, "CAM6 GrabStart");
+            log.AddLogMessage(LogType.Infomation, 0, "CAM4 GrabStart");
             //this.Stopwatch.Reset();
 
             //this.btnAcqire.Enabled = false;
@@ -1433,7 +1453,7 @@ namespace VISION
                 // 이미지를 사용할 수 있도록 비트맵 타입으로 수정.
                 if (ImageResult.IsValid)
                 {
-                    Bitmap Image = new Bitmap(ImageResult.Width, ImageResult.Height, System.Drawing.Imaging.PixelFormat.Format32bppRgb);
+                    Bitmap Image = new Bitmap(ImageResult.Width, ImageResult.Height, PixelFormat.Format32bppRgb);
                     BitmapData Imagedata = Image.LockBits(new Rectangle(0, 0, Image.Width, Image.Height), ImageLockMode.ReadWrite, Image.PixelFormat);
                     // 이미지 색상 형식 지정
                     ImageConverter.OutputPixelFormat = Basler.Pylon.PixelType.BGRA8packed;
@@ -1453,7 +1473,6 @@ namespace VISION
                             frm_toolsetup.cdyDisplay.Image = Monoimage[3];
                         else
                             frm_toolsetup.cdyDisplay.Image = Colorimage[3];
-
                         //StopLive(3);
                     }
                     else
@@ -1463,15 +1482,6 @@ namespace VISION
                             cdyDisplay4.Image = Monoimage[3];
                         else
                             cdyDisplay4.Image = Colorimage[3];
-
-                        //INIControl CamSet = new INIControl($"{Glob.MODELROOT}\\{Glob.RunnModel.Modelname()}\\CamSet.ini");
-                        //if (Glob.SelectPCNumber == 1)
-                        //{
-                        //    Glob.LightCH[0, 0] = 50;
-                        //    LightValueChange(Glob.LightCH[0, 0], LightControl[0]);
-                        //}
-                        //Glob.LightCH[1, 2] = Convert.ToInt32(CamSet.ReadData($"LightControl{Glob.LightControlNumber}", "CH3"));
-                        //LightValueChange(Glob.LightCH[1, 2], LightControl[1]);
 
                         if (Inspect_Cam3(cdyDisplay4) == true)
                         {
@@ -1484,16 +1494,6 @@ namespace VISION
                                 if (Glob.OKImageSave)
                                     ImageSave4(Result, 6, cdyDisplay4);
                             });
-                            if (Glob.SelectPCNumber == 1)
-                            {
-                                cdyDisplay5.Image = null;
-                                cdyDisplay5.InteractiveGraphics.Clear();
-                                cdyDisplay5.StaticGraphics.Clear();
-
-                                snap5 = new Thread(new ThreadStart(SnapShot5));
-                                snap5.Priority = ThreadPriority.Highest;
-                                snap5.Start();
-                            }
                         }
                         else
                         {
@@ -1506,16 +1506,6 @@ namespace VISION
                                 if (Glob.NGImageSave)
                                     ImageSave4(Result, 6, cdyDisplay4);
                             });
-                            if (Glob.SelectPCNumber == 1)
-                            {
-                                cdyDisplay5.Image = null;
-                                cdyDisplay5.InteractiveGraphics.Clear();
-                                cdyDisplay5.StaticGraphics.Clear();
-
-                                snap5 = new Thread(new ThreadStart(SnapShot5));
-                                snap5.Priority = ThreadPriority.Highest;
-                                snap5.Start();
-                            }
                         }
                         //ImageSave4(Result, 6, cdyDisplay4);
                         InspectTime[3].Stop();
@@ -1548,7 +1538,7 @@ namespace VISION
                 BeginInvoke(new EventHandler<Basler.Pylon.GrabStopEventArgs>(onGrabStopped4), sender, e);
                 return;
             }
-            log.AddLogMessage(LogType.Infomation, 0, "CAM6 GrabStop");
+            log.AddLogMessage(LogType.Infomation, 0, "CAM4 GrabStop");
             //this.Stopwatch.Reset();
             //this.btnAcqire.Enabled = true;
             //this.btnLive.Enabled = true;
@@ -1566,7 +1556,7 @@ namespace VISION
             }
             DistoryCamera();
             UpDateCams();
-            log.AddLogMessage(LogType.Error, 0, "CAM7 Connection Lost");
+            log.AddLogMessage(LogType.Error, 0, "CAM5 Connection Lost");
         }
 
         private void onCameraOpened5(object sender, EventArgs e)
@@ -1576,7 +1566,7 @@ namespace VISION
                 BeginInvoke(new EventHandler<EventArgs>(onCameraOpened5), sender, e);
                 return;
             }
-            log.AddLogMessage(LogType.Infomation, 0, "CAM7 Open");
+            log.AddLogMessage(LogType.Infomation, 0, "CAM5 Open");
             //this.btnAcqire.Enabled = true;
             //this.btnLive.Enabled = true;
             //this.button1.Enabled = false;
@@ -1589,7 +1579,7 @@ namespace VISION
                 BeginInvoke(new EventHandler<EventArgs>(onCameraCloseed5), sender, e);
                 return;
             }
-            log.AddLogMessage(LogType.Error, 0, "CAM7 Close");
+            log.AddLogMessage(LogType.Error, 0, "CAM5 Close");
             //this.btnAcqire.Enabled = false;
             //this.btnLive.Enabled = false;
             //this.button1.Enabled = false;
@@ -1602,7 +1592,7 @@ namespace VISION
                 BeginInvoke(new EventHandler<EventArgs>(onGrabStarted5), sender, e);
                 return;
             }
-            log.AddLogMessage(LogType.Infomation, 0, "CAM7 GrabStart");
+            log.AddLogMessage(LogType.Infomation, 0, "CAM5 GrabStart");
             //this.Stopwatch.Reset();
 
             //this.btnAcqire.Enabled = false;
@@ -1667,12 +1657,13 @@ namespace VISION
                         if (Glob.AligneMode)
                         {
                             //각도 추출하는 함수 추가.
-                            if (TempMulti[4, 0].Run((CogImage8Grey)cdyDisplay5.Image))
-                            {
-                                double topAngle = TempMulti[4, 0].PatternAngle(TempMulti[4, 0].HighestResultToolNumber());
-                                string strSendPLC = $"UC{Glob.topAlignNumber}P{topAngle.ToString("F4")}";
-                                SendToPLC(strSendPLC);
-                            }
+                            //if (TempMulti[4, 0].Run((CogImage8Grey)cdyDisplay5.Image))
+                            //{
+                            //      double topAngle = TempMulti[4, 0].PatternAngle(TempMulti[4, 0].HighestResultToolNumber());
+                            //      string strSendPLC = $"UC{Glob.topAlignNumber}P{topAngle.ToString("F4")}";
+                                    string strSendPLC = $"UC{Glob.topAlignNumber}P0000"; //TEST용
+                                    SendToPLC(strSendPLC);
+                            //}
                             //Aligin Mode 초기화.
                             Glob.AligneMode = false;
                         }
@@ -1749,7 +1740,7 @@ namespace VISION
                 BeginInvoke(new EventHandler<Basler.Pylon.GrabStopEventArgs>(onGrabStopped5), sender, e);
                 return;
             }
-            log.AddLogMessage(LogType.Infomation, 0, "CAM7 GrabStop");
+            log.AddLogMessage(LogType.Infomation, 0, "CAM5 GrabStop");
             //this.Stopwatch.Reset();
             //this.btnAcqire.Enabled = true;
             //this.btnLive.Enabled = true;
@@ -2878,11 +2869,6 @@ namespace VISION
         private void lb_Cam1Stats_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
-            lb_Cam1Stats.BackColor = Color.Lime;
-            lb_Cam2Stats.BackColor = Color.Lime;
-            lb_Cam3Stats.BackColor = Color.Lime;
-            lb_Cam4Stats.BackColor = Color.Lime;
-            lb_Cam5Stats.BackColor = Color.Lime;
             if (ofd.ShowDialog() == DialogResult.OK)
             {
                 string type = Path.GetExtension(ofd.FileName);
@@ -3142,7 +3128,7 @@ namespace VISION
 
                 Writer.WriteLine(signal);
                 Writer.Flush();
-                log.AddLogMessage(LogType.Infomation, 0, $"PC -> PLC : {signal}");
+                log.AddLogMessage(LogType.Infomation, 0, $"PC ➜ PLC : {signal}");
             }
             catch (Exception ee)
             {
@@ -3154,11 +3140,7 @@ namespace VISION
         {
             try
             {
-                if (AutoRun)
-                {
-                    Writer.WriteLine("PingPing");
-                    Writer.Flush();
-                }
+                SendToPLC("PingPing");
             }
             catch(Exception ee)
             {
@@ -3186,6 +3168,11 @@ namespace VISION
                 SendToPLC($"{btnName}OK01");
             else
                 SendToPLC($"{btnName}ER01");
+        }
+
+        private void lb_CurruntModelName_Click(object sender, EventArgs e)
+        {
+
         }
     }
 
