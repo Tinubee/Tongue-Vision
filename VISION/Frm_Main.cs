@@ -206,6 +206,7 @@ namespace VISION
 
                         stream.Read(buffer, 0, buffer.Length);
                         string ReceiveData = Encoding.ASCII.GetString(buffer);
+                        ReceiveData = ReceiveData.Substring(0, 8);
  
                         log.AddLogMessage(LogType.Infomation, 0, $"PLC -> PC : {ReceiveData}");
                         string headerData = ReceiveData.Substring(0,4);
@@ -1668,8 +1669,8 @@ namespace VISION
                             //각도 추출하는 함수 추가.
                             if (TempMulti[4, 0].Run((CogImage8Grey)cdyDisplay5.Image))
                             {
-                                double topAngle = TempMulti[4, 0].PatternAngle(TempMulti[4, 0].HighestResultToolNumber());
-                                string strSendPLC = $"UC{Glob.topAlignNumber}P{topAngle.ToString("D4")}";
+                                double topAngle = TempMulti[4, 0].PatternAngle(TempMulti[4, 0].HighestResultToolNumber())*(180/Math.PI);
+                                string strSendPLC = $"UC{Glob.topAlignNumber}P{topAngle.ToString("F4")}";
                                 SendToPLC(strSendPLC);
                             }
                             //Aligin Mode 초기화.
@@ -3133,9 +3134,15 @@ namespace VISION
         {
             try
             {
-                log.AddLogMessage(LogType.Infomation, 0, $"PC -> PLC : {signal}");
+                if (Writer == null)
+                {
+                    log.AddLogMessage(LogType.Error, 0, $"PLC Send Error : Check Connection");
+                    return;
+                }
+
                 Writer.WriteLine(signal);
                 Writer.Flush();
+                log.AddLogMessage(LogType.Infomation, 0, $"PC -> PLC : {signal}");
             }
             catch (Exception ee)
             {
@@ -3147,8 +3154,11 @@ namespace VISION
         {
             try
             {
-                Writer.WriteLine("PingPing");
-                Writer.Flush();
+                if (AutoRun)
+                {
+                    Writer.WriteLine("PingPing");
+                    Writer.Flush();
+                }
             }
             catch(Exception ee)
             {
@@ -3165,6 +3175,18 @@ namespace VISION
         private void button2_Click(object sender, EventArgs e)
         {
             timer_sandPLC.Start();
+        }
+
+        private void OutPutSignal(object sender, EventArgs e)
+        {
+            int jobNo = Convert.ToInt16((sender as Button).Tag);
+            string btnName = Convert.ToString((sender as Button).Text);
+            btnName = btnName.Substring(0, 4);
+            //짝수 = OK , 홀수 = NG
+            if(jobNo%2 == 0)
+                SendToPLC($"{btnName}OK01");
+            else
+                SendToPLC($"{btnName}ER01");
         }
     }
 

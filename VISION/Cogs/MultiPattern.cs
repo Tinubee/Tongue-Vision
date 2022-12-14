@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Cognex.VisionPro.PMAlign;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -228,6 +229,37 @@ namespace VISION.Cogs
         {
             Tool.RunParams.PMAlignRunParams.AcceptThreshold = threshold;
         }
+
+        public void AngleMode(CogPMAlignZoneConstants mode)
+        {
+            Tool.RunParams.PMAlignRunParams.ZoneAngle.Configuration = mode;
+        }
+
+        public CogPMAlignZoneConstants AngleMode()
+        {
+            return Tool.RunParams.PMAlignRunParams.ZoneAngle.Configuration;
+        }
+
+        public double AngleLow()
+        {
+            return Tool.RunParams.PMAlignRunParams.ZoneAngle.Low * (180 / Math.PI);
+        }
+
+        public double AngleHigh()
+        {
+            return Tool.RunParams.PMAlignRunParams.ZoneAngle.High * (180 / Math.PI);
+        }
+
+        public void AngleLow(double AngleLowValue)
+        {
+            Tool.RunParams.PMAlignRunParams.ZoneAngle.Low = AngleLowValue;
+        }
+
+        public void AngleHigh(double AngleHighValue)
+        {
+            Tool.RunParams.PMAlignRunParams.ZoneAngle.High = AngleHighValue;
+        }
+
         public double ResultScore(int i)
         {
             if (Tool.Results == null)

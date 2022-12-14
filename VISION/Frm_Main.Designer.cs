@@ -1254,9 +1254,10 @@
             this.btn_Output13.Name = "btn_Output13";
             this.btn_Output13.Size = new System.Drawing.Size(179, 25);
             this.btn_Output13.TabIndex = 48;
-            this.btn_Output13.Tag = "";
+            this.btn_Output13.Tag = "9";
             this.btn_Output13.Text = "CAM5 NG";
             this.btn_Output13.UseVisualStyleBackColor = true;
+            this.btn_Output13.Click += new System.EventHandler(this.OutPutSignal);
             // 
             // btn_Output5
             // 
@@ -1277,9 +1278,10 @@
             this.btn_Output12.Name = "btn_Output12";
             this.btn_Output12.Size = new System.Drawing.Size(179, 25);
             this.btn_Output12.TabIndex = 47;
-            this.btn_Output12.Tag = "";
+            this.btn_Output12.Tag = "7";
             this.btn_Output12.Text = "CAM4 NG";
             this.btn_Output12.UseVisualStyleBackColor = true;
+            this.btn_Output12.Click += new System.EventHandler(this.OutPutSignal);
             // 
             // btn_Output4
             // 
@@ -1289,9 +1291,10 @@
             this.btn_Output4.Name = "btn_Output4";
             this.btn_Output4.Size = new System.Drawing.Size(178, 25);
             this.btn_Output4.TabIndex = 39;
-            this.btn_Output4.Tag = "";
+            this.btn_Output4.Tag = "8";
             this.btn_Output4.Text = "CAM5 OK";
             this.btn_Output4.UseVisualStyleBackColor = true;
+            this.btn_Output4.Click += new System.EventHandler(this.OutPutSignal);
             // 
             // btn_Output0
             // 
@@ -1301,9 +1304,10 @@
             this.btn_Output0.Name = "btn_Output0";
             this.btn_Output0.Size = new System.Drawing.Size(178, 25);
             this.btn_Output0.TabIndex = 35;
-            this.btn_Output0.Tag = "";
+            this.btn_Output0.Tag = "0";
             this.btn_Output0.Text = "CAM1 OK";
             this.btn_Output0.UseVisualStyleBackColor = true;
+            this.btn_Output0.Click += new System.EventHandler(this.OutPutSignal);
             // 
             // btn_Output3
             // 
@@ -1313,9 +1317,10 @@
             this.btn_Output3.Name = "btn_Output3";
             this.btn_Output3.Size = new System.Drawing.Size(178, 25);
             this.btn_Output3.TabIndex = 38;
-            this.btn_Output3.Tag = "";
+            this.btn_Output3.Tag = "6";
             this.btn_Output3.Text = "CAM4 OK";
             this.btn_Output3.UseVisualStyleBackColor = true;
+            this.btn_Output3.Click += new System.EventHandler(this.OutPutSignal);
             // 
             // btn_Output1
             // 
@@ -1325,9 +1330,10 @@
             this.btn_Output1.Name = "btn_Output1";
             this.btn_Output1.Size = new System.Drawing.Size(178, 25);
             this.btn_Output1.TabIndex = 36;
-            this.btn_Output1.Tag = "";
+            this.btn_Output1.Tag = "2";
             this.btn_Output1.Text = "CAM2 OK";
             this.btn_Output1.UseVisualStyleBackColor = true;
+            this.btn_Output1.Click += new System.EventHandler(this.OutPutSignal);
             // 
             // btn_Output2
             // 
@@ -1337,9 +1343,10 @@
             this.btn_Output2.Name = "btn_Output2";
             this.btn_Output2.Size = new System.Drawing.Size(178, 25);
             this.btn_Output2.TabIndex = 37;
-            this.btn_Output2.Tag = "";
+            this.btn_Output2.Tag = "4";
             this.btn_Output2.Text = "CAM3 OK";
             this.btn_Output2.UseVisualStyleBackColor = true;
+            this.btn_Output2.Click += new System.EventHandler(this.OutPutSignal);
             // 
             // btn_Output11
             // 
@@ -1349,9 +1356,10 @@
             this.btn_Output11.Name = "btn_Output11";
             this.btn_Output11.Size = new System.Drawing.Size(179, 25);
             this.btn_Output11.TabIndex = 46;
-            this.btn_Output11.Tag = "";
+            this.btn_Output11.Tag = "5";
             this.btn_Output11.Text = "CAM3 NG";
             this.btn_Output11.UseVisualStyleBackColor = true;
+            this.btn_Output11.Click += new System.EventHandler(this.OutPutSignal);
             // 
             // btn_Output10
             // 
@@ -1361,9 +1369,10 @@
             this.btn_Output10.Name = "btn_Output10";
             this.btn_Output10.Size = new System.Drawing.Size(179, 25);
             this.btn_Output10.TabIndex = 45;
-            this.btn_Output10.Tag = "";
+            this.btn_Output10.Tag = "3";
             this.btn_Output10.Text = "CAM2 NG";
             this.btn_Output10.UseVisualStyleBackColor = true;
+            this.btn_Output10.Click += new System.EventHandler(this.OutPutSignal);
             // 
             // btn_Output9
             // 
@@ -1373,9 +1382,10 @@
             this.btn_Output9.Name = "btn_Output9";
             this.btn_Output9.Size = new System.Drawing.Size(179, 25);
             this.btn_Output9.TabIndex = 44;
-            this.btn_Output9.Tag = "9";
+            this.btn_Output9.Tag = "1";
             this.btn_Output9.Text = "CAM1 NG";
             this.btn_Output9.UseVisualStyleBackColor = true;
+            this.btn_Output9.Click += new System.EventHandler(this.OutPutSignal);
             // 
             // btn_Output8
             // 

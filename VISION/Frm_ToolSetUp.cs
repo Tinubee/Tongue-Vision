@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using Cognex.VisionPro;
+using Cognex.VisionPro.PMAlign;
 using System.Threading;
 using System.Diagnostics;
 using Cognex.VisionPro.ImageFile;
@@ -904,9 +905,33 @@ namespace VISION
             lb_FindPatternCount.Text = $"찾은 패턴 수 : {TempMulti[Glob.CamNumber, (int)num_MultiPatternToolNumber.Value].ResultCount()}개";
             num_TrainImageNumber.Maximum = TempMulti[Glob.CamNumber, Toolnumber].PatternCount() - 1;
             num_TrainImageNumber.Minimum = 0;
+            MultiPatternAnlgeModeChange(Toolnumber);
             MultiPatternEnableChange(Toolnumber);
             Dataset = false;
         }
+
+        private void MultiPatternAnlgeModeChange(int toolnumber)
+        {
+            if (TempMulti[Glob.CamNumber, toolnumber].AngleMode() == CogPMAlignZoneConstants.Nominal)
+            {
+                cb_AngleMode.Checked = false;
+                num_AngleHigh.Enabled = false;
+                num_AngleLow.Enabled = false;
+            }
+            else
+            { 
+                cb_AngleMode.Checked = true;
+                num_AngleHigh.Enabled = true;
+                num_AngleLow.Enabled = true;
+            }
+
+            cb_AngleMode.Text = cb_AngleMode.Checked == true ? "USE" : "UNUSED";
+            cb_AngleMode.ForeColor = cb_AngleMode.Checked == true ? Color.Lime : Color.Red;
+
+            num_AngleHigh.Value = (decimal)TempMulti[Glob.CamNumber, toolnumber].AngleHigh();
+            num_AngleLow.Value = (decimal)TempMulti[Glob.CamNumber, toolnumber].AngleLow();
+        }
+
         private void MultiPatternEnableChange(int toolnumber)
         {
             cb_MultiPatternToolUsed.Text = cb_MultiPatternToolUsed.Checked == true ? "USE" : "UNUSED";
@@ -1154,6 +1179,37 @@ namespace VISION
         private void cb_AlignMode_CheckedChanged(object sender, EventArgs e)
         {
             Glob.AligneMode = Glob.AligneMode == true ? false : true; 
+        }
+
+        private void cb_AngleMode_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cb_AngleMode.Checked)
+            {
+                TempMulti[Glob.CamNumber, (int)num_MultiPatternToolNumber.Value].AngleMode(CogPMAlignZoneConstants.LowHigh);
+                num_AngleHigh.Enabled = true;
+                num_AngleLow.Enabled = true;
+            }
+            else
+            {
+                TempMulti[Glob.CamNumber, (int)num_MultiPatternToolNumber.Value].AngleMode(CogPMAlignZoneConstants.Nominal);
+                num_AngleHigh.Enabled = false;
+                num_AngleLow.Enabled = false;
+            }
+
+            cb_AngleMode.Text = cb_AngleMode.Checked == true ? "USE" : "UNUSED";
+            cb_AngleMode.ForeColor = cb_AngleMode.Checked == true ? Color.Lime : Color.Red;
+        }
+
+        private void num_AngleLow_ValueChanged(object sender, EventArgs e)
+        {
+            double setAngle = (double)num_AngleLow.Value * (Math.PI / 180);
+            TempMulti[Glob.CamNumber, (int)num_MultiPatternToolNumber.Value].AngleLow(setAngle);
+        }
+
+        private void num_AngleHigh_ValueChanged(object sender, EventArgs e)
+        {
+            double setAngle = (double)num_AngleHigh.Value * (Math.PI / 180);
+            TempMulti[Glob.CamNumber, (int)num_MultiPatternToolNumber.Value].AngleHigh(setAngle);
         }
     }
 }
