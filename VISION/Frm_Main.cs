@@ -105,7 +105,7 @@ namespace VISION
         Encoding encode = Encoding.GetEncoding("utf-8");
 
         public bool PLCConnected = false; //PLC 연결상태
-        public int reToPLCReasultCount = 0;
+        public int reFromPLCReasultCount = 0;
 
         public Frm_Main()
         {
@@ -307,21 +307,31 @@ namespace VISION
                         {
                             //판정 신호 3번 들어옴. -> 1번만 전송하도록 수정해야됨.
                             //JUDG[a]00[b] a = 번호, b = 판정값 (Error 1~6)
-                            switch (tempData)
+                            reFromPLCReasultCount++;
+                                    
+                            if(reFromPLCReasultCount == 1)
                             {
-                                case "1111":
-                                    SendToPLC("JUDG1000");
-                                    break;
-                                case "2222":
-                                    SendToPLC("JUDG2000");
-                                    break;
-                                case "3333":
-                                    SendToPLC("JUDG3000");
-                                    break;
-                                case "4444":
-                                    SendToPLC("JUDG4000");
-                                    break;
+                                switch (tempData)
+                                {
+                                    case "1111":
+                                        SendToPLC("JUDG1000");
+                                        break;
+                                    case "2222":
+                                        SendToPLC("JUDG2000");
+                                        break;
+                                    case "3333":
+                                        SendToPLC("JUDG3000");
+                                        break;
+                                    case "4444":
+                                        SendToPLC("JUDG4000");
+                                        break;
+                                }
                             }
+                            else if(reFromPLCReasultCount == 3)
+                            {
+                                reFromPLCReasultCount = 0;
+                            }
+                          
                         }
                         else if (ReceiveData == "AUTOEEND") // 7.자동검사 종료신호. (Ping확인 타이머 On)
                             timer_sandPLC.Start();
@@ -3171,6 +3181,11 @@ namespace VISION
         }
 
         private void lb_CurruntModelName_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void kryptonButton1_Click(object sender, EventArgs e)
         {
 
         }
