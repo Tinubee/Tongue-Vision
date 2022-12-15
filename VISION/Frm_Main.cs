@@ -1816,6 +1816,7 @@ namespace VISION
             }
             btn_PC1.BackColor = Glob.SelectPCNumber == 1 ? Color.Lime : Color.Red;
             btn_PC2.BackColor = Glob.SelectPCNumber == 2 ? Color.Lime : Color.Red;
+            lb_programName.Text = $"PC-{Glob.SelectPCNumber} VISION PROGRAM";
         }
         public static byte[] HextoByte(string hex)
         {
@@ -3158,16 +3159,7 @@ namespace VISION
             }
            
         }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            timer_sandPLC.Stop();
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            timer_sandPLC.Start();
-        }
+      
         private void OutPutSignal(object sender, EventArgs e)
         {
             int jobNo = Convert.ToInt16((sender as Button).Tag);
@@ -3178,16 +3170,6 @@ namespace VISION
                 SendToPLC($"{btnName}OK01");
             else
                 SendToPLC($"{btnName}ER01");
-        }
-
-        private void lb_CurruntModelName_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void kryptonButton1_Click(object sender, EventArgs e)
-        {
-
         }
     }
 
