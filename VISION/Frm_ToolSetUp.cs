@@ -354,7 +354,6 @@ namespace VISION
                     if (Glob.AligneMode)
                     {
                         double angle = Main.CheckAngle(cdyDisplay);
-                        angle = angle * (180 / Math.PI);
                         lb_Tool_InspectResult.Text = angle.ToString("F2") + "도";
                         lb_Tool_InspectResult.BackColor = Color.Black;
                     }
