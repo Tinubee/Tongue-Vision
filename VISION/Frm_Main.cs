@@ -111,6 +111,7 @@ namespace VISION
         public int pingCount = 0;
         public bool pingUse = false;
 
+        public int reFromPLCReasultCount = 0;
 
         public Frm_Main()
         {
@@ -234,6 +235,17 @@ namespace VISION
             snap4.Start();
         }
 
+        private void CameraShotToAlign()
+        {
+            cdyDisplay5.Image = null;
+            cdyDisplay5.InteractiveGraphics.Clear();
+            cdyDisplay5.StaticGraphics.Clear();
+
+            snap5 = new Thread(new ThreadStart(SnapShot5));
+            snap5.Priority = ThreadPriority.Highest;
+            snap5.Start();
+        }
+
         private void bk_Signal_DoWork(object sender, DoWorkEventArgs e)
         {
             try
@@ -251,9 +263,10 @@ namespace VISION
                         string ReceiveData = Encoding.ASCII.GetString(buffer);
                         ReceiveData = ReceiveData.Substring(0, 8);
 
-                        log.AddLogMessage(LogType.Infomation, 0, $"PLC -> PC : {ReceiveData}");
+                        log.AddLogMessage(LogType.Infomation, 0, $"PLC ➜ PC : {ReceiveData}");
                         string headerData = ReceiveData.Substring(0,4);
                         string tempData = ReceiveData.Substring(4, 4);
+
 
                         if (ReceiveData == "AUTOSTRT")
                             pingUse = false;
@@ -277,6 +290,18 @@ namespace VISION
                             SendToPLC(strSendData);
                         }
                         else if(headerData == "JUDG")
+
+                        if (ReceiveData == "AUTOSTRT") // 1.자동검사 시작신호. (Ping확인 타이머 Off)
+                            timer_sandPLC.Stop();
+                        else if(headerData == "UCMP") // 2.상부 카메라 얼라인 작업.
+                        {
+                            char checkNumber = tempData.FirstOrDefault();
+                            Glob.AligneMode = true;
+                            Glob.topAlignNumber = checkNumber;
+                            CameraShotToAlign();
+                        }
+                        else if(headerData == "UCAM") // 3.상부 카메라 검사 작업.
+
                         {
                             reToPLCReasultCount = reToPLCReasultCount + 1;
                             switch (tempData)
@@ -303,7 +328,7 @@ namespace VISION
                                 case "1111":
                                     // 1. 이미지 촬영 ( 각도 추출을 위한 이미지 촬영 )
                                     Glob.AligneMode = true;
-                                    Glob.topAlignNumber = "1";
+                                    Glob.topAlignNumber = '1';
                                     cdyDisplay5.Image = null;
                                     cdyDisplay5.InteractiveGraphics.Clear();
                                     cdyDisplay5.StaticGraphics.Clear();
@@ -314,7 +339,7 @@ namespace VISION
                                     break;
                                 case "2222":
                                     Glob.AligneMode = true;
-                                    Glob.topAlignNumber = "2";
+                                    Glob.topAlignNumber = '2';
                                     cdyDisplay5.Image = null;
                                     cdyDisplay5.InteractiveGraphics.Clear();
                                     cdyDisplay5.StaticGraphics.Clear();
@@ -325,7 +350,7 @@ namespace VISION
                                     break;
                                 case "3333":
                                     Glob.AligneMode = true;
-                                    Glob.topAlignNumber = "3";
+                                    Glob.topAlignNumber = '3';
                                     cdyDisplay5.Image = null;
                                     cdyDisplay5.InteractiveGraphics.Clear();
                                     cdyDisplay5.StaticGraphics.Clear();
@@ -336,7 +361,7 @@ namespace VISION
                                     break;
                                 case "4444":
                                     Glob.AligneMode = true;
-                                    Glob.topAlignNumber = "4";
+                                    Glob.topAlignNumber = '4';
                                     cdyDisplay5.Image = null;
                                     cdyDisplay5.InteractiveGraphics.Clear();
                                     cdyDisplay5.StaticGraphics.Clear();
@@ -357,10 +382,57 @@ namespace VISION
                                 case "0001":
                                     SendToPLC("UC1P0000");
                                     break;
-
                             }
                         }
-                       
+                        else if(headerData == "SKCM" || headerData == "SBCM") // 4.컬러 카메라 및 흑백 카메라 촬영.
+                        {
+                            if (headerData == "SKCM")
+                            {
+                                ColorCameraShot();
+                            }
+
+                            else if (headerData == "SBCM")
+                            {
+                                MonoCameraShot();
+                            }
+
+                            double sendNumber = Convert.ToDouble(tempData) + 1;
+                            string strSendData = $"{headerData}{sendNumber}";
+                            SendToPLC(strSendData);
+                        }
+                        else if(headerData == "JUDG") // 6.판정 전송. 
+                        {
+                            //판정 신호 3번 들어옴. -> 1번만 전송하도록 수정해야됨.
+                            //JUDG[a]00[b] a = 번호, b = 판정값 (Error 1~6)
+                            reFromPLCReasultCount++;
+                                    
+                            if(reFromPLCReasultCount == 1)
+                            {
+                                switch (tempData)
+                                {
+                                    case "1111":
+                                        SendToPLC("JUDG1000");
+                                        break;
+                                    case "2222":
+                                        SendToPLC("JUDG2000");
+                                        break;
+                                    case "3333":
+                                        SendToPLC("JUDG3000");
+                                        break;
+                                    case "4444":
+                                        SendToPLC("JUDG4000");
+                                        break;
+                                }
+                            }
+                            else if(reFromPLCReasultCount == 3)
+                            {
+                                reFromPLCReasultCount = 0;
+                            }
+                          
+                        }
+                        else if (ReceiveData == "AUTOEEND") // 7.자동검사 종료신호. (Ping확인 타이머 On)
+                            timer_sandPLC.Start();
+
                     }
                 }
             }
@@ -1701,6 +1773,8 @@ namespace VISION
                             string strSendPLC = $"UC{Glob.topAlignNumber}P{intAngle.ToString("D4")}"; //4자리로 맞추고 빈자리는 0으로 채우기
                             SendToPLC(strSendPLC); //PLC로 전송                        
                             Glob.AligneMode = false; //얼라인모드 bool함수 초기화
+
+                            Glob.AligneMode = false;
                         }
                         else
                         {
@@ -1841,6 +1915,7 @@ namespace VISION
             }
             btn_PC1.BackColor = Glob.SelectPCNumber == 1 ? Color.Lime : Color.Red;
             btn_PC2.BackColor = Glob.SelectPCNumber == 2 ? Color.Lime : Color.Red;
+            lb_programName.Text = $"PC-{Glob.SelectPCNumber} VISION PROGRAM";
         }
         public static byte[] HextoByte(string hex)
         {
@@ -3170,7 +3245,7 @@ namespace VISION
 
                 Writer.WriteLine(signal);
                 Writer.Flush();
-                log.AddLogMessage(LogType.Infomation, 0, $"PC -> PLC : {signal}");
+                log.AddLogMessage(LogType.Infomation, 0, $"PC ➜ PLC : {signal}");
             }
             catch (Exception ee)
             {
@@ -3188,7 +3263,6 @@ namespace VISION
                     Writer.WriteLine("PingPing");
                     Writer.Flush();
                 }
-               
             }
             catch(Exception ee)
             {
@@ -3196,16 +3270,7 @@ namespace VISION
             }
            
         }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            timer_sandPLC.Stop();
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            timer_sandPLC.Start();
-        }
+      
         private void OutPutSignal(object sender, EventArgs e)
         {
             int jobNo = Convert.ToInt16((sender as Button).Tag);

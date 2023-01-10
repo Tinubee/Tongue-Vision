@@ -515,7 +515,7 @@
             this.btn_Cam4.TabIndex = 14;
             this.btn_Cam4.Tag = "3";
             this.btn_Cam4.Text = "CAM4";
-            this.btn_Cam4.UseVisualStyleBackColor = false;
+            this.btn_Cam4.UseVisualStyleBackColor = true;
             this.btn_Cam4.Click += new System.EventHandler(this.btn_Cam1_Click);
             // 
             // btn_Cam1
@@ -529,7 +529,7 @@
             this.btn_Cam1.TabIndex = 15;
             this.btn_Cam1.Tag = "0";
             this.btn_Cam1.Text = "CAM1";
-            this.btn_Cam1.UseVisualStyleBackColor = false;
+            this.btn_Cam1.UseVisualStyleBackColor = true;
             this.btn_Cam1.Click += new System.EventHandler(this.btn_Cam1_Click);
             // 
             // btn_Cam5
@@ -543,7 +543,7 @@
             this.btn_Cam5.TabIndex = 19;
             this.btn_Cam5.Tag = "4";
             this.btn_Cam5.Text = "CAM5";
-            this.btn_Cam5.UseVisualStyleBackColor = false;
+            this.btn_Cam5.UseVisualStyleBackColor = true;
             this.btn_Cam5.Click += new System.EventHandler(this.btn_Cam1_Click);
             // 
             // tableLayoutPanel29
@@ -577,7 +577,7 @@
             this.btn_Cam3.TabIndex = 21;
             this.btn_Cam3.Tag = "2";
             this.btn_Cam3.Text = "CAM3";
-            this.btn_Cam3.UseVisualStyleBackColor = false;
+            this.btn_Cam3.UseVisualStyleBackColor = true;
             this.btn_Cam3.Click += new System.EventHandler(this.btn_Cam1_Click);
             // 
             // btn_Cam2
@@ -591,7 +591,7 @@
             this.btn_Cam2.TabIndex = 20;
             this.btn_Cam2.Tag = "1";
             this.btn_Cam2.Text = "CAM2";
-            this.btn_Cam2.UseVisualStyleBackColor = false;
+            this.btn_Cam2.UseVisualStyleBackColor = true;
             this.btn_Cam2.Click += new System.EventHandler(this.btn_Cam1_Click);
             // 
             // dgv_ToolSetUp
