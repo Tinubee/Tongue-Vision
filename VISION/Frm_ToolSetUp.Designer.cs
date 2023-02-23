@@ -62,6 +62,14 @@
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel31 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel44 = new System.Windows.Forms.TableLayoutPanel();
+            this.label42 = new System.Windows.Forms.Label();
+            this.cb_AngleMode = new System.Windows.Forms.CheckBox();
+            this.tableLayoutPanel43 = new System.Windows.Forms.TableLayoutPanel();
+            this.label39 = new System.Windows.Forms.Label();
+            this.label40 = new System.Windows.Forms.Label();
+            this.num_AngleLow = new System.Windows.Forms.NumericUpDown();
+            this.num_AngleHigh = new System.Windows.Forms.NumericUpDown();
             this.tableLayoutPanel32 = new System.Windows.Forms.TableLayoutPanel();
             this.label24 = new System.Windows.Forms.Label();
             this.cb_MultiPatternToolUsed = new System.Windows.Forms.CheckBox();
@@ -81,14 +89,18 @@
             this.btn_MultiPatternToolRun = new System.Windows.Forms.Button();
             this.btn_MultiPTSearchArea = new System.Windows.Forms.Button();
             this.tableLayoutPanel41 = new System.Windows.Forms.TableLayoutPanel();
+            this.num_InspectOrder = new System.Windows.Forms.NumericUpDown();
             this.label28 = new System.Windows.Forms.Label();
             this.num_MultiPatternScore = new System.Windows.Forms.NumericUpDown();
+            this.label44 = new System.Windows.Forms.Label();
             this.tableLayoutPanel40 = new System.Windows.Forms.TableLayoutPanel();
             this.btn_ResultShow = new System.Windows.Forms.Button();
             this.lb_FindPatternCount = new System.Windows.Forms.Label();
             this.tableLayoutPanel42 = new System.Windows.Forms.TableLayoutPanel();
             this.label30 = new System.Windows.Forms.Label();
+            this.label43 = new System.Windows.Forms.Label();
             this.lb_MultiScore = new System.Windows.Forms.Label();
+            this.lb_MultiAngle = new System.Windows.Forms.Label();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel13 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel14 = new System.Windows.Forms.TableLayoutPanel();
@@ -205,18 +217,9 @@
             this.cb_AlignMode = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel36 = new System.Windows.Forms.TableLayoutPanel();
             this.label38 = new System.Windows.Forms.Label();
-
-            this.tableLayoutPanel43 = new System.Windows.Forms.TableLayoutPanel();
-            this.label39 = new System.Windows.Forms.Label();
-            this.num_AngleLow = new System.Windows.Forms.NumericUpDown();
-            this.label40 = new System.Windows.Forms.Label();
-            this.num_AngleHigh = new System.Windows.Forms.NumericUpDown();
-            this.tableLayoutPanel44 = new System.Windows.Forms.TableLayoutPanel();
-            this.label42 = new System.Windows.Forms.Label();
-            this.cb_AngleMode = new System.Windows.Forms.CheckBox();
-            this.label43 = new System.Windows.Forms.Label();
-            this.lb_MultiAngle = new System.Windows.Forms.Label();
-
+            this.tableLayoutPanel45 = new System.Windows.Forms.TableLayoutPanel();
+            this.label45 = new System.Windows.Forms.Label();
+            this.num_GlobOrderNumber = new System.Windows.Forms.NumericUpDown();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cdyDisplay)).BeginInit();
             this.tableLayoutPanel23.SuspendLayout();
@@ -224,6 +227,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgv_ToolSetUp)).BeginInit();
             this.tabPage6.SuspendLayout();
             this.tableLayoutPanel31.SuspendLayout();
+            this.tableLayoutPanel44.SuspendLayout();
+            this.tableLayoutPanel43.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.num_AngleLow)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.num_AngleHigh)).BeginInit();
             this.tableLayoutPanel32.SuspendLayout();
             this.tableLayoutPanel33.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.num_MultiPatternToolNumber)).BeginInit();
@@ -233,6 +240,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.cdyMultiPTTrained)).BeginInit();
             this.tableLayoutPanel39.SuspendLayout();
             this.tableLayoutPanel41.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.num_InspectOrder)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_MultiPatternScore)).BeginInit();
             this.tableLayoutPanel40.SuspendLayout();
             this.tableLayoutPanel42.SuspendLayout();
@@ -284,11 +292,8 @@
             this.tableLayoutPanel9.SuspendLayout();
             this.tableLayoutPanel26.SuspendLayout();
             this.tableLayoutPanel36.SuspendLayout();
-
-            this.tableLayoutPanel43.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.num_AngleLow)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.num_AngleHigh)).BeginInit();
-            this.tableLayoutPanel44.SuspendLayout();
+            this.tableLayoutPanel45.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.num_GlobOrderNumber)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel2
@@ -487,12 +492,11 @@
             this.tableLayoutPanel23.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
             this.tableLayoutPanel23.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
             this.tableLayoutPanel23.Controls.Add(this.lb_Tool_InspectResult, 0, 0);
-            this.tableLayoutPanel23.Location = new System.Drawing.Point(746, 77);
-            this.tableLayoutPanel23.Location = new System.Drawing.Point(746, 75);
+            this.tableLayoutPanel23.Location = new System.Drawing.Point(830, 75);
             this.tableLayoutPanel23.Name = "tableLayoutPanel23";
             this.tableLayoutPanel23.RowCount = 1;
             this.tableLayoutPanel23.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel23.Size = new System.Drawing.Size(378, 83);
+            this.tableLayoutPanel23.Size = new System.Drawing.Size(294, 83);
             this.tableLayoutPanel23.TabIndex = 13;
             // 
             // lb_Tool_InspectResult
@@ -503,7 +507,7 @@
             this.lb_Tool_InspectResult.ForeColor = System.Drawing.Color.White;
             this.lb_Tool_InspectResult.Location = new System.Drawing.Point(4, 1);
             this.lb_Tool_InspectResult.Name = "lb_Tool_InspectResult";
-            this.lb_Tool_InspectResult.Size = new System.Drawing.Size(144, 81);
+            this.lb_Tool_InspectResult.Size = new System.Drawing.Size(110, 81);
             this.lb_Tool_InspectResult.TabIndex = 0;
             this.lb_Tool_InspectResult.Text = "검사 결과";
             this.lb_Tool_InspectResult.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -513,9 +517,9 @@
             this.btn_Cam4.BackColor = System.Drawing.Color.Silver;
             this.btn_Cam4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btn_Cam4.Font = new System.Drawing.Font("맑은 고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btn_Cam4.Location = new System.Drawing.Point(318, 3);
+            this.btn_Cam4.Location = new System.Drawing.Point(258, 3);
             this.btn_Cam4.Name = "btn_Cam4";
-            this.btn_Cam4.Size = new System.Drawing.Size(99, 77);
+            this.btn_Cam4.Size = new System.Drawing.Size(79, 77);
             this.btn_Cam4.TabIndex = 14;
             this.btn_Cam4.Tag = "3";
             this.btn_Cam4.Text = "CAM4";
@@ -529,7 +533,7 @@
             this.btn_Cam1.Font = new System.Drawing.Font("맑은 고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btn_Cam1.Location = new System.Drawing.Point(3, 3);
             this.btn_Cam1.Name = "btn_Cam1";
-            this.btn_Cam1.Size = new System.Drawing.Size(99, 77);
+            this.btn_Cam1.Size = new System.Drawing.Size(79, 77);
             this.btn_Cam1.TabIndex = 15;
             this.btn_Cam1.Tag = "0";
             this.btn_Cam1.Text = "CAM1";
@@ -541,9 +545,9 @@
             this.btn_Cam5.BackColor = System.Drawing.Color.Silver;
             this.btn_Cam5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btn_Cam5.Font = new System.Drawing.Font("맑은 고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btn_Cam5.Location = new System.Drawing.Point(423, 3);
+            this.btn_Cam5.Location = new System.Drawing.Point(343, 3);
             this.btn_Cam5.Name = "btn_Cam5";
-            this.btn_Cam5.Size = new System.Drawing.Size(100, 77);
+            this.btn_Cam5.Size = new System.Drawing.Size(81, 77);
             this.btn_Cam5.TabIndex = 19;
             this.btn_Cam5.Tag = "4";
             this.btn_Cam5.Text = "CAM5";
@@ -567,7 +571,7 @@
             this.tableLayoutPanel29.Name = "tableLayoutPanel29";
             this.tableLayoutPanel29.RowCount = 1;
             this.tableLayoutPanel29.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel29.Size = new System.Drawing.Size(526, 83);
+            this.tableLayoutPanel29.Size = new System.Drawing.Size(427, 83);
             this.tableLayoutPanel29.TabIndex = 20;
             // 
             // btn_Cam3
@@ -575,9 +579,9 @@
             this.btn_Cam3.BackColor = System.Drawing.Color.Silver;
             this.btn_Cam3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btn_Cam3.Font = new System.Drawing.Font("맑은 고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btn_Cam3.Location = new System.Drawing.Point(213, 3);
+            this.btn_Cam3.Location = new System.Drawing.Point(173, 3);
             this.btn_Cam3.Name = "btn_Cam3";
-            this.btn_Cam3.Size = new System.Drawing.Size(99, 77);
+            this.btn_Cam3.Size = new System.Drawing.Size(79, 77);
             this.btn_Cam3.TabIndex = 21;
             this.btn_Cam3.Tag = "2";
             this.btn_Cam3.Text = "CAM3";
@@ -589,9 +593,9 @@
             this.btn_Cam2.BackColor = System.Drawing.Color.Silver;
             this.btn_Cam2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btn_Cam2.Font = new System.Drawing.Font("맑은 고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btn_Cam2.Location = new System.Drawing.Point(108, 3);
+            this.btn_Cam2.Location = new System.Drawing.Point(88, 3);
             this.btn_Cam2.Name = "btn_Cam2";
-            this.btn_Cam2.Size = new System.Drawing.Size(99, 77);
+            this.btn_Cam2.Size = new System.Drawing.Size(79, 77);
             this.btn_Cam2.TabIndex = 20;
             this.btn_Cam2.Tag = "1";
             this.btn_Cam2.Text = "CAM2";
@@ -715,6 +719,136 @@
             this.tableLayoutPanel31.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel31.Size = new System.Drawing.Size(481, 937);
             this.tableLayoutPanel31.TabIndex = 2;
+            // 
+            // tableLayoutPanel44
+            // 
+            this.tableLayoutPanel44.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
+            this.tableLayoutPanel44.ColumnCount = 2;
+            this.tableLayoutPanel44.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel44.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel44.Controls.Add(this.label42, 0, 0);
+            this.tableLayoutPanel44.Controls.Add(this.cb_AngleMode, 1, 0);
+            this.tableLayoutPanel44.Location = new System.Drawing.Point(4, 699);
+            this.tableLayoutPanel44.Name = "tableLayoutPanel44";
+            this.tableLayoutPanel44.RowCount = 1;
+            this.tableLayoutPanel44.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel44.Size = new System.Drawing.Size(473, 51);
+            this.tableLayoutPanel44.TabIndex = 26;
+            // 
+            // label42
+            // 
+            this.label42.AutoSize = true;
+            this.label42.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label42.Font = new System.Drawing.Font("맑은 고딕", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label42.ForeColor = System.Drawing.Color.White;
+            this.label42.Location = new System.Drawing.Point(4, 1);
+            this.label42.Name = "label42";
+            this.label42.Size = new System.Drawing.Size(229, 49);
+            this.label42.TabIndex = 0;
+            this.label42.Text = "각도 검사 사용여부";
+            this.label42.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // cb_AngleMode
+            // 
+            this.cb_AngleMode.AutoSize = true;
+            this.cb_AngleMode.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cb_AngleMode.Font = new System.Drawing.Font("맑은 고딕", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.cb_AngleMode.ForeColor = System.Drawing.Color.Red;
+            this.cb_AngleMode.Location = new System.Drawing.Point(240, 4);
+            this.cb_AngleMode.Name = "cb_AngleMode";
+            this.cb_AngleMode.Size = new System.Drawing.Size(229, 43);
+            this.cb_AngleMode.TabIndex = 1;
+            this.cb_AngleMode.Text = "UNUSED";
+            this.cb_AngleMode.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.cb_AngleMode.UseVisualStyleBackColor = true;
+            this.cb_AngleMode.CheckedChanged += new System.EventHandler(this.cb_AngleMode_CheckedChanged);
+            // 
+            // tableLayoutPanel43
+            // 
+            this.tableLayoutPanel43.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
+            this.tableLayoutPanel43.ColumnCount = 4;
+            this.tableLayoutPanel43.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel43.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel43.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel43.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel43.Controls.Add(this.label39, 0, 0);
+            this.tableLayoutPanel43.Controls.Add(this.label40, 2, 0);
+            this.tableLayoutPanel43.Controls.Add(this.num_AngleLow, 1, 0);
+            this.tableLayoutPanel43.Controls.Add(this.num_AngleHigh, 3, 0);
+            this.tableLayoutPanel43.Location = new System.Drawing.Point(4, 757);
+            this.tableLayoutPanel43.Name = "tableLayoutPanel43";
+            this.tableLayoutPanel43.RowCount = 1;
+            this.tableLayoutPanel43.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel43.Size = new System.Drawing.Size(473, 51);
+            this.tableLayoutPanel43.TabIndex = 25;
+            // 
+            // label39
+            // 
+            this.label39.AutoSize = true;
+            this.label39.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label39.Font = new System.Drawing.Font("맑은 고딕", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label39.ForeColor = System.Drawing.Color.White;
+            this.label39.Location = new System.Drawing.Point(4, 1);
+            this.label39.Name = "label39";
+            this.label39.Size = new System.Drawing.Size(111, 49);
+            this.label39.TabIndex = 0;
+            this.label39.Text = "최소각";
+            this.label39.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label40
+            // 
+            this.label40.AutoSize = true;
+            this.label40.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label40.Font = new System.Drawing.Font("맑은 고딕", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label40.ForeColor = System.Drawing.Color.White;
+            this.label40.Location = new System.Drawing.Point(240, 1);
+            this.label40.Name = "label40";
+            this.label40.Size = new System.Drawing.Size(111, 49);
+            this.label40.TabIndex = 2;
+            this.label40.Text = "최대각";
+            this.label40.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // num_AngleLow
+            // 
+            this.num_AngleLow.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.num_AngleLow.Font = new System.Drawing.Font("맑은 고딕", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.num_AngleLow.Location = new System.Drawing.Point(122, 4);
+            this.num_AngleLow.Maximum = new decimal(new int[] {
+            45,
+            0,
+            0,
+            0});
+            this.num_AngleLow.Minimum = new decimal(new int[] {
+            45,
+            0,
+            0,
+            -2147483648});
+            this.num_AngleLow.Name = "num_AngleLow";
+            this.num_AngleLow.Size = new System.Drawing.Size(111, 43);
+            this.num_AngleLow.TabIndex = 1;
+            this.num_AngleLow.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.num_AngleLow.ValueChanged += new System.EventHandler(this.num_AngleLow_ValueChanged);
+            // 
+            // num_AngleHigh
+            // 
+            this.num_AngleHigh.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.num_AngleHigh.Font = new System.Drawing.Font("맑은 고딕", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.num_AngleHigh.Location = new System.Drawing.Point(358, 4);
+            this.num_AngleHigh.Maximum = new decimal(new int[] {
+            45,
+            0,
+            0,
+            0});
+            this.num_AngleHigh.Minimum = new decimal(new int[] {
+            45,
+            0,
+            0,
+            -2147483648});
+            this.num_AngleHigh.Name = "num_AngleHigh";
+            this.num_AngleHigh.Size = new System.Drawing.Size(111, 43);
+            this.num_AngleHigh.TabIndex = 3;
+            this.num_AngleHigh.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.num_AngleHigh.ValueChanged += new System.EventHandler(this.num_AngleHigh_ValueChanged);
             // 
             // tableLayoutPanel32
             // 
@@ -980,17 +1114,47 @@
             // tableLayoutPanel41
             // 
             this.tableLayoutPanel41.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
-            this.tableLayoutPanel41.ColumnCount = 2;
-            this.tableLayoutPanel41.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel41.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel41.ColumnCount = 4;
+            this.tableLayoutPanel41.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel41.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel41.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel41.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel41.Controls.Add(this.num_InspectOrder, 3, 0);
             this.tableLayoutPanel41.Controls.Add(this.label28, 0, 0);
             this.tableLayoutPanel41.Controls.Add(this.num_MultiPatternScore, 1, 0);
+            this.tableLayoutPanel41.Controls.Add(this.label44, 2, 0);
             this.tableLayoutPanel41.Location = new System.Drawing.Point(4, 525);
             this.tableLayoutPanel41.Name = "tableLayoutPanel41";
             this.tableLayoutPanel41.RowCount = 1;
-            this.tableLayoutPanel41.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel41.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel41.Size = new System.Drawing.Size(473, 51);
             this.tableLayoutPanel41.TabIndex = 23;
+            // 
+            // num_InspectOrder
+            // 
+            this.num_InspectOrder.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.num_InspectOrder.Font = new System.Drawing.Font("맑은 고딕", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.num_InspectOrder.Location = new System.Drawing.Point(358, 4);
+            this.num_InspectOrder.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.num_InspectOrder.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.num_InspectOrder.Name = "num_InspectOrder";
+            this.num_InspectOrder.Size = new System.Drawing.Size(111, 46);
+            this.num_InspectOrder.TabIndex = 3;
+            this.num_InspectOrder.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.num_InspectOrder.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.num_InspectOrder.ValueChanged += new System.EventHandler(this.num_InspectOrder_ValueChanged);
             // 
             // label28
             // 
@@ -1000,7 +1164,7 @@
             this.label28.ForeColor = System.Drawing.Color.White;
             this.label28.Location = new System.Drawing.Point(4, 1);
             this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(229, 49);
+            this.label28.Size = new System.Drawing.Size(111, 49);
             this.label28.TabIndex = 0;
             this.label28.Text = "수용값";
             this.label28.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1009,12 +1173,26 @@
             // 
             this.num_MultiPatternScore.Dock = System.Windows.Forms.DockStyle.Fill;
             this.num_MultiPatternScore.Font = new System.Drawing.Font("맑은 고딕", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.num_MultiPatternScore.Location = new System.Drawing.Point(240, 4);
+            this.num_MultiPatternScore.Location = new System.Drawing.Point(122, 4);
             this.num_MultiPatternScore.Name = "num_MultiPatternScore";
-            this.num_MultiPatternScore.Size = new System.Drawing.Size(229, 46);
+            this.num_MultiPatternScore.Size = new System.Drawing.Size(111, 46);
             this.num_MultiPatternScore.TabIndex = 1;
             this.num_MultiPatternScore.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.num_MultiPatternScore.ValueChanged += new System.EventHandler(this.num_MultiPatternScore_ValueChanged);
+            // 
+            // label44
+            // 
+            this.label44.AutoSize = true;
+            this.label44.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label44.Font = new System.Drawing.Font("맑은 고딕", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label44.ForeColor = System.Drawing.Color.White;
+            this.label44.Location = new System.Drawing.Point(237, 1);
+            this.label44.Margin = new System.Windows.Forms.Padding(0);
+            this.label44.Name = "label44";
+            this.label44.Size = new System.Drawing.Size(117, 49);
+            this.label44.TabIndex = 2;
+            this.label44.Text = "검사순서";
+            this.label44.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // tableLayoutPanel40
             // 
@@ -1091,6 +1269,19 @@
             this.label30.Text = "Score";
             this.label30.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // label43
+            // 
+            this.label43.AutoSize = true;
+            this.label43.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label43.Font = new System.Drawing.Font("맑은 고딕", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label43.ForeColor = System.Drawing.Color.White;
+            this.label43.Location = new System.Drawing.Point(239, 1);
+            this.label43.Name = "label43";
+            this.label43.Size = new System.Drawing.Size(87, 49);
+            this.label43.TabIndex = 1;
+            this.label43.Text = "Angle";
+            this.label43.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // lb_MultiScore
             // 
             this.lb_MultiScore.AutoSize = true;
@@ -1103,6 +1294,19 @@
             this.lb_MultiScore.TabIndex = 0;
             this.lb_MultiScore.Text = "-";
             this.lb_MultiScore.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lb_MultiAngle
+            // 
+            this.lb_MultiAngle.AutoSize = true;
+            this.lb_MultiAngle.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lb_MultiAngle.Font = new System.Drawing.Font("맑은 고딕", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lb_MultiAngle.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.lb_MultiAngle.Location = new System.Drawing.Point(333, 1);
+            this.lb_MultiAngle.Name = "lb_MultiAngle";
+            this.lb_MultiAngle.Size = new System.Drawing.Size(136, 49);
+            this.lb_MultiAngle.TabIndex = 2;
+            this.lb_MultiAngle.Text = "-";
+            this.lb_MultiAngle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // tabPage5
             // 
@@ -2469,7 +2673,7 @@
             this.num_LightControlNumber.Font = new System.Drawing.Font("Consolas", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.num_LightControlNumber.Location = new System.Drawing.Point(4, 326);
             this.num_LightControlNumber.Maximum = new decimal(new int[] {
-            3,
+            2,
             0,
             0,
             0});
@@ -2803,9 +3007,10 @@
             this.cb_AlignMode.Appearance = System.Windows.Forms.Appearance.Button;
             this.cb_AlignMode.AutoSize = true;
             this.cb_AlignMode.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cb_AlignMode.Location = new System.Drawing.Point(87, 4);
+            this.cb_AlignMode.Location = new System.Drawing.Point(200, 1);
+            this.cb_AlignMode.Margin = new System.Windows.Forms.Padding(0);
             this.cb_AlignMode.Name = "cb_AlignMode";
-            this.cb_AlignMode.Size = new System.Drawing.Size(119, 75);
+            this.cb_AlignMode.Size = new System.Drawing.Size(199, 37);
             this.cb_AlignMode.TabIndex = 51;
             this.cb_AlignMode.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.cb_AlignMode.UseVisualStyleBackColor = true;
@@ -2815,185 +3020,84 @@
             // 
             this.tableLayoutPanel36.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
             this.tableLayoutPanel36.ColumnCount = 2;
-            this.tableLayoutPanel36.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
-            this.tableLayoutPanel36.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
+            this.tableLayoutPanel36.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel36.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel36.Controls.Add(this.cb_AlignMode, 1, 0);
             this.tableLayoutPanel36.Controls.Add(this.label38, 0, 0);
-            this.tableLayoutPanel36.Location = new System.Drawing.Point(530, 77);
+            this.tableLayoutPanel36.Location = new System.Drawing.Point(428, 77);
             this.tableLayoutPanel36.Name = "tableLayoutPanel36";
             this.tableLayoutPanel36.RowCount = 1;
             this.tableLayoutPanel36.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel36.Size = new System.Drawing.Size(210, 83);
+            this.tableLayoutPanel36.Size = new System.Drawing.Size(400, 39);
             this.tableLayoutPanel36.TabIndex = 26;
             // 
             // label38
             // 
             this.label38.AutoSize = true;
             this.label38.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label38.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label38.Font = new System.Drawing.Font("맑은 고딕", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label38.ForeColor = System.Drawing.Color.White;
             this.label38.Location = new System.Drawing.Point(4, 1);
             this.label38.Name = "label38";
-            this.label38.Size = new System.Drawing.Size(76, 81);
+            this.label38.Size = new System.Drawing.Size(192, 37);
             this.label38.TabIndex = 0;
             this.label38.Text = "얼라인 검사모드";
             this.label38.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // tableLayoutPanel43
+            // tableLayoutPanel45
             // 
-            this.tableLayoutPanel43.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
-            this.tableLayoutPanel43.ColumnCount = 4;
-            this.tableLayoutPanel43.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel43.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel43.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel43.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel43.Controls.Add(this.label39, 0, 0);
-            this.tableLayoutPanel43.Controls.Add(this.label40, 2, 0);
-            this.tableLayoutPanel43.Controls.Add(this.num_AngleLow, 1, 0);
-            this.tableLayoutPanel43.Controls.Add(this.num_AngleHigh, 3, 0);
-            this.tableLayoutPanel43.Location = new System.Drawing.Point(4, 757);
-            this.tableLayoutPanel43.Name = "tableLayoutPanel43";
-            this.tableLayoutPanel43.RowCount = 1;
-            this.tableLayoutPanel43.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel43.Size = new System.Drawing.Size(473, 51);
-            this.tableLayoutPanel43.TabIndex = 25;
+            this.tableLayoutPanel45.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
+            this.tableLayoutPanel45.ColumnCount = 2;
+            this.tableLayoutPanel45.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel45.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel45.Controls.Add(this.num_GlobOrderNumber, 0, 0);
+            this.tableLayoutPanel45.Controls.Add(this.label45, 0, 0);
+            this.tableLayoutPanel45.Location = new System.Drawing.Point(428, 119);
+            this.tableLayoutPanel45.Name = "tableLayoutPanel45";
+            this.tableLayoutPanel45.RowCount = 1;
+            this.tableLayoutPanel45.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel45.Size = new System.Drawing.Size(400, 41);
+            this.tableLayoutPanel45.TabIndex = 27;
             // 
-            // label39
+            // label45
             // 
-            this.label39.AutoSize = true;
-            this.label39.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label39.Font = new System.Drawing.Font("맑은 고딕", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label39.ForeColor = System.Drawing.Color.White;
-            this.label39.Location = new System.Drawing.Point(4, 1);
-            this.label39.Name = "label39";
-            this.label39.Size = new System.Drawing.Size(111, 49);
-            this.label39.TabIndex = 0;
-            this.label39.Text = "최소각";
-            this.label39.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label45.AutoSize = true;
+            this.label45.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label45.Font = new System.Drawing.Font("맑은 고딕", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label45.ForeColor = System.Drawing.Color.White;
+            this.label45.Location = new System.Drawing.Point(4, 1);
+            this.label45.Name = "label45";
+            this.label45.Size = new System.Drawing.Size(192, 39);
+            this.label45.TabIndex = 0;
+            this.label45.Text = "검사 순서";
+            this.label45.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // num_AngleLow
+            // num_GlobOrderNumber
             // 
-            this.num_AngleLow.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.num_AngleLow.Font = new System.Drawing.Font("맑은 고딕", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.num_AngleLow.Location = new System.Drawing.Point(122, 4);
-            this.num_AngleLow.Maximum = new decimal(new int[] {
-            45,
+            this.num_GlobOrderNumber.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.num_GlobOrderNumber.Font = new System.Drawing.Font("맑은 고딕", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.num_GlobOrderNumber.Location = new System.Drawing.Point(200, 1);
+            this.num_GlobOrderNumber.Margin = new System.Windows.Forms.Padding(0);
+            this.num_GlobOrderNumber.Maximum = new decimal(new int[] {
+            10,
             0,
             0,
             0});
-            this.num_AngleLow.Minimum = new decimal(new int[] {
-            45,
-            0,
-            0,
-            -2147483648});
-            this.num_AngleLow.Name = "num_AngleLow";
-            this.num_AngleLow.Size = new System.Drawing.Size(111, 43);
-            this.num_AngleLow.TabIndex = 1;
-            this.num_AngleLow.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.num_AngleLow.ValueChanged += new System.EventHandler(this.num_AngleLow_ValueChanged);
-            // 
-            // label40
-            // 
-            this.label40.AutoSize = true;
-            this.label40.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label40.Font = new System.Drawing.Font("맑은 고딕", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label40.ForeColor = System.Drawing.Color.White;
-            this.label40.Location = new System.Drawing.Point(240, 1);
-            this.label40.Name = "label40";
-            this.label40.Size = new System.Drawing.Size(111, 49);
-            this.label40.TabIndex = 2;
-            this.label40.Text = "최대각";
-            this.label40.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // num_AngleHigh
-            // 
-            this.num_AngleHigh.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.num_AngleHigh.Font = new System.Drawing.Font("맑은 고딕", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.num_AngleHigh.Location = new System.Drawing.Point(358, 4);
-            this.num_AngleHigh.Maximum = new decimal(new int[] {
-            45,
+            this.num_GlobOrderNumber.Minimum = new decimal(new int[] {
+            1,
             0,
             0,
             0});
-            this.num_AngleHigh.Minimum = new decimal(new int[] {
-            45,
+            this.num_GlobOrderNumber.Name = "num_GlobOrderNumber";
+            this.num_GlobOrderNumber.Size = new System.Drawing.Size(199, 39);
+            this.num_GlobOrderNumber.TabIndex = 2;
+            this.num_GlobOrderNumber.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.num_GlobOrderNumber.Value = new decimal(new int[] {
+            1,
             0,
             0,
-            -2147483648});
-            this.num_AngleHigh.Name = "num_AngleHigh";
-            this.num_AngleHigh.Size = new System.Drawing.Size(111, 43);
-            this.num_AngleHigh.TabIndex = 3;
-            this.num_AngleHigh.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.num_AngleHigh.ValueChanged += new System.EventHandler(this.num_AngleHigh_ValueChanged);
-            // 
-            // tableLayoutPanel44
-            // 
-            this.tableLayoutPanel44.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
-            this.tableLayoutPanel44.ColumnCount = 2;
-            this.tableLayoutPanel44.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel44.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel44.Controls.Add(this.label42, 0, 0);
-            this.tableLayoutPanel44.Controls.Add(this.cb_AngleMode, 1, 0);
-            this.tableLayoutPanel44.Location = new System.Drawing.Point(4, 699);
-            this.tableLayoutPanel44.Name = "tableLayoutPanel44";
-            this.tableLayoutPanel44.RowCount = 1;
-            this.tableLayoutPanel44.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel44.Size = new System.Drawing.Size(473, 51);
-            this.tableLayoutPanel44.TabIndex = 26;
-            // 
-            // label42
-            // 
-            this.label42.AutoSize = true;
-            this.label42.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label42.Font = new System.Drawing.Font("맑은 고딕", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label42.ForeColor = System.Drawing.Color.White;
-            this.label42.Location = new System.Drawing.Point(4, 1);
-            this.label42.Name = "label42";
-            this.label42.Size = new System.Drawing.Size(229, 49);
-            this.label42.TabIndex = 0;
-            this.label42.Text = "각도 검사 사용여부";
-            this.label42.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // cb_AngleMode
-            // 
-            this.cb_AngleMode.AutoSize = true;
-            this.cb_AngleMode.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cb_AngleMode.Font = new System.Drawing.Font("맑은 고딕", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.cb_AngleMode.ForeColor = System.Drawing.Color.Red;
-            this.cb_AngleMode.Location = new System.Drawing.Point(240, 4);
-            this.cb_AngleMode.Name = "cb_AngleMode";
-            this.cb_AngleMode.Size = new System.Drawing.Size(229, 43);
-            this.cb_AngleMode.TabIndex = 1;
-            this.cb_AngleMode.Text = "UNUSED";
-            this.cb_AngleMode.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.cb_AngleMode.UseVisualStyleBackColor = true;
-            this.cb_AngleMode.CheckedChanged += new System.EventHandler(this.cb_AngleMode_CheckedChanged);
-            // 
-            // label43
-            // 
-            this.label43.AutoSize = true;
-            this.label43.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label43.Font = new System.Drawing.Font("맑은 고딕", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label43.ForeColor = System.Drawing.Color.White;
-            this.label43.Location = new System.Drawing.Point(239, 1);
-            this.label43.Name = "label43";
-            this.label43.Size = new System.Drawing.Size(87, 49);
-            this.label43.TabIndex = 1;
-            this.label43.Text = "Angle";
-            this.label43.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lb_MultiAngle
-            // 
-            this.lb_MultiAngle.AutoSize = true;
-            this.lb_MultiAngle.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lb_MultiAngle.Font = new System.Drawing.Font("맑은 고딕", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.lb_MultiAngle.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.lb_MultiAngle.Location = new System.Drawing.Point(333, 1);
-            this.lb_MultiAngle.Name = "lb_MultiAngle";
-            this.lb_MultiAngle.Size = new System.Drawing.Size(136, 49);
-            this.lb_MultiAngle.TabIndex = 2;
-            this.lb_MultiAngle.Text = "-";
-            this.lb_MultiAngle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            0});
+            this.num_GlobOrderNumber.ValueChanged += new System.EventHandler(this.num_GlobOrderNumber_ValueChanged);
             // 
             // Frm_ToolSetUp
             // 
@@ -3001,6 +3105,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DimGray;
             this.ClientSize = new System.Drawing.Size(1920, 1080);
+            this.Controls.Add(this.tableLayoutPanel45);
             this.Controls.Add(this.tableLayoutPanel36);
             this.Controls.Add(this.btn_MonotoColor);
             this.Controls.Add(this.btn_ColortoMono);
@@ -3030,6 +3135,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgv_ToolSetUp)).EndInit();
             this.tabPage6.ResumeLayout(false);
             this.tableLayoutPanel31.ResumeLayout(false);
+            this.tableLayoutPanel44.ResumeLayout(false);
+            this.tableLayoutPanel44.PerformLayout();
+            this.tableLayoutPanel43.ResumeLayout(false);
+            this.tableLayoutPanel43.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.num_AngleLow)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.num_AngleHigh)).EndInit();
             this.tableLayoutPanel32.ResumeLayout(false);
             this.tableLayoutPanel32.PerformLayout();
             this.tableLayoutPanel33.ResumeLayout(false);
@@ -3045,6 +3156,7 @@
             this.tableLayoutPanel39.PerformLayout();
             this.tableLayoutPanel41.ResumeLayout(false);
             this.tableLayoutPanel41.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.num_InspectOrder)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_MultiPatternScore)).EndInit();
             this.tableLayoutPanel40.ResumeLayout(false);
             this.tableLayoutPanel40.PerformLayout();
@@ -3124,12 +3236,9 @@
             this.tableLayoutPanel26.PerformLayout();
             this.tableLayoutPanel36.ResumeLayout(false);
             this.tableLayoutPanel36.PerformLayout();
-            this.tableLayoutPanel43.ResumeLayout(false);
-            this.tableLayoutPanel43.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.num_AngleLow)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.num_AngleHigh)).EndInit();
-            this.tableLayoutPanel44.ResumeLayout(false);
-            this.tableLayoutPanel44.PerformLayout();
+            this.tableLayoutPanel45.ResumeLayout(false);
+            this.tableLayoutPanel45.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.num_GlobOrderNumber)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -3317,5 +3426,10 @@
         private System.Windows.Forms.NumericUpDown num_AngleHigh;
         private System.Windows.Forms.Label label43;
         private System.Windows.Forms.Label lb_MultiAngle;
+        private System.Windows.Forms.NumericUpDown num_InspectOrder;
+        private System.Windows.Forms.Label label44;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel45;
+        private System.Windows.Forms.NumericUpDown num_GlobOrderNumber;
+        public System.Windows.Forms.Label label45;
     }
 }

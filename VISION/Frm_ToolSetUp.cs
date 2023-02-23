@@ -46,6 +46,7 @@ namespace VISION
         private bool[,] TempLineEnable; //라인툴 사용여부
         private bool[,] TempCircleEnable; //써클툴 사용여부
         private bool[,] TempMultiEnable; //다중패턴툴 사용여부
+        private int[,] TempMultiOrderNumber;
         private bool[,] TempHistogramEnable; //히스토그램툴 사용여부
 
         private int[,] TempBlobOKCount; //블롭툴 OK 되는 카운트
@@ -77,6 +78,7 @@ namespace VISION
             TempCircleEnable = TempModel.CircleEnables();
             TempMulti = TempModel.MultiPatterns();
             TempMultiEnable = TempModel.MultiPatternEnables();
+            TempMultiOrderNumber = TempModel.MultiPatternOrderNumbers();
             TempHistogram = TempModel.Histograms();
             TempHistogramEnable = TempModel.HistogramEnables();
 
@@ -105,6 +107,7 @@ namespace VISION
             CircleChangeToolNumber();
             ChangeMultiPatternToolNumber();
             ChangeHistogramToolNumber();
+            
 
             Dataset = false;
         }
@@ -287,6 +290,7 @@ namespace VISION
             Glob.RunnModel.BlobFixPatternNumbers(TempBlobFixPatternNumber);
             Glob.RunnModel.MultiPatterns(TempMulti); // 멀티패턴툴저장
             Glob.RunnModel.MultiPatternEnables(TempMultiEnable); // 멀티패턴툴사용여부저장
+            
             Glob.RunnModel.Histograms(TempHistogram);
             Glob.RunnModel.HistogramEnables(TempHistogramEnable);
 
@@ -354,7 +358,6 @@ namespace VISION
                     if (Glob.AligneMode)
                     {
                         double angle = Main.CheckAngle(cdyDisplay);
-                        angle = angle * (180 / Math.PI);
                         lb_Tool_InspectResult.Text = angle.ToString("F2") + "도";
                         lb_Tool_InspectResult.BackColor = Color.Black;
                     }
@@ -907,6 +910,7 @@ namespace VISION
             num_TrainImageNumber.Minimum = 0;
             MultiPatternAnlgeModeChange(Toolnumber);
             MultiPatternEnableChange(Toolnumber);
+            MultiPatternOrderChange(Toolnumber);
             Dataset = false;
         }
 
@@ -937,6 +941,13 @@ namespace VISION
             cb_MultiPatternToolUsed.Text = cb_MultiPatternToolUsed.Checked == true ? "USE" : "UNUSED";
             cb_MultiPatternToolUsed.ForeColor = cb_MultiPatternToolUsed.Checked == true ? Color.Lime : Color.Red;
         }
+
+        private void MultiPatternOrderChange(int toolnumber)
+        {
+            num_InspectOrder.Value = TempMultiOrderNumber[Glob.CamNumber, toolnumber];
+        }
+
+
         private void CheckMultiPatternStatus()
         {
             if (TempMulti[Glob.CamNumber, (int)num_MultiPatternToolNumber.Value].istrain((int)num_MultiPatternToolNumber.Value) == true)
@@ -1213,6 +1224,20 @@ namespace VISION
         {
             double setAngle = (double)num_AngleHigh.Value * (Math.PI / 180);
             TempMulti[Glob.CamNumber, (int)num_MultiPatternToolNumber.Value].AngleHigh(setAngle);
+        }
+
+        private void num_InspectOrder_ValueChanged(object sender, EventArgs e)
+        {
+            if (Dataset == false)
+            {
+                TempMultiOrderNumber[Glob.CamNumber, (int)num_MultiPatternToolNumber.Value] = Convert.ToInt32(num_InspectOrder.Value);
+                MultiPatternOrderChange((int)num_MultiPatternToolNumber.Value);
+            }
+        }
+
+        private void num_GlobOrderNumber_ValueChanged(object sender, EventArgs e)
+        {
+            Glob.InspectOrder = (int)num_GlobOrderNumber.Value;
         }
     }
 }

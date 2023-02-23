@@ -106,7 +106,10 @@ namespace VISION
         public bool[] TrackingMode = new bool[5];
 
         public int SelectPCNumber;
+        public int InspectOrder;
     }
+
+
     public struct CamSets
     {
         public double Exposure; //조리개값

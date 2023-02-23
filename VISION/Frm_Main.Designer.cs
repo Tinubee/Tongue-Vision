@@ -197,7 +197,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.bk_Signal = new System.ComponentModel.BackgroundWorker();
             this.timer_sandPLC = new System.Windows.Forms.Timer(this.components);
-            this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.tlpUnder.SuspendLayout();
             this.tlpTopSide.SuspendLayout();
@@ -388,6 +387,7 @@
             this.lb_CurruntModelName.Size = new System.Drawing.Size(159, 71);
             this.lb_CurruntModelName.TabIndex = 1;
             this.lb_CurruntModelName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lb_CurruntModelName.Click += new System.EventHandler(this.lb_CurruntModelName_Click);
             // 
             // tableLayoutPanel1
             // 
@@ -2506,7 +2506,7 @@
             this.num_LightNumber.Font = new System.Drawing.Font("Consolas", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.num_LightNumber.Location = new System.Drawing.Point(295, 4);
             this.num_LightNumber.Maximum = new decimal(new int[] {
-            3,
+            2,
             0,
             0,
             0});
@@ -2629,23 +2629,13 @@
             this.timer_sandPLC.Interval = 5000;
             this.timer_sandPLC.Tick += new System.EventHandler(this.timer_sandPLC_Tick);
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(1529, 244);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 36;
-            this.button1.Text = "stop";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(1448, 244);
+            this.button2.Location = new System.Drawing.Point(1442, 197);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.Size = new System.Drawing.Size(356, 72);
             this.button2.TabIndex = 37;
-            this.button2.Text = "start";
+            this.button2.Text = "Ping Count : 0 bool";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
@@ -2656,7 +2646,6 @@
             this.BackColor = System.Drawing.Color.DimGray;
             this.ClientSize = new System.Drawing.Size(1920, 1080);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.tableLayoutPanel9);
             this.Controls.Add(this.btn_ReconnectCam);
             this.Controls.Add(this.tableLayoutPanel31);
@@ -2896,10 +2885,9 @@
         public System.Windows.Forms.Button btn_INPUT5;
         public System.Windows.Forms.Button btn_INPUT6;
         public System.Windows.Forms.Button btn_INPUT7;
-        private System.Windows.Forms.Timer timer_sandPLC;
         public System.ComponentModel.BackgroundWorker bk_Signal;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
+        public System.Windows.Forms.Timer timer_sandPLC;
     }
 }
 
