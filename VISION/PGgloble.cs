@@ -88,7 +88,7 @@ namespace VISION
         public bool CAM5_Inspect = false;
 
         public bool AligneMode = false;
-        public string topAlignNumber = "1";
+        public char topAlignNumber = '1';
 
         //툴의 검사결과
         public bool[] PatternTool = new bool[5];
